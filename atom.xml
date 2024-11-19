@@ -6,7 +6,7 @@
   <link href="http://passengerdong.github.io/atom.xml" rel="self"/>
   
   <link href="http://passengerdong.github.io/"/>
-  <updated>2024-11-19T15:21:39.717Z</updated>
+  <updated>2024-11-19T15:31:11.703Z</updated>
   <id>http://passengerdong.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://passengerdong.github.io/2024/11/19/Buck%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/"/>
     <id>http://passengerdong.github.io/2024/11/19/Buck%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/</id>
     <published>2024-11-19T15:05:50.000Z</published>
-    <updated>2024-11-19T15:21:39.717Z</updated>
+    <updated>2024-11-19T15:31:11.703Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Buck电路设计"><a href="#Buck电路设计" class="headerlink" title="Buck电路设计"></a>Buck电路设计</h1><p>最近智能车竞赛赛题陆续发出，作为硬件手，也是开工了。因为选择的赛题有需要研究电源的一些方案，就温习了一下Buck电路的设计，此文作为复习的记录。</p><h2 id="Buck电路原理"><a href="#Buck电路原理" class="headerlink" title="Buck电路原理"></a>Buck电路原理</h2><p><a href="https://i-blog.csdnimg.cn/blog_migrate/4f4538be650ff8882045f64145235a4c.png">图1</a></p><p>上图是网上找的一个buck电路的拓扑，当Q1导通Q2闭合时，SW电压为VIN，L1充电，输出电压升高，Q1闭合Q2导通时，由于电感电流无法突变，形成图中红色回路的电流，L1放电，输出电压降低。</p><p>Q1和Q2连续的断开导通使VOUT为一个特定的稳定值。这里有一个比较重要的公式：<strong>VIN*D&#x3D;VOUT</strong></p><p>公式中的D为MOS管开关形成的占空比，占空比越高，输出电压就越高。简单的理解一下：因为需要输出较低的电压的时候，给L1充电的时间就比较少。当然这个公式是理论值，实际上考虑到损耗以及其他影响，实际值会与理论值有所不同。</p><p>根据上图拓扑，得出下图波形</p><p>a、当Q1打开，Q2关闭，Vsw为高，IQ1增加，IQ2为零，电感电流增加。</p><p>b‘、当Q1关闭，Q2打开，Vsw为低，IQ1为零，IQ2减小，电感电流减小。</p><p>c、整个稳态过程，电感电流不断增加减少。</p><p>d、我们常将上管打开的时间称为Ton，其关闭的时间为Toff。两者相加是一个周期。</p><p><a href="https://i-blog.csdnimg.cn/blog_migrate/2864240f4c9f75d0088e7b428487e16a.png">图2</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Buck电路设计"><a href="#Buck电路设计" class="headerlink" title="Buck电路设计"></a>Buck电路设计</h1><p>最近智能车竞赛赛题陆续发出，作为硬件手，也是开工了。因为选择的赛题有需要研究电源的一些方案，就温习了一下Buck电路的设计，此文作为复习的记录。</p><h2 id="Buck电路原理"><a href="#Buck电路原理" class="headerlink" title="Buck电路原理"></a>Buck电路原理</h2><p><a href="https://i-blog.csdnimg.cn/blog_migrate/4f4538be650ff8882045f64145235a4c.png">图1</a></p><p>上图是网上找的一个buck电路的拓扑，当Q1导通Q2闭合时，SW电压为VIN，L1充电，输出电压升高，Q1闭合Q2导通时，由于电感电流无法突变，形成图中红色回路的电流，L1放电，输出电压降低。</p><p>Q1和Q2连续的断开导通使VOUT为一个特定的稳定值。这里有一个比较重要的公式：<strong>VINxD&#x3D;VOUT</strong></p><p>公式中的D为MOS管开关形成的占空比，占空比越高，输出电压就越高。简单的理解一下：因为需要输出较低的电压的时候，给L1充电的时间就比较少。当然这个公式是理论值，实际上考虑到损耗以及其他影响，实际值会与理论值有所不同。</p><p>根据上图拓扑，得出下图波形</p><p>a、当Q1打开，Q2关闭，Vsw为高，IQ1增加，IQ2为零，电感电流增加。</p><p>b‘、当Q1关闭，Q2打开，Vsw为低，IQ1为零，IQ2减小，电感电流减小。</p><p>c、整个稳态过程，电感电流不断增加减少。</p><p>d、我们常将上管打开的时间称为Ton，其关闭的时间为Toff。两者相加是一个周期。</p><p><a href="https://i-blog.csdnimg.cn/blog_migrate/2864240f4c9f75d0088e7b428487e16a.png">图2</a></p>]]></content>
     
     
       
@@ -177,9 +177,9 @@
     
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="STC" scheme="http://passengerdong.github.io/tags/STC/"/>
-    
     <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="STC" scheme="http://passengerdong.github.io/tags/STC/"/>
     
   </entry>
   

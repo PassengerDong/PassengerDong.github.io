@@ -12,8 +12,8 @@ http://passengerdong.github.io/
 http://passengerdong.github.io/tags/Hardware/
 http://passengerdong.github.io/tags/note/
 http://passengerdong.github.io/tags/linux/
-http://passengerdong.github.io/tags/STC/
 http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/
 http://passengerdong.github.io/tags/STM32/
+http://passengerdong.github.io/tags/STC/
 http://passengerdong.github.io/categories/note/
 http://passengerdong.github.io/categories/article/
