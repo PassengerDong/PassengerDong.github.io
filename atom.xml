@@ -34,9 +34,9 @@
     
     
     
-    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
-    
     <category term="Hardware" scheme="http://passengerdong.github.io/tags/Hardware/"/>
+    
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
   </entry>
   
@@ -235,9 +235,9 @@
     <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
     
-    <category term="linux" scheme="http://passengerdong.github.io/tags/linux/"/>
-    
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
+    
+    <category term="linux" scheme="http://passengerdong.github.io/tags/linux/"/>
     
   </entry>
   
