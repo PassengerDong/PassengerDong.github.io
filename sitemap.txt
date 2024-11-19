@@ -11,7 +11,7 @@ http://example.com/
 http://example.com/tags/STC/
 http://example.com/tags/note/
 http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/
-http://example.com/tags/STM32/
 http://example.com/tags/linux/
+http://example.com/tags/STM32/
 http://example.com/categories/article/
 http://example.com/categories/note/
