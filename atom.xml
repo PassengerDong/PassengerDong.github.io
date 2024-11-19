@@ -83,9 +83,9 @@
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
-    
     <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
     <category term="STM32" scheme="http://passengerdong.github.io/tags/STM32/"/>
     
@@ -114,9 +114,9 @@
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
-    
     <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
     <category term="STM32" scheme="http://passengerdong.github.io/tags/STM32/"/>
     
@@ -145,9 +145,9 @@
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
-    
     <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
     <category term="STM32" scheme="http://passengerdong.github.io/tags/STM32/"/>
     
@@ -175,11 +175,11 @@
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="STC" scheme="http://passengerdong.github.io/tags/STC/"/>
+    <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    <category term="STC" scheme="http://passengerdong.github.io/tags/STC/"/>
     
   </entry>
   
@@ -205,9 +205,9 @@
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
-    
     <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
   </entry>
   
