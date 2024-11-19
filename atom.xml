@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Passenger&#39;s Blog</title>
+  <title>Passenger&#39;s house</title>
   
+  <subtitle>个人小站</subtitle>
+  <link href="http://passengerdong.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/atom.xml" rel="self"/>
-  
-  <link href="http://example.com/"/>
+  <link href="http://passengerdong.github.io/"/>
   <updated>2024-11-18T15:33:25.981Z</updated>
-  <id>http://example.com/</id>
+  <id>http://passengerdong.github.io/</id>
   
   <author>
     <name>Passenger</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Qt5.15.2-Opencv4.8.0开发环境搭建</title>
-    <link href="http://example.com/2024/05/12/Qt5-15-2-Opencv4-8-0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    <id>http://example.com/2024/05/12/Qt5-15-2-Opencv4-8-0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
+    <link href="http://passengerdong.github.io/2024/05/12/Qt5-15-2-Opencv4-8-0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <id>http://passengerdong.github.io/2024/05/12/Qt5-15-2-Opencv4-8-0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
     <published>2024-05-12T07:32:10.000Z</published>
     <updated>2024-11-18T15:33:25.981Z</updated>
     
@@ -38,8 +38,8 @@
   
   <entry>
     <title>STM32F4系列GPIO配置</title>
-    <link href="http://example.com/2024/03/18/STM32F4%E7%B3%BB%E5%88%97GPIO%E9%85%8D%E7%BD%AE/"/>
-    <id>http://example.com/2024/03/18/STM32F4%E7%B3%BB%E5%88%97GPIO%E9%85%8D%E7%BD%AE/</id>
+    <link href="http://passengerdong.github.io/2024/03/18/STM32F4%E7%B3%BB%E5%88%97GPIO%E9%85%8D%E7%BD%AE/"/>
+    <id>http://passengerdong.github.io/2024/03/18/STM32F4%E7%B3%BB%E5%88%97GPIO%E9%85%8D%E7%BD%AE/</id>
     <published>2024-03-18T13:15:00.000Z</published>
     <updated>2024-11-18T15:34:04.364Z</updated>
     
@@ -54,23 +54,23 @@
     
     
     
-    <category term="article" scheme="http://example.com/categories/article/"/>
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="note" scheme="http://example.com/categories/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://example.com/tags/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    <category term="STM32" scheme="http://passengerdong.github.io/tags/STM32/"/>
     
   </entry>
   
   <entry>
     <title>stm32笔记2（不定更新 ）</title>
-    <link href="http://example.com/2024/02/01/stm32%E7%AC%94%E8%AE%B02%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/"/>
-    <id>http://example.com/2024/02/01/stm32%E7%AC%94%E8%AE%B02%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/</id>
+    <link href="http://passengerdong.github.io/2024/02/01/stm32%E7%AC%94%E8%AE%B02%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/"/>
+    <id>http://passengerdong.github.io/2024/02/01/stm32%E7%AC%94%E8%AE%B02%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/</id>
     <published>2024-02-01T11:13:43.000Z</published>
     <updated>2024-11-18T15:33:39.732Z</updated>
     
@@ -85,23 +85,23 @@
     
     
     
-    <category term="article" scheme="http://example.com/categories/article/"/>
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="note" scheme="http://example.com/categories/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://example.com/tags/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    <category term="STM32" scheme="http://passengerdong.github.io/tags/STM32/"/>
     
   </entry>
   
   <entry>
     <title>STM32学习笔记1（不定时更新）</title>
-    <link href="http://example.com/2024/01/31/STM32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/"/>
-    <id>http://example.com/2024/01/31/STM32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/</id>
+    <link href="http://passengerdong.github.io/2024/01/31/STM32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/"/>
+    <id>http://passengerdong.github.io/2024/01/31/STM32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/</id>
     <published>2024-01-31T02:41:30.000Z</published>
     <updated>2024-11-18T15:33:52.077Z</updated>
     
@@ -116,23 +116,23 @@
     
     
     
-    <category term="article" scheme="http://example.com/categories/article/"/>
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="note" scheme="http://example.com/categories/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://example.com/tags/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
-    <category term="STM32" scheme="http://example.com/tags/STM32/"/>
+    <category term="STM32" scheme="http://passengerdong.github.io/tags/STM32/"/>
     
   </entry>
   
   <entry>
     <title>51单片机入门学习笔记</title>
-    <link href="http://example.com/2023/11/26/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://example.com/2023/11/26/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <link href="http://passengerdong.github.io/2023/11/26/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://passengerdong.github.io/2023/11/26/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2023-11-26T03:13:15.000Z</published>
     <updated>2024-11-18T15:32:29.465Z</updated>
     
@@ -146,23 +146,23 @@
     
     
     
-    <category term="article" scheme="http://example.com/categories/article/"/>
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="note" scheme="http://example.com/categories/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="STC" scheme="http://example.com/tags/STC/"/>
+    <category term="STC" scheme="http://passengerdong.github.io/tags/STC/"/>
     
-    <category term="note" scheme="http://example.com/tags/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>Arduino学习日志</title>
-    <link href="http://example.com/2023/11/22/arduino%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/"/>
-    <id>http://example.com/2023/11/22/arduino%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/</id>
+    <link href="http://passengerdong.github.io/2023/11/22/arduino%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/"/>
+    <id>http://passengerdong.github.io/2023/11/22/arduino%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/</id>
     <published>2023-11-22T08:45:08.000Z</published>
     <updated>2024-11-18T15:57:26.079Z</updated>
     
@@ -176,21 +176,21 @@
     
     
     
-    <category term="article" scheme="http://example.com/categories/article/"/>
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="note" scheme="http://example.com/categories/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://example.com/tags/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="嵌入式" scheme="http://example.com/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
+    <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>Linux学习日志</title>
-    <link href="http://example.com/2023/11/10/Linux%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/"/>
-    <id>http://example.com/2023/11/10/Linux%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/</id>
+    <link href="http://passengerdong.github.io/2023/11/10/Linux%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/"/>
+    <id>http://passengerdong.github.io/2023/11/10/Linux%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/</id>
     <published>2023-11-10T08:02:34.000Z</published>
     <updated>2024-11-18T15:33:13.103Z</updated>
     
@@ -206,21 +206,21 @@
     
     
     
-    <category term="article" scheme="http://example.com/categories/article/"/>
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="note" scheme="http://example.com/categories/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
     
-    <category term="note" scheme="http://example.com/tags/note/"/>
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
-    <category term="linux" scheme="http://example.com/tags/linux/"/>
+    <category term="linux" scheme="http://passengerdong.github.io/tags/linux/"/>
     
   </entry>
   
   <entry>
     <title>使用hexo搭建个人博客</title>
-    <link href="http://example.com/2023/10/28/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://example.com/2023/10/28/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <link href="http://passengerdong.github.io/2023/10/28/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://passengerdong.github.io/2023/10/28/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
     <published>2023-10-28T07:22:32.000Z</published>
     <updated>2024-11-18T15:32:42.500Z</updated>
     
@@ -234,7 +234,7 @@
     
     
     
-    <category term="article" scheme="http://example.com/categories/article/"/>
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
     
   </entry>
