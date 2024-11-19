@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>STM32F4系列GPIO配置 | Passenger's Blog</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"复制"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="/js/gitalk.js"></script><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+ menuSettings: {
+   zoom: "None"
+ },
+ showMathMenu: false,
+ jax: ["input/TeX","output/CommonHTML"],
+ extensions: ["tex2jax.js"],
+ TeX: {
+   extensions: ["AMSmath.js","AMSsymbols.js"],
+   equationNumbers: {
+     autoNumber: "AMS"
+   }
+ },
+ tex2jax: {
+   inlineMath: [["\\(", "\\)"]],
+   displayMath: [["\\[", "\\]"]]
+ }
+});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: '确认'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script async src="//unpkg.com/valine/dist/Valine.min.js"></script><script async src="/js/gitalk.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+  menuSettings: {
+    zoom: "None"
+  },
+  showMathMenu: false,
+  jax: ["input/TeX","output/CommonHTML"],
+  extensions: ["tex2jax.js"],
+  TeX: {
+    extensions: ["AMSmath.js","AMSsymbols.js"],
+    equationNumbers: {
+      autoNumber: "AMS"
+    }
+  },
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]]
+  }
+});
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
+ el: '#valine'
+ , appId: 'BHvvZvlz37DVYtbfOeshm87j-gzGzoHsz'
+ , appKey: 'CEhVRTFF2tS30lPvOacrxzSK' , placeholder: '此条评论委托企鹅物流发送'
+ , path: window.location.pathname
+ , avatar: 'retro'
+ , avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/'
+});gitalk = new Gitalk({
+ clientID: '5e73d069c985fb062218',
+ clientSecret: 'zjut096412',
+ repo: 'PassengerDong.github.io',
+ owner: 'PassengerDong',
+ admin: ['PassengerDong'],
+ distractionFreeMode: false,
+ id: location.pathname
+});
+if (document.querySelector("#gitalk")) gitalk.render("gitalk");document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {new Valine({
+ el: '#valine'
+ , appId: 'BHvvZvlz37DVYtbfOeshm87j-gzGzoHsz'
+ , appKey: 'CEhVRTFF2tS30lPvOacrxzSK' , placeholder: '此条评论委托企鹅物流发送'
+ , path: window.location.pathname
+ , avatar: 'retro'
+ , avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/'
+});gitalk = new Gitalk({
+ clientID: '5e73d069c985fb062218',
+ clientSecret: 'zjut096412',
+ repo: 'PassengerDong.github.io',
+ owner: 'PassengerDong',
+ admin: ['PassengerDong'],
+ distractionFreeMode: false,
+ id: location.pathname
+});
+if (document.querySelector("#gitalk")) gitalk.render("gitalk");document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Passenger's Blog" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li><li class="navItem"><a class="navBlock" href="/Links/"><span class="navItemTitle">Links</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>STM32F4系列GPIO配置</h1></div><hr><div id="post-content"><p>在stm32系列单片机的学习过程中，大部分人是从f1系列开始，今天第一次接触到f4系列的配置问题，所以写这篇博客进行简单的解释</p>
+<p><strong>GPIO的基本结构见STM32学习笔记</strong>，f1系列和f4系列在结构上并无区别，只是在代码配置中有所区别</p>
+<p>首先先看看在f1系列里面对GPIO的使能：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-comment">/*开启时钟*/</span><br>	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);			<span class="hljs-comment">//开启GPIOA的时钟</span><br>	<br>	<span class="hljs-comment">/*GPIO初始化*/</span><br>	GPIO_InitTypeDef GPIO_InitStructure;<br>	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;<br>	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;<br>	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;<br>	GPIO_Init(GPIOA, &amp;GPIO_InitStructure);							<span class="hljs-comment">//将PA2引脚初始化为复用推挽输出	</span><br><span class="hljs-comment">//受外设控制的引脚，均需要配置为复用模式</span><br></code></pre></td></tr></table></figure>
+
+<p>这里演示的是把PA2脚使能为推挽输出</p>
+<p>我们可以将使能分为这么几步：</p>
+<ol>
+<li>打开时钟</li>
+<li>初始化GPIO</li>
+<li>Init函数完成初始化</li>
+</ol>
+<p>f4系列的初始化的大致步骤也是类似：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C">   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);<br><br>GPIO_InitTypeDef Serial_Structure;<br>Serial_Structure.GPIO_Mode = GPIO_Mode_AF;<br>Serial_Structure.GPIO_Pin = GPIO_Pin_9;<br>Serial_Structure.GPIO_Speed = GPIO_Speed_50MHz;<br>Serial_Structure.GPIO_OType = GPIO_OType_PP;<br>Serial_Structure.GPIO_PuPd = GPIO_PuPd_UP;<br>GPIO_Init(GPIOA, &amp;Serial_Structure);<br></code></pre></td></tr></table></figure>
+
+<p>这里演示的是把PA9使能为推挽输出</p>
+<p>可以注意到的是，两个GPIO使能的代码有细微的差别，比如：<br>f1中的时钟开启函数是：<code>RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);</code>，而f4是：<code>RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);</code><br>f4的初始化结构体比f1多OType和PuPd需要配置</p>
+<p>这些区别可以在各自的固件库文件中的stm32f4xx_gpio.c&#x2F;h和stm32f1xx_gpio.c&#x2F;h文件中找到</p>
+<p>这边只给出f4系列配置的过程</p>
+<p>在固件库每一个.c文件的开头都会有一段解释对应用法的说明</p>
+<h1 id="f4-GPIO文件讲解"><a href="#f4-GPIO文件讲解" class="headerlink" title="f4 GPIO文件讲解"></a>f4 GPIO文件讲解</h1><p>stm32f4xx_gpio.c前面给出的说明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-comment">/**</span><br><span class="hljs-comment">  ******************************************************************************</span><br><span class="hljs-comment">  * @file    stm32f4xx_gpio.c</span><br><span class="hljs-comment">  * @author  MCD Application Team</span><br><span class="hljs-comment">  * @version V1.8.0</span><br><span class="hljs-comment">  * @date    04-November-2016</span><br><span class="hljs-comment">  * @brief   This file provides firmware functions to manage the following </span><br><span class="hljs-comment">  *          functionalities of the GPIO peripheral:           </span><br><span class="hljs-comment">  *           + Initialization and Configuration</span><br><span class="hljs-comment">  *           + GPIO Read and Write</span><br><span class="hljs-comment">  *           + GPIO Alternate functions configuration</span><br><span class="hljs-comment">  * </span><br><span class="hljs-comment">@verbatim  </span><br><span class="hljs-comment"> ===============================================================================</span><br><span class="hljs-comment">                      ##### How to use this driver #####</span><br><span class="hljs-comment"> ===============================================================================       </span><br><span class="hljs-comment"> [..]             </span><br><span class="hljs-comment">   (#) Enable the GPIO AHB clock using the following function</span><br><span class="hljs-comment">       RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOx, ENABLE);</span><br><span class="hljs-comment">               </span><br><span class="hljs-comment">   (#) Configure the GPIO pin(s) using GPIO_Init()</span><br><span class="hljs-comment">       Four possible configuration are available for each pin:</span><br><span class="hljs-comment">       (++) Input: Floating, Pull-up, Pull-down.</span><br><span class="hljs-comment">       (++) Output: Push-Pull (Pull-up, Pull-down or no Pull)</span><br><span class="hljs-comment">            Open Drain (Pull-up, Pull-down or no Pull). In output mode, the speed </span><br><span class="hljs-comment">            is configurable: 2 MHz, 25 MHz, 50 MHz or 100 MHz.</span><br><span class="hljs-comment">       (++) Alternate Function: Push-Pull (Pull-up, Pull-down or no Pull) Open </span><br><span class="hljs-comment">            Drain (Pull-up, Pull-down or no Pull).</span><br><span class="hljs-comment">       (++) Analog: required mode when a pin is to be used as ADC channel or DAC </span><br><span class="hljs-comment">            output.</span><br><span class="hljs-comment">   </span><br><span class="hljs-comment">   (#) Peripherals alternate function:</span><br><span class="hljs-comment">       (++) For ADC and DAC, configure the desired pin in analog mode using </span><br><span class="hljs-comment">            GPIO_InitStruct-&gt;GPIO_Mode = GPIO_Mode_AN;</span><br><span class="hljs-comment">            (+++) For other peripherals (TIM, USART...):</span><br><span class="hljs-comment">            (+++) Connect the pin to the desired peripherals&#x27; Alternate </span><br><span class="hljs-comment">                     Function (AF) using GPIO_PinAFConfig() function</span><br><span class="hljs-comment">            (+++) Configure the desired pin in alternate function mode using</span><br><span class="hljs-comment">                     GPIO_InitStruct-&gt;GPIO_Mode = GPIO_Mode_AF</span><br><span class="hljs-comment">            (+++) Select the type, pull-up/pull-down and output speed via </span><br><span class="hljs-comment">                     GPIO_PuPd, GPIO_OType and GPIO_Speed members</span><br><span class="hljs-comment">            (+++) Call GPIO_Init() function</span><br><span class="hljs-comment">          </span><br><span class="hljs-comment">   (#) To get the level of a pin configured in input mode use GPIO_ReadInputDataBit()</span><br><span class="hljs-comment">            </span><br><span class="hljs-comment">   (#) To set/reset the level of a pin configured in output mode use </span><br><span class="hljs-comment">       GPIO_SetBits()/GPIO_ResetBits()</span><br><span class="hljs-comment">                 </span><br><span class="hljs-comment">   (#) During and just after reset, the alternate functions are not </span><br><span class="hljs-comment">       active and the GPIO pins are configured in input floating mode (except JTAG</span><br><span class="hljs-comment">       pins).</span><br><span class="hljs-comment">  </span><br><span class="hljs-comment">   (#) The LSE oscillator pins OSC32_IN and OSC32_OUT can be used as general purpose </span><br><span class="hljs-comment">       (PC14 and PC15, respectively) when the LSE oscillator is off. The LSE has </span><br><span class="hljs-comment">       priority over the GPIO function.</span><br><span class="hljs-comment">  </span><br><span class="hljs-comment">   (#) The HSE oscillator pins OSC_IN/OSC_OUT can be used as </span><br><span class="hljs-comment">       general purpose PH0 and PH1, respectively, when the HSE oscillator is off. </span><br><span class="hljs-comment">       The HSE has priority over the GPIO function.</span><br><span class="hljs-comment">               </span><br><span class="hljs-comment">@endverbatim        </span><br><span class="hljs-comment">  *</span><br><span class="hljs-comment">  ******************************************************************************</span><br><span class="hljs-comment">  * @attention</span><br><span class="hljs-comment">  *</span><br><span class="hljs-comment">  * &lt;h2&gt;&lt;center&gt;&amp;copy; COPYRIGHT 2016 STMicroelectronics&lt;/center&gt;&lt;/h2&gt;</span><br><span class="hljs-comment">  *</span><br><span class="hljs-comment">  * Licensed under MCD-ST Liberty SW License Agreement V2, (the &quot;License&quot;);</span><br><span class="hljs-comment">  * You may not use this file except in compliance with the License.</span><br><span class="hljs-comment">  * You may obtain a copy of the License at:</span><br><span class="hljs-comment">  *</span><br><span class="hljs-comment">  *        http://www.st.com/software_license_agreement_liberty_v2</span><br><span class="hljs-comment">  *</span><br><span class="hljs-comment">  * Unless required by applicable law or agreed to in writing, software </span><br><span class="hljs-comment">  * distributed under the License is distributed on an &quot;AS IS&quot; BASIS, </span><br><span class="hljs-comment">  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="hljs-comment">  * See the License for the specific language governing permissions and</span><br><span class="hljs-comment">  * limitations under the License.</span><br><span class="hljs-comment">  *</span><br><span class="hljs-comment">  ******************************************************************************</span><br><span class="hljs-comment">  */</span><br></code></pre></td></tr></table></figure>
+
+<p>通过阅读这段说明我们可以知道如何使用这个文件里面的函数<br>当然这篇博客只涉及GPIO的初始化过程，所以我们只会讲解其中一部分，剩余可以自行去了解</p>
+<p>从 ##### How to use this driver ##### 后面开始就是正式的讲解<br>这里我们只说明前面两段，这两段的内容足够我们完成GPIO的见到那配置</p>
+<p>第一段：</p>
+<p>Enable the GPIO AHB clock using the following function<br>RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOx, ENABLE);</p>
+<p>即使用<code>RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOx, ENABLE);</code>语句来进行时钟使能</p>
+<p>第二段：</p>
+<p>Configure the GPIO pin(s) using GPIO_Init()<br>Four possible configuration are available for each pin:<br>    (++) Input: Floating, Pull-up, Pull-down.<br>    (++) Output: Push-Pull (Pull-up, Pull-down or no Pull)<br>        Open Drain (Pull-up, Pull-down or no Pull). In output mode, the speed<br>        is configurable: 2 MHz, 25 MHz, 50 MHz or 100 MHz.<br>    (++) Alternate Function: Push-Pull (Pull-up, Pull-down or no Pull) Open<br>        Drain (Pull-up, Pull-down or no Pull).<br>    (++) Analog: required mode when a pin is to be used as ADC channel or DAC<br>        output.</p>
+<p>这段讲解了结构体的配置，你需要确定的有：</p>
+<ol>
+<li>你使用的引脚</li>
+<li>你选择的模式</li>
+<li>你选择的传输速度</li>
+</ol>
+<p>文档里同时也说明了模式有哪些:</p>
+<ol>
+<li>输入 </li>
+<li>输出</li>
+<li>复用</li>
+<li>模拟</li>
+</ol>
+<p>其中输入模式分为</p>
+<ol>
+<li>悬空</li>
+<li>上拉</li>
+<li>下拉</li>
+</ol>
+<p>输出分为：</p>
+<ol>
+<li>推挽</li>
+<li>开漏</li>
+</ol>
+<p>复用需要同时设置输入和输出的两种</p>
+<p>具体到代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C">RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE); <span class="hljs-comment">//开启时钟</span><br>	<br>	GPIO_InitTypeDef Serial_Structure; <span class="hljs-comment">//初始化结构体</span><br>	Serial_Structure.GPIO_Mode = GPIO_Mode_AF; <span class="hljs-comment">//选择模式</span><br>	Serial_Structure.GPIO_Pin = GPIO_Pin_9; <span class="hljs-comment">//选择引脚</span><br>	Serial_Structure.GPIO_Speed = GPIO_Speed_50MHz; <span class="hljs-comment">//选择速度</span><br>	Serial_Structure.GPIO_OType = GPIO_OType_PP; <span class="hljs-comment">//选择输出模式</span><br>	Serial_Structure.GPIO_PuPd = GPIO_PuPd_UP; <span class="hljs-comment">//选择输入模式</span><br>	GPIO_Init(GPIOA, &amp;Serial_Structure); <span class="hljs-comment">//完成初始化</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>两个系列GPIO的初始化结构相同，只有细微区别，在使用前可以打开对应文件阅读说明，便于更好的理解和使用对应的函数</p>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/2024/05/12/Qt5-15-2-Opencv4-8-0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">← 下一篇 Qt5.15.2-Opencv4.8.0开发环境搭建</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2024/02/01/stm32%E7%AC%94%E8%AE%B02%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%97%B6%E6%9B%B4%E6%96%B0%EF%BC%89/">stm32笔记2（不定更新 ） 上一篇 →</a></div></div></div><details id="reward"><summary>打赏</summary><div><span>支付宝（AliPay）</span><br><img src="/img/Alipay.png"></div><div><span>微信（WeiChat）</span><br><img src="/img/WeChat.png"></div></details><div id="comments"><div class="selector"><button class="valine-sel"></button><button class="gitalk-sel"></button></div><div id="valine"></div><div id="gitalk"></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/4.png" alt="Logo"></a><h1 id="Dr"><a href="/">Passenger</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/PassengerDong"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:setupcard@foxmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/3546391322298955?spm_id_from=333.1007.0.0"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#f4-GPIO%E6%96%87%E4%BB%B6%E8%AE%B2%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">f4 GPIO文件讲解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol></div></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">未备案</a></nobr><br><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>

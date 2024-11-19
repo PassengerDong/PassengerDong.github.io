@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Qt5.15.2-Opencv4.8.0开发环境搭建 | Passenger's Blog</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"复制"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="/js/gitalk.js"></script><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+ menuSettings: {
+   zoom: "None"
+ },
+ showMathMenu: false,
+ jax: ["input/TeX","output/CommonHTML"],
+ extensions: ["tex2jax.js"],
+ TeX: {
+   extensions: ["AMSmath.js","AMSsymbols.js"],
+   equationNumbers: {
+     autoNumber: "AMS"
+   }
+ },
+ tex2jax: {
+   inlineMath: [["\\(", "\\)"]],
+   displayMath: [["\\[", "\\]"]]
+ }
+});</script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: '确认'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script async src="//unpkg.com/valine/dist/Valine.min.js"></script><script async src="/js/gitalk.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js"></script><script>MathJax.Hub.Config({
+  menuSettings: {
+    zoom: "None"
+  },
+  showMathMenu: false,
+  jax: ["input/TeX","output/CommonHTML"],
+  extensions: ["tex2jax.js"],
+  TeX: {
+    extensions: ["AMSmath.js","AMSsymbols.js"],
+    equationNumbers: {
+      autoNumber: "AMS"
+    }
+  },
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]]
+  }
+});
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {new Valine({
+ el: '#valine'
+ , appId: 'BHvvZvlz37DVYtbfOeshm87j-gzGzoHsz'
+ , appKey: 'CEhVRTFF2tS30lPvOacrxzSK' , placeholder: '此条评论委托企鹅物流发送'
+ , path: window.location.pathname
+ , avatar: 'retro'
+ , avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/'
+});gitalk = new Gitalk({
+ clientID: '5e73d069c985fb062218',
+ clientSecret: 'zjut096412',
+ repo: 'PassengerDong.github.io',
+ owner: 'PassengerDong',
+ admin: ['PassengerDong'],
+ distractionFreeMode: false,
+ id: location.pathname
+});
+if (document.querySelector("#gitalk")) gitalk.render("gitalk");document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {new Valine({
+ el: '#valine'
+ , appId: 'BHvvZvlz37DVYtbfOeshm87j-gzGzoHsz'
+ , appKey: 'CEhVRTFF2tS30lPvOacrxzSK' , placeholder: '此条评论委托企鹅物流发送'
+ , path: window.location.pathname
+ , avatar: 'retro'
+ , avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/'
+});gitalk = new Gitalk({
+ clientID: '5e73d069c985fb062218',
+ clientSecret: 'zjut096412',
+ repo: 'PassengerDong.github.io',
+ owner: 'PassengerDong',
+ admin: ['PassengerDong'],
+ distractionFreeMode: false,
+ id: location.pathname
+});
+if (document.querySelector("#gitalk")) gitalk.render("gitalk");document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Passenger's Blog" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li><li class="navItem"><a class="navBlock" href="/Links/"><span class="navItemTitle">Links</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>Qt5.15.2-Opencv4.8.0开发环境搭建</h1></div><hr><div id="post-content"><h1 id="Qt5-15-2-Opencv4-8-0开发环境搭建"><a href="#Qt5-15-2-Opencv4-8-0开发环境搭建" class="headerlink" title="Qt5.15.2-Opencv4.8.0开发环境搭建"></a>Qt5.15.2-Opencv4.8.0开发环境搭建</h1><h2 id="1-安装QT5-15-2"><a href="#1-安装QT5-15-2" class="headerlink" title="1. 安装QT5.15.2  "></a><strong>1. 安装QT5.15.2</strong>  </h2><ul>
+<li>首先，进入<img src="https://download.qt.io/official_releases/online_installers/" alt="Qt下载器">下载对应版本的下载器。</li>
+<li>进入qt-unified-windows-x64-4.6.0-online.exe所在目录，在文件夹空白处点击右键，选择在终端中打开。<br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/ed2a295ea19888d71181761936fcc42e.png'><img src="https://www.z4a.net/images/2023/07/18/ed2a295ea19888d71181761936fcc42e.png" alt="终端打开"></li>
+<li>使用官方服务器下载及其慢，我们使用腾讯镜像。在终端中输入：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">.\qt-unified-windows-x64-4.6.0-online.exe --mirror https://mirrors.cloud.tencent.com/qt/<br></code></pre></td></tr></table></figure class='item-img' data-src='https://www.z4a.net/images/2023/07/18/2668bc0fb3c8c71320ab7a273818f311.png'><img src="https://www.z4a.net/images/2023/07/18/2668bc0fb3c8c71320ab7a273818f311.png" alt="镜像"></li>
+<li>回车，选择安装文件夹，在选择组件的步骤，勾选Qt-Qt 5.15.2-MingGw 8.1.0 64-bit，其他保持默认，等待安装完成。<br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/02ab9aa7439170c82259be3110c139c3.png'><img src="https://www.z4a.net/images/2023/07/18/02ab9aa7439170c82259be3110c139c3.png" alt="Qt安装"><br><strong>2. 解压opencv-4.8.0_build压缩包</strong></li>
+</ul>
+<hr>
+<ul>
+<li>我们只需关注其中的install文件夹。<br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/fc8c9050f79f861ee8cfa4ea0524dd04.png'><img src="https://www.z4a.net/images/2023/07/18/fc8c9050f79f861ee8cfa4ea0524dd04.png" alt="解压"></li>
+</ul>
+<h2 id="3-添加环境变量"><a href="#3-添加环境变量" class="headerlink" title="3. 添加环境变量"></a><strong>3. 添加环境变量</strong></h2><p class='item-img' data-src='https://www.z4a.net/images/2023/07/18/61126fd4fceb69aea62e8936073e651e.png'><img src="https://www.z4a.net/images/2023/07/18/61126fd4fceb69aea62e8936073e651e.png" alt="环境变量1"><br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/287bd48793fd191654be98f6b737a635.png'><img src="https://www.z4a.net/images/2023/07/18/287bd48793fd191654be98f6b737a635.png" alt="环境变量2"></p>
+<ul>
+<li>将如下目录添加至环境变量，注意你的路径和我的路径是不同的。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">C:\Qt\5.15.2\mingw81_64\bin<br>C:\Qt\Tools\mingw810_64\bin<br>C:\configure\opencv-4.8.0_build\install\x64\mingw\bin<br></code></pre></td></tr></table></figure class='item-img' data-src='https://www.z4a.net/images/2023/07/18/6f37459c4f8ac72ba3fcfa0d0706c81e.png'><img src="https://www.z4a.net/images/2023/07/18/6f37459c4f8ac72ba3fcfa0d0706c81e.png" alt="环境变量3"></li>
+<li><strong>重启电脑使环境变量生效</strong></li>
+</ul>
+<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a><strong>4.测试</strong></h2><ul>
+<li>打开Qt Creator，选择创建项目，如图选择。<br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/6887bab50c677083c0f5b3b6ed68d9b5.png'><img src="https://www.z4a.net/images/2023/07/18/6887bab50c677083c0f5b3b6ed68d9b5.png" alt="测试1"><br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/2bd385fb80444f78ed471db0baac4e99.png'><img src="https://www.z4a.net/images/2023/07/18/2bd385fb80444f78ed471db0baac4e99.png" alt="测试2"><br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/51cf54b73fe4438760e6b3d396d0d119.png'><img src="https://www.z4a.net/images/2023/07/18/51cf54b73fe4438760e6b3d396d0d119.png" alt="测试3"><br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/58f575d5688475fc63109564d877b632.png'><img src="https://www.z4a.net/images/2023/07/18/58f575d5688475fc63109564d877b632.png" alt="测试4"><br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/5b2ef6fc3545288d46a8fa46153f9187.png'><img src="https://www.z4a.net/images/2023/07/18/5b2ef6fc3545288d46a8fa46153f9187.png" alt="测试5"><br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/e2d63f7df31cb759d768aa20b11f4641.png'><img src="https://www.z4a.net/images/2023/07/18/e2d63f7df31cb759d768aa20b11f4641.png" alt="测试6"></li>
+<li>在pro文件末尾添加下列路径，注意你的路径和我的路径是不同的。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">INCLUDEPATH += C:\configure\opencv-4.8.0_build\install\include<br>INCLUDEPATH += C:\configure\opencv-4.8.0_build\install\include\opencv2<br>LIBS += -L C:\configure\opencv-4.8.0_build\install\x64\mingw\lib\libopencv_*.a<br></code></pre></td></tr></table></figure class='item-img' data-src='https://www.z4a.net/images/2023/07/18/imageb8ccf1b07f0c4e1c.png'><img src="https://www.z4a.net/images/2023/07/18/imageb8ccf1b07f0c4e1c.png" alt="替换1"></li>
+<li>替换main.cpp文件内容为：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;mainwindow.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;QApplication&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;opencv2/core/core.hpp&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;opencv2/highgui/highgui.hpp&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;opencv2/imgproc/imgproc.hpp&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> cv;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">QApplication <span class="hljs-title">a</span><span class="hljs-params">(argc, argv)</span></span>;<br><br>    cv::Mat image = <span class="hljs-built_in">imread</span>(<span class="hljs-string">&quot;C:\\configure\\1.png&quot;</span>);<br>    <span class="hljs-built_in">namedWindow</span>(<span class="hljs-string">&quot;Display window&quot;</span>,WINDOW_AUTOSIZE);<br>    <span class="hljs-built_in">imshow</span>(<span class="hljs-string">&quot;Display window&quot;</span>,image);<br>    <span class="hljs-built_in">waitKey</span>(<span class="hljs-number">0</span>);<br><br>    MainWindow w;<br>    w.<span class="hljs-built_in">show</span>();<br>    <span class="hljs-keyword">return</span> a.<span class="hljs-built_in">exec</span>();<br>&#125;<br></code></pre></td></tr></table></figure class='item-img' data-src='https://www.z4a.net/images/2023/07/18/afdad14e1ea27cc7e1d98f934512e4c8.png'><img src="https://www.z4a.net/images/2023/07/18/afdad14e1ea27cc7e1d98f934512e4c8.png" alt="替换2"></li>
+<li>点击左下角的三角形，运行,如果无报错，能显示图片说明一切正常，配置完毕。<br class='item-img' data-src='https://www.z4a.net/images/2023/07/18/a58dc9907c156c198cbbcd9d6b1a1e8c.png'><img src="https://www.z4a.net/images/2023/07/18/a58dc9907c156c198cbbcd9d6b1a1e8c.png" alt="结果"><br><em>如想自己编译opencv可参考此链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Mr_robot_strange/article/details/110677323,%22Qt-OpenCV%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%EF%BC%88%E5%8F%B2%E4%B8%8A%E6%9C%80%E8%AF%A6%E7%BB%86%EF%BC%89%22">Qt-OpenCV开发环境搭建（史上最详细）</a></em></li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2024/03/18/STM32F4%E7%B3%BB%E5%88%97GPIO%E9%85%8D%E7%BD%AE/">STM32F4系列GPIO配置 上一篇 →</a></div></div></div><details id="reward"><summary>打赏</summary><div><span>支付宝（AliPay）</span><br><img src="/img/Alipay.png"></div><div><span>微信（WeiChat）</span><br><img src="/img/WeChat.png"></div></details><div id="comments"><div class="selector"><button class="valine-sel"></button><button class="gitalk-sel"></button></div><div id="valine"></div><div id="gitalk"></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/4.png" alt="Logo"></a><h1 id="Dr"><a href="/">Passenger</a></h1><div id="description"><p></p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/PassengerDong"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" href="mailto:setupcard@foxmail.com"><i class="fa fa-envelope" alt="E-Mail"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/3546391322298955?spm_id_from=333.1007.0.0"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Qt5-15-2-Opencv4-8-0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">Qt5.15.2-Opencv4.8.0开发环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85QT5-15-2"><span class="toc-number">1.1.</span> <span class="toc-text">1. 安装QT5.15.2  </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.</span> <span class="toc-text">3. 添加环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%B5%8B%E8%AF%95"><span class="toc-number">1.3.</span> <span class="toc-text">4.测试</span></a></li></ol></li></ol></div></div><footer><nobr><span class="icp-title">ICP</span><a class="icp-content" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">未备案</a></nobr><br><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> 使用主题 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> 主题作者 <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
