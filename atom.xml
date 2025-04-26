@@ -128,9 +128,9 @@
     
     
     
-    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
-    
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
+    
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
     
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
@@ -159,9 +159,9 @@
     
     
     
-    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
-    
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
+    
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
     
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
@@ -190,9 +190,9 @@
     
     
     
-    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
-    
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
+    
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
     
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
@@ -220,14 +220,14 @@
     
     
     
-    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
-    
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="STC" scheme="http://passengerdong.github.io/tags/STC/"/>
     
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
+    
+    <category term="STC" scheme="http://passengerdong.github.io/tags/STC/"/>
     
     <category term="嵌入式" scheme="http://passengerdong.github.io/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/"/>
     
@@ -250,9 +250,9 @@
     
     
     
-    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
-    
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
+    
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
     
     <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
@@ -280,14 +280,14 @@
     
     
     
-    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
-    
     <category term="note" scheme="http://passengerdong.github.io/categories/note/"/>
     
+    <category term="article" scheme="http://passengerdong.github.io/categories/article/"/>
     
-    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
     <category term="linux" scheme="http://passengerdong.github.io/tags/linux/"/>
+    
+    <category term="note" scheme="http://passengerdong.github.io/tags/note/"/>
     
   </entry>
   
