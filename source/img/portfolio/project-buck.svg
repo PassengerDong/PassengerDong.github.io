@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Buck converter placeholder</title>
+  <desc id="desc">A power electronics placeholder for a Buck converter project.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M72 210h94" stroke="#eef3f6" stroke-width="8"/>
+    <path d="M166 160v100h70v-100z" stroke="#25b7d3" stroke-width="7"/>
+    <path d="M236 210h70c0-36 58-36 58 0s58 36 58 0" stroke="#f5c84c" stroke-width="8"/>
+    <path d="M422 210h74" stroke="#eef3f6" stroke-width="8"/>
+    <path d="M496 160v100M526 160v100" stroke="#82d173" stroke-width="7"/>
+    <path d="M526 210h122" stroke="#eef3f6" stroke-width="8"/>
+  </g>
+  <text x="92" y="177" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">VIN</text>
+  <text x="604" y="177" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">VOUT</text>
+  <text x="360" y="340" text-anchor="middle" fill="#eef3f6" font-family="Arial, sans-serif" font-size="30" font-weight="700">BUCK POWER STAGE</text>
+  <text x="360" y="370" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">media slot: schematic / PCB / scope</text>
+</svg>

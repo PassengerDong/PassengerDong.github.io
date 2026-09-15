@@ -1,8 +1,8 @@
 ---
 title: 使用hexo搭建个人博客
 date: 2023-10-28 15:22:32
-tags: code
-category: articles
+tags: 
+category: article
 ---
 
 # 0基础使用hexo搭建个人博客
@@ -47,7 +47,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 ##### 之后就是安装node
 
-这是官网：[ndoe,js](https://nodejs.org/en)
+这是官网：[ndoe.js](https://nodejs.org/en)
 
 **注意：一定要选左边的！**
 
@@ -135,7 +135,7 @@ title随便取，黏贴复制的内容，点Add SSH key完成添加
 
 GitHub主页右上角加号 -> New repository
 
-·仓库名输入 用户名.github,io（必须是这个格式）
+·仓库名输入 用户名.github.io（必须是这个格式）
 
 ·勾选“Initialize this repository with a README”
 
@@ -209,3 +209,20 @@ deploy:
 去里面找一个自己喜欢的模板，打开其对应的GitHub库，跟着操作一步步走就行了👍
 
 各个模板的操作可能不一样，我就不细说了，剩下就交给你自己慢慢探索了
+
+
+### 后记
+
+#### 关于GitHub换名之后
+
+GitHub换名之后会导致hexo博客无法正常登录，需要进行一定操作来恢复。
+
+1. 更换仓库名为： 新用户名.github.io
+2. 更新配置文件：在博客根目录下找到 _config.yml 文件，将用户名改为新用户名。
+配置文件就该后大致如下：
+```
+deploy:
+	type: git
+	repo: https:///用户名/用户名.github.io.git
+	branch: main
+```

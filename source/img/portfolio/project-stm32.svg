@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">STM32 project placeholder</title>
+  <desc id="desc">A development board placeholder for a firmware project.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <rect x="138" y="82" width="444" height="256" rx="18" fill="#1f6f78" stroke="#56d2df" stroke-width="4"/>
+  <rect x="286" y="150" width="148" height="118" rx="8" fill="#0f1519" stroke="#eef3f6" stroke-width="3"/>
+  <g fill="#f5c84c"><circle cx="178" cy="122" r="9"/><circle cx="178" cy="298" r="9"/><circle cx="542" cy="122" r="9"/><circle cx="542" cy="298" r="9"/></g>
+  <g stroke="#eef3f6" stroke-width="6" opacity=".45"><path d="M92 130h46M92 170h46M92 210h46M92 250h46M582 130h46M582 170h46M582 210h46M582 250h46"/></g>
+  <text x="360" y="215" text-anchor="middle" fill="#eef3f6" font-family="Arial, sans-serif" font-size="30" font-weight="700">STM32</text>
+  <text x="360" y="370" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">media slot: board / waveform / log</text>
+</svg>

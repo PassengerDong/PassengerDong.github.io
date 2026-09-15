@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Flight controller placeholder</title>
+  <desc id="desc">A flight controller PCB placeholder.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <rect x="244" y="94" width="232" height="232" rx="24" fill="#1b2730" stroke="#25b7d3" stroke-width="4"/>
+  <circle cx="360" cy="210" r="62" fill="#0f1519" stroke="#eef3f6" stroke-width="3"/>
+  <path d="M360 148v124M298 210h124" stroke="#f5c84c" stroke-width="8" stroke-linecap="round"/>
+  <g fill="#82d173"><circle cx="244" cy="94" r="12"/><circle cx="476" cy="94" r="12"/><circle cx="244" cy="326" r="12"/><circle cx="476" cy="326" r="12"/></g>
+  <g stroke="#8fa4ae" stroke-width="6" stroke-linecap="round" opacity=".65"><path d="M150 120h94M150 300h94M476 120h94M476 300h94"/></g>
+  <text x="360" y="374" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">CYT4BB7 flight controller media slot</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">BEMF zero-crossing detection resistor network</title>
+  <desc id="desc">A simplified phase voltage divider and virtual neutral point network for BLDC sensorless commutation detection.</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1f2937" flood-opacity="0.14"/>
+    </filter>
+    <style>
+      .bg{fill:#f8fafc}.paper{fill:#fff}.wire{stroke:#15803d;stroke-width:4;fill:none;stroke-linecap:round}.node{fill:#c00000}.res{fill:#fff;stroke:#dc2626;stroke-width:3}.label{font-family:Arial,'Microsoft YaHei',sans-serif;fill:#111827}.blue{fill:#1d4ed8}.green{fill:#15803d}.small{font-size:20px}.mid{font-size:26px}.big{font-size:36px;font-weight:700}.muted{fill:#475569}.gnd{stroke:#111827;stroke-width:3;fill:none}
+    </style>
+  </defs>
+  <rect class="bg" width="1120" height="560" rx="28"/>
+  <rect x="36" y="34" width="1048" height="492" rx="24" class="paper" filter="url(#shadow)"/>
+  <text x="560" y="82" text-anchor="middle" class="label big">反电动势过零检测分压网络</text>
+  <text x="560" y="116" text-anchor="middle" class="label mid muted">EMFA / EMFB / EMFC 与虚拟中性点 MID 比较，辅助判断六步换向时机</text>
+
+  <g transform="translate(118 155)">
+    <text x="8" y="43" class="label mid blue">MID</text>
+    <line x1="78" y1="36" x2="160" y2="36" class="wire"/>
+    <line x1="78" y1="136" x2="160" y2="136" class="wire"/>
+    <line x1="78" y1="236" x2="160" y2="236" class="wire"/>
+    <line x1="78" y1="36" x2="78" y2="236" class="wire"/>
+
+    <rect x="160" y="18" width="92" height="36" class="res"/><text x="206" y="42" text-anchor="middle" class="label small">R7 10k</text>
+    <rect x="160" y="118" width="92" height="36" class="res"/><text x="206" y="142" text-anchor="middle" class="label small">R8 10k</text>
+    <rect x="160" y="218" width="92" height="36" class="res"/><text x="206" y="242" text-anchor="middle" class="label small">R9 10k</text>
+
+    <line x1="252" y1="36" x2="424" y2="36" class="wire"/>
+    <line x1="252" y1="136" x2="424" y2="136" class="wire"/>
+    <line x1="252" y1="236" x2="424" y2="236" class="wire"/>
+    <text x="342" y="26" text-anchor="middle" class="label mid blue">EMFC</text>
+    <text x="342" y="126" text-anchor="middle" class="label mid blue">EMFB</text>
+    <text x="342" y="226" text-anchor="middle" class="label mid blue">EMFA</text>
+
+    <rect x="424" y="18" width="92" height="36" class="res"/><text x="470" y="42" text-anchor="middle" class="label small">R10 10k</text>
+    <rect x="424" y="118" width="92" height="36" class="res"/><text x="470" y="142" text-anchor="middle" class="label small">R11 10k</text>
+    <rect x="424" y="218" width="92" height="36" class="res"/><text x="470" y="242" text-anchor="middle" class="label small">R12 10k</text>
+
+    <line x1="516" y1="36" x2="650" y2="36" class="wire"/><text x="668" y="43" class="label mid blue">VS3</text>
+    <line x1="516" y1="136" x2="650" y2="136" class="wire"/><text x="668" y="143" class="label mid blue">VS2</text>
+    <line x1="516" y1="236" x2="650" y2="236" class="wire"/><text x="668" y="243" class="label mid blue">VS1</text>
+
+    <circle cx="314" cy="36" r="7" class="node"/><circle cx="314" cy="136" r="7" class="node"/><circle cx="314" cy="236" r="7" class="node"/>
+    <line x1="314" y1="36" x2="314" y2="296" class="wire"/>
+    <line x1="314" y1="136" x2="420" y2="296" class="wire"/>
+    <line x1="314" y1="236" x2="526" y2="296" class="wire"/>
+
+    <rect x="270" y="296" width="88" height="36" class="res" transform="rotate(90 314 314)"/><text x="314" y="373" text-anchor="middle" class="label small">R13 1k</text>
+    <rect x="376" y="296" width="88" height="36" class="res" transform="rotate(90 420 314)"/><text x="420" y="373" text-anchor="middle" class="label small">R14 1k</text>
+    <rect x="482" y="296" width="88" height="36" class="res" transform="rotate(90 526 314)"/><text x="526" y="373" text-anchor="middle" class="label small">R15 1k</text>
+    <line x1="314" y1="358" x2="526" y2="358" class="wire"/>
+    <line x1="420" y1="358" x2="420" y2="388" class="gnd"/>
+    <line x1="392" y1="388" x2="448" y2="388" class="gnd"/>
+    <line x1="402" y1="402" x2="438" y2="402" class="gnd"/>
+    <line x1="412" y1="416" x2="428" y2="416" class="gnd"/>
+  </g>
+
+  <g class="label small muted">
+    <text x="808" y="206">检测思路</text>
+    <text x="808" y="240">1. 三相端电压经电阻网络缩放</text>
+    <text x="808" y="274">2. 构造虚拟中性点 MID</text>
+    <text x="808" y="308">3. 比较悬空相与 MID 的过零点</text>
+    <text x="808" y="342">4. MCU 根据过零点延时换相</text>
+  </g>
+</svg>

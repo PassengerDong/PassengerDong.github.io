@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Pessenger's Blog
-subtitle: ''
-description: ''
-keywords:
-author: Pessenger
-language: en
+title: PassengerDong Portfolio
+subtitle: '嵌入式 / 硬件 / 工程实践'
+description: 'PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。'
+keywords: embedded, STM32, Arduino, hardware, portfolio, PassengerDong
+author: PassengerDong
+language: zh-CN
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://passengerdong.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -101,7 +101,29 @@ theme: arknights
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+#deploy:
+#  type: ''
+
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+# deploy:
+#   type: ''
 deploy:
-  type: 'git'
-  repo: 'https://github.com/zjuter/zjuter.github.io.git'
-  branch: 'master'
+  type: git
+  repo: https://github.com/PassengerDong/PassengerDong.github.io
+  branch: master
+  # message: Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }})
+
+
+mathjax:
+  tags: none # 或 'ams' 或 'all'
+  single_dollars: true # 启用单个美元符号作为内联（行内）数学公式定界符
+  cjk_width: 0.9 # 相对 CJK 字符宽度
+  normal_width: 0.6 # 相对正常（等宽）宽度
+  append_css: true # 将 CSS 添加到每个页面
+  every_page: false # 如果为 true，那么无论每篇文章的前题中的 `mathjax` 设置如何，每页都将由 mathjax 呈现
+
+post-time: true
+post-count: true
+busuanzi: true
+post-info: true

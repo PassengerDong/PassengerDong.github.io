@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">MCU lab project placeholder</title>
+  <desc id="desc">A wiring and sensor lab placeholder for beginner MCU projects.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <rect x="98" y="90" width="190" height="238" rx="14" fill="#1b2730" stroke="#25b7d3" stroke-width="4"/>
+  <rect x="432" y="118" width="166" height="166" rx="20" fill="#27301b" stroke="#82d173" stroke-width="4"/>
+  <g fill="#f5c84c"><circle cx="140" cy="130" r="8"/><circle cx="140" cy="170" r="8"/><circle cx="140" cy="210" r="8"/><circle cx="140" cy="250" r="8"/><circle cx="246" cy="130" r="8"/><circle cx="246" cy="170" r="8"/><circle cx="246" cy="210" r="8"/><circle cx="246" cy="250" r="8"/></g>
+  <g fill="none" stroke-linecap="round"><path d="M288 136c66-28 86 26 144 18" stroke="#25b7d3" stroke-width="7"/><path d="M288 210c72 20 84-42 144-22" stroke="#f5c84c" stroke-width="7"/><path d="M288 282c68-10 92 48 144 8" stroke="#82d173" stroke-width="7"/></g>
+  <text x="193" y="310" text-anchor="middle" fill="#eef3f6" font-family="Arial, sans-serif" font-size="26" font-weight="700">MCU</text>
+  <text x="515" y="214" text-anchor="middle" fill="#eef3f6" font-family="Arial, sans-serif" font-size="24" font-weight="700">SENSOR</text>
+  <text x="360" y="372" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">media slot: wiring / demo / serial data</text>
+</svg>

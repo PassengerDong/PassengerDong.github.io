@@ -1,0 +1,261 @@
+profile:
+  kicker: "Personal Engineering Portfolio"
+  name: "PassengerDong"
+  role: "嵌入式系统 / 开源硬件 / 电机控制"
+  focus: "Open Hardware + Firmware"
+  summary: "我把开源硬件工程、固件调试和学习笔记整理成个人作品集。首页先展示可公开访问的 OSHWHub 项目，后续可以继续补充实物图、测试数据、视频和完整复盘。"
+  now: "正在把 OSHWHub 上的电机驱动、智能车主板、飞控和电调等项目迁移成站内项目文章。"
+  tags:
+    - "电机驱动"
+    - "智能车竞赛"
+    - "飞控硬件"
+    - "开源电调"
+
+metrics:
+  - value: "7"
+    label: "开源硬件项目"
+  - value: "4"
+    label: "核心方向"
+  - value: "2026"
+    label: "持续更新"
+
+projects:
+  - title: "基于 DRV8701 的双路有刷电机驱动"
+    year: "2025"
+    status: "已补充"
+    summary: "小体积双路有刷电机驱动，实测 12V/10A 发热很小，16V/20A 也可正常运行且仅轻微发热。"
+    media:
+      image: "/img/portfolio/drv8701-cover.webp"
+      alt: "DRV8701 双路有刷电机驱动实物图"
+      note: "实物图，后续可继续补温升测试截图"
+    details:
+      - label: "项目来源"
+        value: "OSHWHub 开源工程"
+      - label: "当前证据"
+        value: "公开工程页、项目描述、12V/10A 与 16V/20A 实测描述"
+      - label: "待补充"
+        value: "原理图要点、PCB 截图、温升照片、测试时长和波形"
+    stack:
+      - "DRV8701"
+      - "有刷电机"
+      - "双路驱动"
+      - "49.5mm x 20.5mm"
+    links:
+      - label: "站内文章"
+        href: "/projects/drv8701-motor-driver/"
+      - label: "OSHWHub"
+        href: "https://oshwhub.com/pessenger/ji-yu-drv8701-de-dian-ji-qu-dong"
+        external: true
+
+  - title: "Q 车模独轮主板"
+    year: "2025"
+    status: "已补充"
+    summary: "基于 TC377 + Q 车模的独轮车控制主板，覆盖电源管理、单路有刷驱动、双 MT9V034、IMU、编码器和竞赛调试接口。"
+    media:
+      image: "https://image.lceda.cn/pullimage/CXFr2DySrUB2fHgoAOhSuIkT90F22KvRQSQ3K9p6.png"
+      alt: "Q 车模独轮主板实物图"
+      note: "直接引用 OSHWHub 实物图"
+    details:
+      - label: "项目来源"
+        value: "OSHWHub 开源工程"
+      - label: "当前证据"
+        value: "公开工程页、实物图、TC377/BGA292、接口与调试说明"
+      - label: "待补充"
+        value: "layout 原图链接、接口 pin 表、上电/下载验证记录、比赛调试照片"
+    stack:
+      - "TC377"
+      - "BGA292"
+      - "TPS82130"
+      - "MT9V034"
+      - "单路有刷驱动"
+      - "智能车"
+      - "独轮控制"
+    links:
+      - label: "站内文章"
+        href: "/projects/q-car-unicycle-board/"
+      - label: "OSHWHub"
+        href: "https://oshwhub.com/pessenger/qche-mo-du-lun-zhu-ban"
+        external: true
+
+  - title: "CYT4BB7 开源飞控"
+    year: "2026"
+    status: "已补充"
+    summary: "面向第 21 届智能车“飞跃雷区”组别的小型化飞控，采用 30.5mm 标准孔位，覆盖 CYT4BB7、2-6S 输入、SY8303AIC 与外置 IMU 接口。"
+    media:
+      image: "https://image.lceda.cn/oshwhub/pullImage/358ae21b00154302bd213beffd6cf128.jpg"
+      alt: "CYT4BB7 开源飞控实物图"
+      note: "直接引用 OSHWHub 实物图"
+    details:
+      - label: "项目来源"
+        value: "OSHWHub 开源工程"
+      - label: "当前证据"
+        value: "公开工程页、实物图、电源输入/降压/核心供电截图、数月上电测试描述"
+      - label: "待补充"
+        value: "完整引脚表、上电时序记录、外置 IMU 型号、与 STC 四合一电调联调日志"
+    stack:
+      - "CYT4BB7"
+      - "30.5mm"
+      - "SY8303AIC"
+      - "2-6S"
+      - "外置 IMU"
+    links:
+      - label: "站内文章"
+        href: "/projects/cyt4bb7-flight-controller/"
+      - label: "OSHWHub"
+        href: "https://oshwhub.com/pessenger/project_dpztsddn"
+        external: true
+
+  - title: "STC 四合一电调"
+    year: "2026"
+    status: "已补充"
+    summary: "基于逐飞 STC32G 开源电调固件的四合一 ESC，支持 3-6S，已完成 50A 输入电流测试，运行良好。"
+    media:
+      image: "https://image.lceda.cn/pullimage/hlekd3R4SQbJaDEfClJwYFpCFQ3easHLHmPGz7gC.png"
+      alt: "STC 四合一电调工程图"
+      note: "直接引用 OSHWHub 缩略图"
+    details:
+      - label: "项目来源"
+        value: "OSHWHub 开源工程"
+      - label: "当前证据"
+        value: "公开工程页、3-6S、50A 输入电流测试、双四层板与 0402 焊接提醒"
+      - label: "待补充"
+        value: "功率级截图、MOS/驱动型号、逐飞 STC32G 固件配置、温升照片和测试时长"
+    stack:
+      - "STC32G"
+      - "逐飞固件"
+      - "4-in-1 ESC"
+      - "3-6S"
+      - "50A 输入测试"
+    links:
+      - label: "站内文章"
+        href: "/projects/stc-4in1-esc/"
+      - label: "OSHWHub"
+        href: "https://oshwhub.com/pessenger/project_uqwvelil"
+        external: true
+
+  - title: "基于 AI8051U 的四合一电调"
+    year: "2026"
+    status: "已补充"
+    summary: "AI8051U + AM32 移植固件四合一 ESC，默认参数即可使用，40A 稳定运行，峰值 80A 已测试。"
+    media:
+      image: "https://image.lceda.cn/pullimage/iu5ezwzKZiT85dEFpUaOWdxADFwO1KnDkk2o61Uw.png"
+      alt: "AI8051U 四合一电调工程图"
+      note: "直接引用 OSHWHub 缩略图"
+    details:
+      - label: "项目来源"
+        value: "OSHWHub 开源工程"
+      - label: "当前证据"
+        value: "公开工程页、固件说明、40A/80A 测试描述、烧录焊盘与驱动电路截图"
+      - label: "待补充"
+        value: "AM32 默认参数记录、DShot 难落地原因、温升曲线、与 STC 四合一版本对比"
+    stack:
+      - "AI8051U"
+      - "AM32"
+      - "FD6288Q"
+      - "INA199"
+      - "40A / 80A"
+    links:
+      - label: "站内文章"
+        href: "/projects/ai8051u-4in1-esc/"
+      - label: "OSHWHub"
+        href: "https://oshwhub.com/pessenger/project_wvmktmui"
+        external: true
+
+  - title: "21 届智能车疯狂电路组全集成开发板"
+    year: "2026"
+    status: "已补充"
+    summary: "面向第 21 届智能车疯狂电路组的轻量化全集成板，约 12g，集成 TC264、TPS82130、DRV8701、有刷/无刷驱动和多路竞赛接口。"
+    media:
+      image: "https://image.lceda.cn/pullimage/pdxas2QIw1QU3Ym9EI6sBWYG24jYnshEocF89Tjs.png"
+      alt: "21 届智能车疯狂电路组全集成开发板工程图"
+      note: "直接引用 OSHWHub 缩略图"
+    details:
+      - label: "项目来源"
+        value: "OSHWHub 开源工程"
+      - label: "当前证据"
+        value: "公开工程页、12g 重量描述、电源/驱动/IMU/3D 参考图"
+      - label: "待补充"
+        value: "逐飞/龙邱版本尺寸对比、接口 pin 表、实车装配与赛道调试记录"
+    stack:
+      - "TC264"
+      - "DRV8701"
+      - "TPS82130"
+      - "8051 电调"
+      - "约 12g"
+      - "智能车"
+      - "全集成板"
+    links:
+      - label: "站内文章"
+        href: "/projects/smartcar-integrated-board/"
+      - label: "OSHWHub"
+        href: "https://oshwhub.com/pessenger/project_swqmmuvk"
+        external: true
+
+  - title: "STC8051U 学习型无刷电调"
+    year: "2026"
+    status: "已补充"
+    summary: "开源学习型 BLDC 电调平台，支持 3-6S，使用逐飞 8051 电调固件，经测试稳定 30A+。"
+    media:
+      image: "/img/portfolio/project-esc.svg"
+      alt: "STC8051U 学习型无刷电调占位图"
+      note: "可替换为电调板、波形或 30A+ 测试截图"
+    details:
+      - label: "项目来源"
+        value: "OSHWHub 开源工程"
+      - label: "当前证据"
+        value: "公开工程页、工程描述、3-6S 与 30A+ 测试描述"
+      - label: "待补充"
+        value: "PCB 截图、实物照片、烧录接线、波形和温升数据"
+    stack:
+      - "STC8051U"
+      - "无刷电调"
+      - "逐飞固件"
+      - "FD6288Q"
+    links:
+      - label: "站内文章"
+        href: "/projects/ai8051u-brushless-esc-zf/"
+      - label: "OSHWHub"
+        href: "https://oshwhub.com/pessenger/project_tmgekiuu"
+        external: true
+
+capabilities:
+  - title: "开源硬件设计"
+    summary: "从器件选型、原理图、PCB 到公开工程页，形成别人能复刻的硬件资料。"
+    items:
+      - "电机驱动、智能车主板、飞控、电调等板卡设计"
+      - "功能分区、接口定义、BOM 和调试要点整理"
+      - "面向 OSHWHub / GitHub Pages 的公开展示"
+  - title: "电机与电调"
+    summary: "围绕有刷驱动、无刷电调和 AM32/逐飞固件做硬件与固件结合。"
+    items:
+      - "DRV8701 双路有刷驱动"
+      - "AI8051U / 8051U 四合一电调"
+      - "无刷电调教学案例与参数验证"
+  - title: "竞赛硬件"
+    summary: "把智能车竞赛需求拆成可焊接、可调试、可复盘的硬件模块。"
+    items:
+      - "独轮车控制主板"
+      - "疯狂电路组全集成开发板"
+      - "供电、通信、传感器和人机交互接口"
+  - title: "工程文档"
+    summary: "把开源页和博客文章变成证据链，而不是只放一张图和一个标题。"
+    items:
+      - "项目目标、个人职责、技术栈、结果指标"
+      - "调试记录、故障限制、下一步计划"
+      - "后续可加入实物照片、波形和视频"
+
+workflow:
+  - title: "收集项目源"
+    description: "先把 OSHWHub 工程链接、标题、简介和开源状态迁移到站内。"
+  - title: "补项目证据"
+    description: "为每个项目补充 PCB 截图、实物图、测试日志、关键参数和验证结论。"
+  - title: "拆解能力标签"
+    description: "把每个项目对应到电机、飞控、智能车、硬件设计和固件调试能力。"
+  - title: "持续迭代"
+    description: "后续每补一个项目页，首页卡片和归档入口都能自动形成作品集证据链。"
+
+contact:
+  title: "把项目资料发给我，我可以继续替你填充"
+  description: "建议每个项目给我：项目名、目标、你负责的部分、技术栈、2-3 个结果指标、仓库/OSHWHub/文章链接、图片或视频截图。"
+  email: "setupcard@foxmail.com"
+  github: "https://github.com/PassengerDong"

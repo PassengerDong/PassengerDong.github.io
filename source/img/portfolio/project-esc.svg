@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Four-in-one ESC placeholder</title>
+  <desc id="desc">A four channel ESC hardware placeholder.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <rect x="112" y="78" width="496" height="264" rx="16" fill="#1b242b" stroke="#eef3f6" stroke-width="3"/>
+  <g fill="#253741" stroke="#25b7d3" stroke-width="3">
+    <rect x="154" y="120" width="132" height="70" rx="8"/>
+    <rect x="154" y="230" width="132" height="70" rx="8"/>
+    <rect x="434" y="120" width="132" height="70" rx="8"/>
+    <rect x="434" y="230" width="132" height="70" rx="8"/>
+  </g>
+  <g stroke="#f5c84c" stroke-width="7" stroke-linecap="round">
+    <path d="M286 155h148M286 265h148M360 102v216"/>
+  </g>
+  <text x="360" y="218" text-anchor="middle" fill="#eef3f6" font-family="Arial, sans-serif" font-size="34" font-weight="700">4-IN-1 ESC</text>
+  <text x="360" y="374" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">AI8051U / AM32 / brushless ESC media slot</text>
+</svg>
