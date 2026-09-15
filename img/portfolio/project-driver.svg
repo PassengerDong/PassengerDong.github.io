@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Motor driver project placeholder</title>
+  <desc id="desc">A compact brushed motor driver board placeholder.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <rect x="96" y="84" width="528" height="252" rx="18" fill="#202a31" stroke="#25b7d3" stroke-width="4"/>
+  <g fill="#0f1519" stroke="#eef3f6" stroke-width="3">
+    <rect x="148" y="126" width="120" height="72" rx="8"/>
+    <rect x="148" y="222" width="120" height="72" rx="8"/>
+    <rect x="452" y="126" width="120" height="72" rx="8"/>
+    <rect x="452" y="222" width="120" height="72" rx="8"/>
+  </g>
+  <path d="M280 162h160M280 258h160M360 132v156" stroke="#f5c84c" stroke-width="8" stroke-linecap="round"/>
+  <g fill="#82d173"><circle cx="120" cy="210" r="11"/><circle cx="600" cy="210" r="11"/><circle cx="360" cy="108" r="11"/><circle cx="360" cy="312" r="11"/></g>
+  <text x="360" y="374" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">DRV8701 / brushed motor driver media slot</text>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Smart car controller placeholder</title>
+  <desc id="desc">A smart car competition controller board placeholder.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <path d="M128 260h464l-42 54H170z" fill="#202a31" stroke="#25b7d3" stroke-width="4"/>
+  <circle cx="228" cy="322" r="34" fill="#0f1519" stroke="#eef3f6" stroke-width="5"/>
+  <circle cx="492" cy="322" r="34" fill="#0f1519" stroke="#eef3f6" stroke-width="5"/>
+  <rect x="238" y="136" width="244" height="118" rx="14" fill="#1b2730" stroke="#f5c84c" stroke-width="4"/>
+  <g fill="#82d173"><rect x="270" y="168" width="72" height="16" rx="8"/><rect x="270" y="204" width="132" height="16" rx="8"/><rect x="418" y="168" width="32" height="52" rx="6"/></g>
+  <text x="360" y="96" text-anchor="middle" fill="#eef3f6" font-family="Arial, sans-serif" font-size="28" font-weight="700">SMART CAR BOARD</text>
+  <text x="360" y="374" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">competition board / interface map media slot</text>
+</svg>

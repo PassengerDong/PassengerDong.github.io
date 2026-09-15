@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Qt OpenCV project placeholder</title>
+  <desc id="desc">A desktop tool placeholder for a Qt and OpenCV project.</desc>
+  <rect width="720" height="420" fill="#12171b"/>
+  <rect x="84" y="70" width="552" height="280" rx="12" fill="#182028" stroke="#eef3f6" stroke-width="3" opacity=".9"/>
+  <rect x="108" y="104" width="330" height="206" rx="8" fill="#0f1519" stroke="#25b7d3" stroke-width="3"/>
+  <path d="M146 260l70-72 55 48 72-92 60 116z" fill="#25b7d3" opacity=".45"/>
+  <circle cx="204" cy="154" r="32" fill="#f5c84c" opacity=".85"/>
+  <g fill="#82d173"><rect x="472" y="112" width="114" height="18" rx="9"/><rect x="472" y="156" width="88" height="18" rx="9"/><rect x="472" y="200" width="126" height="18" rx="9"/><rect x="472" y="244" width="72" height="18" rx="9"/></g>
+  <text x="360" y="382" text-anchor="middle" fill="#8fa4ae" font-family="Arial, sans-serif" font-size="20">media slot: UI screenshot / image processing output</text>
+</svg>

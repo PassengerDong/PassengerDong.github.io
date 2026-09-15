@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">PassengerDong portfolio mark</title>
+  <desc id="desc">A compact circuit-inspired personal mark.</desc>
+  <rect width="240" height="240" rx="36" fill="#111417"/>
+  <path d="M48 168V72h63c35 0 58 17 58 48s-23 48-58 48H83v34H48zm35-31h27c15 0 24-6 24-17s-9-17-24-17H83v34z" fill="#f5c84c"/>
+  <path d="M166 50h26v26h-26zM166 164h26v26h-26zM192 63h20v114h-20zM142 107h24v26h-24z" fill="#25b7d3"/>
+  <path d="M50 50h64M50 190h64M180 76v88" stroke="#eef3f6" stroke-width="8" stroke-linecap="round" opacity=".35"/>
+</svg>

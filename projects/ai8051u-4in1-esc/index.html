@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>基于 AI8051U 的四合一电调 | PassengerDong Portfolio</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: 'confirm'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="PassengerDong Portfolio" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>基于 AI8051U 的四合一电调</h1></div><hr><div id="post-content"><blockquote>
+<p>迁移来源：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/project_wvmktmui">OSHWHub 开源工程</a><br>项目定位：基于 AI8051U 主控和 AM32 移植固件的四合一 ESC，仅供学习与开源交流使用。</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目是一款基于 AI8051U 作为主控芯片、移植 AM32 固件的四合一电子调速器。开源版本已经过上机实测，运行稳定，响应速度能够满足全国大学生智能车竞赛等场景使用。</p>
+<p>PCB 在手工焊接上做了一定优化，但整体仍然有难度，尤其是 QFN 和 0402 元件较多。这个项目更适合作为电调硬件设计、功率&#x2F;信号隔离、固件移植和烧录调试的综合案例。</p>
+<span id="more"></span>
+
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/iu5ezwzKZiT85dEFpUaOWdxADFwO1KnDkk2o61Uw.png'><img src="https://image.lceda.cn/pullimage/iu5ezwzKZiT85dEFpUaOWdxADFwO1KnDkk2o61Uw.png" alt="AI8051U 四合一电调工程图"></p>
+<h2 id="快速规格"><a href="#快速规格" class="headerlink" title="快速规格"></a>快速规格</h2><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主控</td>
+<td>AI8051U，QFN64 封装</td>
+</tr>
+<tr>
+<td>固件</td>
+<td>AM32 移植固件，默认参数即可；无人机使用也保持默认参数即可</td>
+</tr>
+<tr>
+<td>栅极驱动</td>
+<td>FD6288Q，QFN24 封装</td>
+</tr>
+<tr>
+<td>栅极驱动供电</td>
+<td>SY8303 降压输出约 9V</td>
+</tr>
+<tr>
+<td>LDO</td>
+<td>SPX3819，最高 16V 输入</td>
+</tr>
+<tr>
+<td>输入范围</td>
+<td>3-6S，实测使用 4S 系统运行良好</td>
+</tr>
+<tr>
+<td>PCB 结构</td>
+<td>功率板 + 信号板双四层板叠层</td>
+</tr>
+<tr>
+<td>安装孔位</td>
+<td>30.5mm 常见穿越机大孔尺寸</td>
+</tr>
+<tr>
+<td>实测能力</td>
+<td>40A 输入电流稳定运行，峰值 80A 已做测试</td>
+</tr>
+<tr>
+<td>电流采样</td>
+<td>INA199 + 0.25mR 采样电阻</td>
+</tr>
+<tr>
+<td>接口</td>
+<td>SH1.0 8P，兼容常规四合一电调信号接口；额外预留 5V 测试供电接口</td>
+</tr>
+<tr>
+<td>开源协议</td>
+<td>CERN-OHL-S-2.0</td>
+</tr>
+</tbody></table>
+<h2 id="结构设计"><a href="#结构设计" class="headerlink" title="结构设计"></a>结构设计</h2><p>工程采用功率板和信号板分离的双四层板叠层设计，一方面减少信号互扰，另一方面保证功率路径和散热空间。该结构也尽量贴合嘉立创免费打样规则。</p>
+<p>实测满足五寸机飞行需求，温升不明显。工程说明中记录 40A 输入电流可以稳定运行，峰值测试到 80A 没有问题。如果后续想进一步优化功率能力，可以考虑增加 GND 和 DCBUS 层，但六层板需要重新评估打样成本和规则。</p>
+<h2 id="机械与安装"><a href="#机械与安装" class="headerlink" title="机械与安装"></a>机械与安装</h2><p>电调安装孔位兼容常见穿越机 30.5mm 大孔尺寸，可以适配 Mark5 等公模穿越机机架。对于逐飞、龙邱等车模机架，需要通过 3D 打印件或转接结构配合安装。</p>
+<p>板子尺寸较小，散热表现较好。板载 MLCC，同时预留固态电容焊接孔，方便根据输入电压、线长和负载冲击补足母线电容。</p>
+<h2 id="固件与协议"><a href="#固件与协议" class="headerlink" title="固件与协议"></a>固件与协议</h2><p>本工程使用开源 AM32 移植固件，原始固件参考工程为“STC 电调(AM32 固件移植)”。AM32 本身是由社区维护的开源电调平台，本项目尝试在 AI8051U 上适配使用。</p>
+<p>实际使用中 AM32 保持默认参数即可；如果用于无人机，也可以先直接使用默认参数，不需要为基础起飞和常规油门响应额外修改复杂参数。</p>
+<p>DShot 没有继续作为可落地方案。主要原因是移植后的 AM32 固件程序本身比较复杂，对 8051 的资源负载较大；同时 8051 缺少实现 DShot 所需的关键硬件支持，稳定落地难度较高。因此当前以 PWM 协议作为更现实的使用方案。</p>
+<h2 id="烧录方式"><a href="#烧录方式" class="headerlink" title="烧录方式"></a>烧录方式</h2><p>信号板预留了 1.27mm 间距的 4P 串口焊盘，可以配合 1.27mm 4P 弹簧顶针下载。使用 STC-ISP 时，先点击下载，再把弹簧顶针戳到焊盘上即可完成识别和烧录。</p>
+<p>如需检查或写入固件参数，可使用 ESC_config_tool；基础使用保持 AM32 默认参数即可。根据原工程说明，TX 和 RX 短接后再用戳针即可进入后续烧录流程；建议在 CH340 模块上加一个开关，用来切换 TX&#x2F;RX 是否短接。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/9nsZiSy0JQFofJghuod0VX0XN6nYYKlgYYnQvQAE.png'><img src="https://image.lceda.cn/pullimage/9nsZiSy0JQFofJghuod0VX0XN6nYYKlgYYnQvQAE.png" alt="1.27mm 弹簧顶针下载参考"></p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/BGPK0tkbMkpAa3BDUTvnbpNg3bXquQ6SxgpFyQup.png'><img src="https://image.lceda.cn/pullimage/BGPK0tkbMkpAa3BDUTvnbpNg3bXquQ6SxgpFyQup.png" alt="串口焊盘与下载辅助参考"></p>
+<h2 id="栅极驱动与供电"><a href="#栅极驱动与供电" class="headerlink" title="栅极驱动与供电"></a>栅极驱动与供电</h2><p>栅极驱动器使用 FD6288Q，主控使用 AI8051U QFN64。栅极驱动器使用独立降压芯片供电，选用 SY8303，可以支持最高 40V 输入和 3A 电流。SY8303 输出约 9V 给 FD6288Q 供电时，可以支持 3-6S 输入范围。</p>
+<p>LDO 采用 SPX3819，最高可承受 16V 输入。</p>
+<p>本项目测试使用 4S 电源系统，运行良好。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/A5QBITewffdhB6TypE7jOxyT1fdUJnzSv68oCbXS.png'><img src="https://image.lceda.cn/pullimage/A5QBITewffdhB6TypE7jOxyT1fdUJnzSv68oCbXS.png" alt="栅极驱动与主控相关电路"></p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/AGFzw4j4NymTSPF7Z0yTDwlUNSyBwPtYBta9Avqj.png'><img src="https://image.lceda.cn/pullimage/AGFzw4j4NymTSPF7Z0yTDwlUNSyBwPtYBta9Avqj.png" alt="栅极驱动供电与局部布局"></p>
+<h2 id="电流采样与接口"><a href="#电流采样与接口" class="headerlink" title="电流采样与接口"></a>电流采样与接口</h2><p>板上带有电流采样，使用 INA199 + 0.25mR 采样电阻。信号接口使用 SH1.0 8P 接头，和常规四合一电调接口兼容，同时额外留了一个 5V 接口，方便给调速器供电做简单测试。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/rgkTMHMSPuPMmb5i5PD1a1LaG3MzcdmKSHQ0mcj1.png'><img src="https://image.lceda.cn/pullimage/rgkTMHMSPuPMmb5i5PD1a1LaG3MzcdmKSHQ0mcj1.png" alt="电流采样与信号接口"></p>
+<h2 id="PCB-细节"><a href="#PCB-细节" class="headerlink" title="PCB 细节"></a>PCB 细节</h2><p>PCB 上预留了二维码白油位置，可用于放置嘉立创码或版本标识，避免影响主要器件和关键信号区域。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/Ba6LFTiKqrmhvwgzGCpw48Jy3i7hbflupYk3zNYv.png'><img src="https://image.lceda.cn/pullimage/Ba6LFTiKqrmhvwgzGCpw48Jy3i7hbflupYk3zNYv.png" alt="二维码白油与 PCB 细节 1"></p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/azZv8JwavYms0sklOahLCWRu0sSMQPV99Hxwc4r0.png'><img src="https://image.lceda.cn/pullimage/azZv8JwavYms0sklOahLCWRu0sSMQPV99Hxwc4r0.png" alt="二维码白油与 PCB 细节 2"></p>
+<h2 id="复刻提醒"><a href="#复刻提醒" class="headerlink" title="复刻提醒"></a>复刻提醒</h2><ul>
+<li>本工程大量使用 QFN 和 0402 封装，有一定焊接难度，新手慎用。</li>
+<li>元器件耐压必须高于输入电源，建议关键器件都选 50V 以上耐压。</li>
+<li>打样不需要半孔工艺，但要注意半孔边缘脱落铜皮不要与侧边短接。</li>
+<li>螺丝孔存在非地网络，需要套橡胶圈，套上后内孔刚好适配 M3。</li>
+<li>固态电容孔位建议按实际线长和输入冲击补齐，不要只依赖板载 MLCC。</li>
+</ul>
+<h2 id="LAYOUT"><a href="#LAYOUT" class="headerlink" title="LAYOUT"></a>LAYOUT</h2><p class='item-img' data-src='https://image-pro.lceda.cn/projects/thumbs/d9e3f81511c6455fb3c6347987b98e7b.webp'><img src="https://image-pro.lceda.cn/projects/thumbs/d9e3f81511c6455fb3c6347987b98e7b.webp"></p>
+<p class='item-img' data-src='https://image-pro.lceda.cn/projects/thumbs/e33f32f6a3e14919be1a3d8d3860bbae.webp'><img src="https://image-pro.lceda.cn/projects/thumbs/e33f32f6a3e14919be1a3d8d3860bbae.webp"></p>
+<h2 id="原始工程"><a href="#原始工程" class="headerlink" title="原始工程"></a>原始工程</h2><ul>
+<li>OSHWHub：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/project_wvmktmui">https://oshwhub.com/pessenger/project_wvmktmui</a></li>
+<li>固件参考：STC 电调(AM32 固件移植)</li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/projects/ai8051u-brushless-esc-zf/">← Next STC8051U 学习型无刷电调</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/projects/stc-4in1-esc/">STC 四合一电调 Prev →</a></div></div></div><details id="reward" open><summary>reward</summary><div><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/WeChat.png"></div></details></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">PassengerDong</a></h1><div id="description"><p>PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">项目简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%A7%84%E6%A0%BC"><span class="toc-number">2.</span> <span class="toc-text">快速规格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.</span> <span class="toc-text">结构设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E6%A2%B0%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">机械与安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BA%E4%BB%B6%E4%B8%8E%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.</span> <span class="toc-text">固件与协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%83%A7%E5%BD%95%E6%96%B9%E5%BC%8F"><span class="toc-number">6.</span> <span class="toc-text">烧录方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%85%E6%9E%81%E9%A9%B1%E5%8A%A8%E4%B8%8E%E4%BE%9B%E7%94%B5"><span class="toc-number">7.</span> <span class="toc-text">栅极驱动与供电</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%B5%81%E9%87%87%E6%A0%B7%E4%B8%8E%E6%8E%A5%E5%8F%A3"><span class="toc-number">8.</span> <span class="toc-text">电流采样与接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCB-%E7%BB%86%E8%8A%82"><span class="toc-number">9.</span> <span class="toc-text">PCB 细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%BB%E6%8F%90%E9%86%92"><span class="toc-number">10.</span> <span class="toc-text">复刻提醒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LAYOUT"><span class="toc-number">11.</span> <span class="toc-text">LAYOUT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%B7%A5%E7%A8%8B"><span class="toc-number">12.</span> <span class="toc-text">原始工程</span></a></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>

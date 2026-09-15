@@ -1,0 +1,347 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>STC8051U 学习型无刷电调 | PassengerDong Portfolio</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: 'confirm'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="PassengerDong Portfolio" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>STC8051U 学习型无刷电调</h1></div><hr><div id="post-content"><blockquote>
+<p>迁移来源：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/project_tmgekiuu">OSHWHub 开源工程</a><br>本项目定位为开源学习型无刷电机驱动平台，并非工业级量产电调。</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>这是一个面向 BLDC 无刷电机驱动学习的开源电调案例板。当前硬件支持 3-6S 动力电池，使用逐飞开源的 8051 电调固件，经测试可以稳定工作在 30A+ 电流区间。</p>
+<span id="more"></span>
+
+<p>它的目标不是追求商业电调的极限性能，而是把一个能跑、能解释、能继续改进的无刷驱动平台做出来，让初学者能从电机原理、三相逆变、过零检测、栅极驱动、电源树和 PCB 布局几个层面理解电调设计。</p>
+<h2 id="阅读导引"><a href="#阅读导引" class="headerlink" title="阅读导引"></a>阅读导引</h2><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>重点问题</th>
+<th>对应图示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BLDC 与电调</td>
+<td>为什么无刷电机需要电子换向</td>
+<td>图 1：BLDC 结构与星形连接</td>
+</tr>
+<tr>
+<td>无感过零检测</td>
+<td>MCU 如何在没有霍尔&#x2F;编码器时判断转子位置</td>
+<td>图 3：反电动势过零检测分压网络</td>
+</tr>
+<tr>
+<td>主控选择</td>
+<td>STC8051U 与三相桥、检测电路的信号关系</td>
+<td>图 2：主控引脚与电调信号连接</td>
+</tr>
+<tr>
+<td>三相逆变桥</td>
+<td>六个 MOS 如何把 DCBUS 切换到三相输出</td>
+<td>图 4：三相 MOS 逆变桥</td>
+</tr>
+<tr>
+<td>栅极驱动</td>
+<td>FD6288Q 如何驱动高低侧 MOS</td>
+<td>图 5：栅极驱动与自举网络</td>
+</tr>
+<tr>
+<td>电源树</td>
+<td>JW5026 如何生成栅极驱动电源 VGS</td>
+<td>图 6：栅极驱动供电</td>
+</tr>
+<tr>
+<td>基础保护</td>
+<td>输入浪涌和外部接口如何做最小保护</td>
+<td>图 7 &#x2F; 图 8：TVS 与接口保护</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>这篇文章按“电机对象 -&gt; 检测方法 -&gt; 主控信号 -&gt; 功率驱动 -&gt; 供电与保护”的顺序整理，便于后续继续补充波形、实测数据和调参过程。</p>
+</blockquote>
+<h2 id="快速规格"><a href="#快速规格" class="headerlink" title="快速规格"></a>快速规格</h2><ul>
+<li>项目定位：开源学习型无刷电机驱动平台。</li>
+<li>固件方案：逐飞开源 8051 电调固件。</li>
+<li>主控芯片：STC8051U。</li>
+<li>控制方式：无感六步换向，基于反电动势过零检测。</li>
+<li>输入电源：3-6S 动力电池。</li>
+<li>实测能力：稳定 30A+ 电流。</li>
+<li>烧录方式：需要 1.27mm 弹簧顶针接触烧录点。</li>
+<li>重要外接：上电前必须焊接 220uF 以上固态电容。</li>
+</ul>
+<h2 id="上电警告"><a href="#上电警告" class="headerlink" title="上电警告"></a>上电警告</h2><p>该工程没有在 PCB 上放置充足的板载母线电容。上电前务必在电源输入端焊接一个容量 220uF 以上的固态电容，否则电调极有可能上电损坏。</p>
+<p>建议首次上电按下面顺序做：</p>
+<ul>
+<li>先不接电机，限流电源低电流上电，确认 10V 和 3.3V 电源正常。</li>
+<li>确认 MCU 供电、烧录接口和驱动芯片供电没有异常发热。</li>
+<li>接入电机前检查三相输出是否短路，确认 MOS 焊接方向和栅极网络无误。</li>
+<li>首次带电机运行时使用小油门、短时间测试，并观察电流和温升。</li>
+</ul>
+<h2 id="BLDC-与电调"><a href="#BLDC-与电调" class="headerlink" title="BLDC 与电调"></a>BLDC 与电调</h2><p>直流无刷电机（Brushless Direct Current Motor，BLDC）通过电子换向替代传统有刷电机里的机械换向结构。BLDC 电机取消了电刷和换向器，将永磁体放在转子上、线圈绕组放在定子上。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/9n9Wh46wDV1vYZGWnqkYMsw9aSoEqskUdqRqYBx0.png'><img src="https://image.lceda.cn/pullimage/9n9Wh46wDV1vYZGWnqkYMsw9aSoEqskUdqRqYBx0.png" alt="img"></p>
+<p><em>图 1：BLDC 电机结构与星形（Y）连接示意。该图用于说明转子、定子绕组、位置检测与外部驱动电路之间的关系；本项目实际采用无感方案，因此不依赖独立位置传感器。</em></p>
+<p>电机本身不会主动旋转，真正让它连续转动的是电调：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">电池<br>  -&gt; 电调<br>  -&gt; 三相逆变桥<br>  -&gt; 电机绕组<br>  -&gt; 产生旋转磁场<br>  -&gt; 推动转子运动<br></code></pre></td></tr></table></figure>
+
+<p>在这个链路中：</p>
+<ul>
+<li>MCU 负责判断换向时机。</li>
+<li>栅极驱动芯片负责驱动 MOS。</li>
+<li>MOS 组成三相逆变桥，控制三相绕组的电流方向。</li>
+</ul>
+<p>所以电调本质上是一个由 MCU 控制的三相智能逆变器。</p>
+<h2 id="控制原理"><a href="#控制原理" class="headerlink" title="控制原理"></a>控制原理</h2><p>常见 BLDC 电机有 A、B、C 三相绕组。六步换向控制会在每个时刻让两相导通、一相悬空。例如某一步中：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">A 相：高电平驱动<br>B 相：低电平驱动<br>C 相：悬空检测<br></code></pre></td></tr></table></figure>
+
+<p>电调不断按 Step1 到 Step6 的顺序切换三相通电状态，形成连续旋转磁场，转子中的永磁体随磁场运动，从而实现旋转。</p>
+<p>换相时机是 BLDC 控制的关键：</p>
+<ul>
+<li>换相过早：转矩降低、电流增大、电机发热。</li>
+<li>换相过晚：效率降低、转速下降。</li>
+</ul>
+<p>因此电调必须知道转子当前大致位置。</p>
+<h2 id="无感过零检测"><a href="#无感过零检测" class="headerlink" title="无感过零检测"></a>无感过零检测</h2><p>有感 BLDC 可以通过霍尔传感器或编码器直接获得转子位置。本工程采用无感方案，不增加额外位置传感器，而是通过检测电机自身产生的反电动势（BEMF）判断转子位置。</p>
+<p>在六步换向中，悬空相不会参与驱动，但会因为转子旋转产生反电动势。电调通过比较悬空相电压和电机虚拟中性点电压，判断反电动势过零时刻。</p>
+<p class='item-img' data-src='/img/portfolio/stc8051u-zero-cross-detect.svg'><img src="/img/portfolio/stc8051u-zero-cross-detect.svg" alt="图 3：反电动势过零检测分压网络"></p>
+<p><em>图 3：EMFA &#x2F; EMFB &#x2F; EMFC 由三相端电压经分压网络得到，并与虚拟中性点 MID 进行比较。VS1 &#x2F; VS2 &#x2F; VS3 对应三相检测节点，供 MCU 判断悬空相反电动势过零时刻。</em></p>
+<p>整体流程如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">电机三相电压<br>  -&gt; 过零检测电路<br>  -&gt; MCU 判断转子位置<br>  -&gt; 计算下一次换相时间<br>  -&gt; 输出 PWM 控制信号<br>  -&gt; 驱动 MOS 三相逆变桥<br>  -&gt; 电机继续旋转<br></code></pre></td></tr></table></figure>
+
+<p>本工程采用电阻分压加 MCU 内部比较器完成过零检测。三相电压经过分压后输入比较器，以保证输入不超过 MCU 范围，同时保留足够的检测幅值。</p>
+<p>需要注意：换相检测分压电阻不是固定值。如果要适配更高或更低的供电范围，需要重新调整 R10-R12 分压参数，并重新验证比较器输入范围和抗干扰能力。</p>
+<h2 id="主控选择"><a href="#主控选择" class="headerlink" title="主控选择"></a>主控选择</h2><p>本工程采用 STC8051U 作为主控芯片。选择它主要是因为本项目的算法复杂度较低，使用的是：</p>
+<ul>
+<li>无感六步换向。</li>
+<li>反电动势过零检测。</li>
+<li>PWM 调速。</li>
+</ul>
+<p>8051U 相比 STM32G4 等电机控制 MCU 性能较低，但在基础无感六步电调中可以满足基本控制需求。它内部集成比较器资源，可以减少外部比较器需求，同时具备本设计所需的 PWM 资源，用于三相桥控制和换相切换。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/PUfKVUPjcNmq8ogzyxiLUn0IB1qO9UoK0LSJACo1.png'><img src="https://image.lceda.cn/pullimage/PUfKVUPjcNmq8ogzyxiLUn0IB1qO9UoK0LSJACo1.png" alt="img"></p>
+<p><em>图 2：STC8051U 主控连接关系。H1&#x2F;L1-H3&#x2F;L3 输出三相桥臂驱动信号，EMFA&#x2F;EMFB&#x2F;EMFC 与 MID&#x2F;COMPO 用于反电动势过零检测，SIG_IN 用作外部油门&#x2F;控制输入。</em></p>
+<p>这个方案更适合：</p>
+<ul>
+<li>PWM 输入。</li>
+<li>OneShot 协议。</li>
+<li>基础六步换向学习。</li>
+</ul>
+<p>不适合直接定位为：</p>
+<ul>
+<li>高性能 FOC 电调。</li>
+<li>高速数字协议电调，例如 DShot。</li>
+<li>大规模商业量产电调。</li>
+</ul>
+<h2 id="信号对应关系"><a href="#信号对应关系" class="headerlink" title="信号对应关系"></a>信号对应关系</h2><table>
+<thead>
+<tr>
+<th>信号</th>
+<th>方向</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H1 &#x2F; L1</td>
+<td>MCU -&gt; 栅极驱动</td>
+<td>A 相高、低侧桥臂控制信号。</td>
+</tr>
+<tr>
+<td>H2 &#x2F; L2</td>
+<td>MCU -&gt; 栅极驱动</td>
+<td>B 相高、低侧桥臂控制信号。</td>
+</tr>
+<tr>
+<td>H3 &#x2F; L3</td>
+<td>MCU -&gt; 栅极驱动</td>
+<td>C 相高、低侧桥臂控制信号。</td>
+</tr>
+<tr>
+<td>EMFA &#x2F; EMFB &#x2F; EMFC</td>
+<td>电机相线 -&gt; MCU</td>
+<td>三相反电动势采样输入，用于无感换相判断。</td>
+</tr>
+<tr>
+<td>MID</td>
+<td>检测网络 -&gt; MCU</td>
+<td>三相虚拟中性点参考电压。</td>
+</tr>
+<tr>
+<td>COMPO</td>
+<td>MCU 内部比较器输出</td>
+<td>过零比较结果，用于换相定时。</td>
+</tr>
+<tr>
+<td>SIG_IN</td>
+<td>外部控制器 -&gt; MCU</td>
+<td>油门&#x2F;控制输入信号。</td>
+</tr>
+<tr>
+<td>BATADC</td>
+<td>电池母线 -&gt; MCU ADC</td>
+<td>电池电压采样，用于供电状态判断。</td>
+</tr>
+<tr>
+<td>RUN &#x2F; ERR</td>
+<td>MCU -&gt; 指示电路</td>
+<td>运行状态与错误状态指示。</td>
+</tr>
+<tr>
+<td>RXD &#x2F; TXD</td>
+<td>外部接口 &lt;-&gt; MCU</td>
+<td>烧录、调试或串口通信接口。</td>
+</tr>
+</tbody></table>
+<h2 id="三相逆变桥"><a href="#三相逆变桥" class="headerlink" title="三相逆变桥"></a>三相逆变桥</h2><p>电池输出的是直流电，而 BLDC 电机需要不断变化方向的三相电流，因此电调需要完成 DC-AC 逆变。三相逆变桥由三个半桥组成，每个半桥包含一个高侧 MOS 和一个低侧 MOS：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">VBAT<br> |<br>QH<br> |<br>+---- 电机相线<br> |<br>QL<br> |<br>GND<br></code></pre></td></tr></table></figure>
+
+<p>三个半桥组合后形成 A、B、C 三相输出。六步换向本质上就是控制六个 MOS 按正确顺序导通，同时避免上下桥臂直通。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/WZJt6GTBNCRlOzu72AIlhoWMsaq5tgGnRMhrR2Jl.png'><img src="https://image.lceda.cn/pullimage/WZJt6GTBNCRlOzu72AIlhoWMsaq5tgGnRMhrR2Jl.png" alt="img"></p>
+<p><em>图 4：三相逆变器由 Q1-Q6 六个 TPH1R403NL 组成。Q1&#x2F;Q3&#x2F;Q5 为高侧 MOS，Q2&#x2F;Q4&#x2F;Q6 为低侧 MOS，VS1&#x2F;VS2&#x2F;VS3 是三相输出节点，GH&#x2F;GL 信号由栅极驱动芯片输出。低侧栅极下拉电阻用于帮助关断并降低误导通风险。</em></p>
+<h2 id="栅极驱动"><a href="#栅极驱动" class="headerlink" title="栅极驱动"></a>栅极驱动</h2><p>MCU 无法直接驱动功率 MOS，原因是 MCU 输出电压和电流能力有限，而 MOS 栅极需要快速充放电。如果直接接 MOS，容易导致：</p>
+<ul>
+<li>MOS 开启速度慢。</li>
+<li>开关损耗增大。</li>
+<li>MOS 发热严重。</li>
+</ul>
+<p>因此需要栅极驱动器：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">MCU<br>  -&gt; PWM 信号<br>  -&gt; 栅极驱动器<br>  -&gt; MOS<br>  -&gt; 电机<br></code></pre></td></tr></table></figure>
+
+<p>本工程采用 FD6288Q 三相栅极驱动芯片。该芯片集成三相高低侧驱动、自举驱动结构和死区控制，相比多个独立驱动芯片外围更简单、PCB 面积更小、成本更低，适合作为入门级 BLDC 驱动方案。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/FzPis9PZIZNqg1P02saJS16wE9RPlWnx5cHENmlz.png'><img src="https://image.lceda.cn/pullimage/FzPis9PZIZNqg1P02saJS16wE9RPlWnx5cHENmlz.png" alt="img"></p>
+<p><em>图 5：FD6288Q 左侧接收 MCU 输出的 H1&#x2F;H2&#x2F;H3 与 L1&#x2F;L2&#x2F;L3 控制信号，右侧输出 HO&#x2F;LO 到三相 MOS 栅极。VB1&#x2F;VB2&#x2F;VB3 与 VS1&#x2F;VS2&#x2F;VS3 通过二极管和 1uF 自举电容形成高侧驱动所需的浮动电源。</em></p>
+<p>高侧 MOS 的源极电压会跟随电机相线变化，普通 MCU 无法直接提供足够高的高侧栅极驱动电压，因此需要自举电路。自举电路通过二极管和自举电容储存电荷，在高侧 MOS 需要开启时抬高栅极电压。</p>
+<p>驱动芯片还需要处理死区时间，避免高侧 MOS 尚未关闭时低侧 MOS 已经打开，从而造成 VBAT 到 GND 的瞬间短路。</p>
+<h2 id="MOS-选型"><a href="#MOS-选型" class="headerlink" title="MOS 选型"></a>MOS 选型</h2><p>本工程使用 TPH1R403NL。MOS 选型不能只看最大电流，还需要关注：</p>
+<ul>
+<li>VDS 耐压。</li>
+<li>RDS(on) 导通电阻。</li>
+<li>Qg 栅极电荷。</li>
+<li>封装散热能力。</li>
+</ul>
+<p>6S 电池满电电压为 25.2V。实际产品设计通常建议 MOS 耐压留出足够裕量，例如选择 40V 以上器件。本项目定位为学习和竞赛使用，采用 30V MOS 做成本优化，但这也意味着抗浪涌和安全裕量更依赖布局、保护和使用条件。</p>
+<p>MOS 导通损耗可按下面方向理解：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">P = I^2 * RDS(on)<br></code></pre></td></tr></table></figure>
+
+<p>电流越大，低导通电阻越重要；Qg 越大，驱动难度越高，开关损耗也会受到影响。</p>
+<p>下管栅极的 GS 下拉&#x2F;泄放电阻用于帮助栅极寄生电容快速放电，加快关断速度。对电调来说，下管在制动和换向策略中经常承担更高负载，关断速度和直通风险都需要重点关注。</p>
+<h2 id="电源树"><a href="#电源树" class="headerlink" title="电源树"></a>电源树</h2><p>本工程电源结构如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs text">电池输入 3-6S<br>  -&gt; 输入保护<br>  -&gt; JW5026 降压<br>  -&gt; 10V<br>      -&gt; FD6288Q 栅极驱动<br>      -&gt; SPX3819 LDO<br>          -&gt; 3.3V<br>              -&gt; MCU / 比较器 / 检测电路<br></code></pre></td></tr></table></figure>
+
+<p>10V 用于栅极驱动芯片，3.3V 用于 MCU 和检测电路。驱动芯片不建议直接接动力电池，原因包括：</p>
+<ul>
+<li>6S 满电可能达到 25.2V，可能超过部分驱动芯片安全供电范围。</li>
+<li>动力电池在启动、急加速和大负载时母线电压波动明显。</li>
+<li>MOS 栅极最大耐压通常有限，驱动电压需要严格控制。</li>
+</ul>
+<p>对本工程使用的 TPH1R403NL 来说，10V 栅极驱动可以让 MOS 较充分导通，同时避免驱动电压过高。</p>
+<p>JW5026 用于将电池电压降到 10V，SPX3819 LDO 进一步生成 3.3V。LDO 电路简单、噪声较低，适合给 MCU、比较器和小信号检测电路供电。</p>
+<p class='item-img' data-src='https://image.lceda.cn/pullimage/4OjV6G9GjB5rQmGYYYJUxO3vRP72I0gzhflpKWV4.png'><img src="https://image.lceda.cn/pullimage/4OjV6G9GjB5rQmGYYYJUxO3vRP72I0gzhflpKWV4.png" alt="img"></p>
+<p><em>图 6：DCBUS 通过 JW5026 降压生成 VGS。VGS 作为 FD6288Q 的栅极驱动供电，配合输入电容、10uH 电感、反馈分压和输出电容维持驱动电压稳定，避免直接把驱动芯片挂在动力电池母线上。</em></p>
+<h2 id="基础保护"><a href="#基础保护" class="headerlink" title="基础保护"></a>基础保护</h2><p>BLDC 电调工作时会遇到电池插拔浪涌、MOS 高频开关尖峰和外部接口干扰。本工程定位为学习型 BLDC 电调，因此只加入基础保护。</p>
+<p>当前重点保护思路包括：</p>
+<ul>
+<li>电源输入端加入 TVS，用于吸收插拔和开关瞬态高压。</li>
+<li>外部控制信号做限流和抗振铃处理，提高输入稳定性。</li>
+<li>输入接口避免悬空，减少 MCU 误触发。</li>
+<li>避免外部电源倒灌到内部 3.3V 供电。</li>
+</ul>
+<h3 id="输入电源保护"><a href="#输入电源保护" class="headerlink" title="输入电源保护"></a>输入电源保护</h3><p class='item-img' data-src='https://image.lceda.cn/pullimage/0NXxFeAFNDKQQSXHYmTYM8khROmvEgisHPHJMRLh.png'><img src="https://image.lceda.cn/pullimage/0NXxFeAFNDKQQSXHYmTYM8khROmvEgisHPHJMRLh.png" alt="img"></p>
+<p><em>图 7：SMBJ26CA 跨接在 DCBUS 与 GND 之间。正常工作时 TVS 截止；当电池插拔、线束电感或 MOS 开关引起瞬态尖峰时，TVS 快速导通并把尖峰钳位到地，降低后级器件损坏风险。</em></p>
+<h3 id="信号接口保护"><a href="#信号接口保护" class="headerlink" title="信号接口保护"></a>信号接口保护</h3><p class='item-img' data-src='https://image.lceda.cn/pullimage/0BWrVpqoU6anmaLrU71WI2smIm6u7wZ64uT3bSYy.png'><img src="https://image.lceda.cn/pullimage/0BWrVpqoU6anmaLrU71WI2smIm6u7wZ64uT3bSYy.png" alt="img"></p>
+<p><em>图 8：外部三线接口包含 GND、VCC 与 SIG_IN。SIG_IN 串联 100Ω 电阻用于限流和抑制振铃，10kΩ 下拉保证输入不悬空，B5819WS 用于降低外部电源倒灌到板内供电网络的风险。</em></p>
+<p>如果用于更高功率或产品化场景，还需要进一步增加：</p>
+<ul>
+<li>过流保护。</li>
+<li>过温保护。</li>
+<li>防反接保护。</li>
+<li>预充电电路。</li>
+<li>更完整的母线电容和浪涌设计。</li>
+</ul>
+<h2 id="PCB-布局要点"><a href="#PCB-布局要点" class="headerlink" title="PCB 布局要点"></a>PCB 布局要点</h2><p>电调 PCB 同时存在大电流功率回路、高频 PWM 开关信号和弱电检测信号，布局会直接影响 MOS 发热、电源稳定性、过零检测可靠性和电机运行稳定性。</p>
+<p>功率回路需要满足：</p>
+<ul>
+<li>路径短。</li>
+<li>走线粗。</li>
+<li>回路面积小。</li>
+<li>电源和 GND 回流路径完整。</li>
+</ul>
+<p>MOS 是主要发热器件，布局时应尽量靠近电机接口，增大散热铜面积，并通过过孔把热量导到背面铜皮。必要时可以增加散热片或提高 PCB 铜厚。</p>
+<p>DC&#x2F;DC 区域是主要干扰源之一，输入电容、开关节点、电感和输出电容之间的回路应尽可能短。反馈引脚 FB 属于弱信号，应远离 SW 节点和大电流线路。</p>
+<p>过零检测属于弱信号部分，建议把检测电阻靠近 MCU，远离 MOS 高速开关区域，检测走线尽量短。</p>
+<p>一个合理的电调布局通常分成三个区域：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">功率区域：MOS / 电池输入 / 电机接口<br>驱动区域：FD6288Q / Bootstrap<br>控制区域：MCU / 检测电路 / 通信接口<br></code></pre></td></tr></table></figure>
+
+<p>对于普通两层 PCB，大电流路径优先使用顶层和底层大面积铺铜，底层辅助回流，信号线尽量避开功率区。</p>
+<h2 id="项目价值"><a href="#项目价值" class="headerlink" title="项目价值"></a>项目价值</h2><p>无刷电机驱动融合了电机原理、电力电子、嵌入式控制、PCB 设计、信号处理和硬件可靠性设计。本项目希望提供一个结构完整、成本较低、方便学习的 BLDC 驱动案例。</p>
+<p>通过这个项目，学习者不只是得到一个“能跑的电调”，更重要的是理解：</p>
+<ul>
+<li>为什么需要三相逆变桥。</li>
+<li>为什么需要栅极驱动。</li>
+<li>为什么需要过零检测。</li>
+<li>为什么 PCB 布局会影响电机运行。</li>
+</ul>
+<h2 id="后续可优化方向"><a href="#后续可优化方向" class="headerlink" title="后续可优化方向"></a>后续可优化方向</h2><ul>
+<li>优化驱动逻辑，减少对母线电容的硬需求。</li>
+<li>优化 EMC 和可靠性设计。</li>
+<li>尝试对于dshot等数字协议进行支持，优化抗干扰性。</li>
+<li>设计上位机，允许针对上位机进行参数调节。</li>
+</ul>
+<h2 id="原理图及LAYOUT"><a href="#原理图及LAYOUT" class="headerlink" title="原理图及LAYOUT"></a>原理图及LAYOUT</h2><p class='item-img' data-src='https://image-pro.lceda.cn/projects/thumbs/72889ea38be04cc1a30e56a1b6bfca9b.webp'><img src="https://image-pro.lceda.cn/projects/thumbs/72889ea38be04cc1a30e56a1b6bfca9b.webp" alt="img"></p>
+<p class='item-img' data-src='https://image-pro.lceda.cn/projects/thumbs/0613f4ca661d49c2987df628133a5577.webp'><img src="https://image-pro.lceda.cn/projects/thumbs/0613f4ca661d49c2987df628133a5577.webp" alt="img"></p>
+<h2 id="原始工程"><a href="#原始工程" class="headerlink" title="原始工程"></a>原始工程</h2><ul>
+<li>OSHWHub：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/project_tmgekiuu">https://oshwhub.com/pessenger/project_tmgekiuu</a></li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/projects/smartcar-integrated-board/">← Next 21 届智能车疯狂电路组全集成开发板</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/projects/ai8051u-4in1-esc/">基于 AI8051U 的四合一电调 Prev →</a></div></div></div><details id="reward" open><summary>reward</summary><div><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/WeChat.png"></div></details></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">PassengerDong</a></h1><div id="description"><p>PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">项目简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E5%AF%BC%E5%BC%95"><span class="toc-number">2.</span> <span class="toc-text">阅读导引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%A7%84%E6%A0%BC"><span class="toc-number">3.</span> <span class="toc-text">快速规格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E7%94%B5%E8%AD%A6%E5%91%8A"><span class="toc-number">4.</span> <span class="toc-text">上电警告</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BLDC-%E4%B8%8E%E7%94%B5%E8%B0%83"><span class="toc-number">5.</span> <span class="toc-text">BLDC 与电调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%8E%9F%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text">控制原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E6%84%9F%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B"><span class="toc-number">7.</span> <span class="toc-text">无感过零检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%8E%A7%E9%80%89%E6%8B%A9"><span class="toc-number">8.</span> <span class="toc-text">主控选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-number">9.</span> <span class="toc-text">信号对应关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E7%9B%B8%E9%80%86%E5%8F%98%E6%A1%A5"><span class="toc-number">10.</span> <span class="toc-text">三相逆变桥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%85%E6%9E%81%E9%A9%B1%E5%8A%A8"><span class="toc-number">11.</span> <span class="toc-text">栅极驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MOS-%E9%80%89%E5%9E%8B"><span class="toc-number">12.</span> <span class="toc-text">MOS 选型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%BA%90%E6%A0%91"><span class="toc-number">13.</span> <span class="toc-text">电源树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E4%BF%9D%E6%8A%A4"><span class="toc-number">14.</span> <span class="toc-text">基础保护</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E7%94%B5%E6%BA%90%E4%BF%9D%E6%8A%A4"><span class="toc-number">14.1.</span> <span class="toc-text">输入电源保护</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%8E%A5%E5%8F%A3%E4%BF%9D%E6%8A%A4"><span class="toc-number">14.2.</span> <span class="toc-text">信号接口保护</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCB-%E5%B8%83%E5%B1%80%E8%A6%81%E7%82%B9"><span class="toc-number">15.</span> <span class="toc-text">PCB 布局要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%B7%E5%80%BC"><span class="toc-number">16.</span> <span class="toc-text">项目价值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E5%8F%AF%E4%BC%98%E5%8C%96%E6%96%B9%E5%90%91"><span class="toc-number">17.</span> <span class="toc-text">后续可优化方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E5%9B%BE%E5%8F%8ALAYOUT"><span class="toc-number">18.</span> <span class="toc-text">原理图及LAYOUT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%B7%A5%E7%A8%8B"><span class="toc-number">19.</span> <span class="toc-text">原始工程</span></a></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>

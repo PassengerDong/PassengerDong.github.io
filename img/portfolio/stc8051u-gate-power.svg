@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 700" role="img" aria-labelledby="title desc">
+  <title id="title">JW5026 gate driver power supply</title>
+  <desc id="desc">A simplified JW5026 buck converter generating VGS gate driver supply from DCBUS.</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1f2937" flood-opacity="0.14"/></filter>
+    <style>
+      .bg{fill:#f8fafc}.paper{fill:#fff}.chip{fill:#fff;stroke:#c00000;stroke-width:3}.wire{stroke:#15803d;stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}.label{font-family:Arial,'Microsoft YaHei',sans-serif;fill:#111827}.blue{fill:#1d4ed8}.red{fill:#dc2626}.small{font-size:19px}.mid{font-size:26px}.big{font-size:34px;font-weight:700}.muted{fill:#475569}.node{fill:#c00000}.res{fill:#fff;stroke:#c00000;stroke-width:3}.cap{fill:none;stroke:#c00000;stroke-width:3}.gnd{stroke:#111827;stroke-width:3;fill:none}.ind{fill:none;stroke:#c00000;stroke-width:3}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="700" rx="28"/>
+  <rect x="34" y="34" width="1012" height="632" rx="24" class="paper" filter="url(#shadow)"/>
+  <text x="540" y="78" text-anchor="middle" class="label big">栅极驱动 10V 供电</text>
+  <text x="540" y="112" text-anchor="middle" class="label mid muted">DCBUS 经过 JW5026 降压生成 VGS，为 FD6288Q 与 MOS 栅极驱动供电</text>
+
+  <g transform="translate(250 165)">
+    <text x="-126" y="126" class="label mid blue" transform="rotate(-90 -126 126)">DCBUS</text>
+    <rect x="-98" y="0" width="45" height="108" class="res"/><text x="-132" y="48" class="label mid blue">R17</text><text x="-134" y="78" class="label small blue">100k</text>
+    <line x1="-75" y1="108" x2="-75" y2="176" class="cap"/><line x1="-32" y1="108" x2="-32" y2="176" class="cap"/><text x="0" y="145" class="label mid blue">C64</text><text x="0" y="178" class="label mid blue">4.7uF</text>
+    <line x1="-75" y1="0" x2="-75" y2="-50" class="wire"/><line x1="-75" y1="-50" x2="170" y2="-50" class="wire"/><line x1="170" y1="-50" x2="170" y2="22" class="wire"/>
+    <line x1="-75" y1="108" x2="170" y2="108" class="wire"/><circle cx="-75" cy="108" r="7" class="node"/><text x="-155" y="116" class="label mid blue">DCBUS</text>
+    <line x1="-75" y1="176" x2="-75" y2="224" class="wire"/><g transform="translate(-75 224)"><line x1="0" y1="0" x2="0" y2="28" class="gnd"/><line x1="-32" y1="28" x2="32" y2="28" class="gnd"/><line x1="-20" y1="42" x2="20" y2="42" class="gnd"/><line x1="-8" y1="56" x2="8" y2="56" class="gnd"/></g>
+
+    <rect x="170" y="22" width="280" height="178" class="chip"/>
+    <text x="310" y="-15" text-anchor="middle" class="label big blue">U20</text><text x="310" y="232" text-anchor="middle" class="label mid blue">JW5026</text>
+    <g class="label mid"><text x="190" y="62">EN</text><text x="190" y="106">VIN</text><text x="190" y="150">SW</text><text x="424" y="62" text-anchor="end">FB</text><text x="424" y="106" text-anchor="end">GND</text><text x="424" y="150" text-anchor="end">BST</text></g>
+    <line x1="450" y1="62" x2="662" y2="62" class="wire"/><circle cx="594" cy="62" r="8" class="node"/>
+    <line x1="450" y1="106" x2="545" y2="106" class="wire"/><line x1="545" y1="106" x2="545" y2="224" class="wire"/>
+    <line x1="450" y1="150" x2="520" y2="150" class="wire"/><line x1="520" y1="150" x2="520" y2="280" class="wire"/>
+
+    <line x1="450" y1="150" x2="450" y2="260" class="wire"/><line x1="450" y1="260" x2="310" y2="260" class="wire"/><line x1="310" y1="260" x2="310" y2="318" class="wire"/>
+    <line x1="295" y1="258" x2="295" y2="300" class="cap"/><line x1="325" y1="258" x2="325" y2="300" class="cap"/><text x="270" y="282" text-anchor="end" class="label mid blue">C65</text><text x="270" y="315" text-anchor="end" class="label small blue">100nF</text>
+    <path d="M310 318 c18 -22 36 -22 54 0 s36 22 54 0 s36 -22 54 0" class="ind"/><text x="390" y="350" text-anchor="middle" class="label mid blue">L1 10uH</text>
+    <line x1="472" y1="318" x2="662" y2="318" class="wire"/><circle cx="472" cy="318" r="8" class="node"/><circle cx="594" cy="318" r="8" class="node"/>
+    <text x="680" y="326" class="label mid blue">VGS</text>
+
+    <rect x="650" y="100" width="44" height="116" class="res"/><text x="710" y="140" class="label mid blue">R19</text><text x="710" y="172" class="label mid blue">10k</text><line x1="672" y1="62" x2="672" y2="100" class="wire"/><line x1="672" y1="216" x2="672" y2="250" class="wire"/><g transform="translate(672 250)"><line x1="0" y1="0" x2="0" y2="24" class="gnd"/><line x1="-28" y1="24" x2="28" y2="24" class="gnd"/><line x1="-17" y1="37" x2="17" y2="37" class="gnd"/><line x1="-7" y1="50" x2="7" y2="50" class="gnd"/></g>
+    <rect x="545" y="310" width="44" height="130" class="res"/><text x="610" y="366" class="label mid blue">R71</text><text x="610" y="398" class="label mid blue">140k</text><line x1="567" y1="62" x2="567" y2="310" class="wire"/><line x1="567" y1="440" x2="567" y2="318" class="wire"/>
+    <g transform="translate(486 332)">
+      <line x1="0" y1="0" x2="0" y2="78" class="cap"/><line x1="24" y1="0" x2="24" y2="78" class="cap"/><text x="12" y="108" text-anchor="middle" class="label small blue">C11 10uF</text>
+      <line x1="68" y1="0" x2="68" y2="78" class="cap"/><line x1="92" y1="0" x2="92" y2="78" class="cap"/><text x="80" y="108" text-anchor="middle" class="label small blue">C66 10uF</text>
+      <line x1="136" y1="0" x2="136" y2="78" class="cap"/><line x1="160" y1="0" x2="160" y2="78" class="cap"/><text x="148" y="108" text-anchor="middle" class="label small blue">C10 10uF</text>
+      <line x1="0" y1="78" x2="160" y2="78" class="wire"/><g transform="translate(80 78)"><line x1="0" y1="0" x2="0" y2="32" class="gnd"/><line x1="-34" y1="32" x2="34" y2="32" class="gnd"/><line x1="-21" y1="46" x2="21" y2="46" class="gnd"/><line x1="-9" y1="60" x2="9" y2="60" class="gnd"/></g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>基于 DRV8701 的双路有刷电机驱动 | PassengerDong Portfolio</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: 'confirm'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="PassengerDong Portfolio" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>基于 DRV8701 的双路有刷电机驱动</h1></div><hr><div id="post-content"><blockquote>
+<p>迁移来源：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/ji-yu-drv8701-de-dian-ji-qu-dong">OSHWHub 开源工程</a><br>本项目是一个基于 DRV8701 的小体积双路有刷电机驱动板，面向智能车、电赛和空间受限的中大电流驱动场景。</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>现有开源有刷电机驱动方案里，常见问题是电流余量偏小，或者为了提高电流能力牺牲了板子体积。本项目围绕 DRV8701 设计双路有刷电机驱动，希望在较小 PCB 尺寸下提供更高的电流输出能力。</p>
+<span id="more"></span>
+
+<p>该驱动板可以覆盖智能车和电赛的大部分使用场景。实测在 12V &#x2F; 10A 条件下运行正常且发热很小；补充测试中，16V &#x2F; 20A 也可以正常运行，仅有轻微发热。板子采用单面元件布局，尺寸按小型驱动板语境整理为 49.5mm x 20.5mm。</p>
+<p class='item-img' data-src='https://image.lceda.cn/oshwhub/pullImage/5f5015b26b22451ea4cc08387a4ea1a2.jpg'><img src="https://image.lceda.cn/oshwhub/pullImage/5f5015b26b22451ea4cc08387a4ea1a2.jpg" alt="基于DRV8701的电机驱动"></p>
+<p><em>图 1：DRV8701 双路有刷驱动实物图。板卡采用单面元件布局，便于焊接、检查和返修；核心目标是在智能车、电赛等空间有限的场景中，同时兼顾电流能力、散热表现和可复刻性。</em></p>
+<h2 id="快速规格"><a href="#快速规格" class="headerlink" title="快速规格"></a>快速规格</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>驱动芯片</td>
+<td>DRV8701</td>
+</tr>
+<tr>
+<td>驱动类型</td>
+<td>双路有刷电机驱动</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>智能车、电赛、小型移动平台、教学调试</td>
+</tr>
+<tr>
+<td>实测 1</td>
+<td>12V &#x2F; 10A 运行正常，发热很小</td>
+</tr>
+<tr>
+<td>实测 2</td>
+<td>16V &#x2F; 20A 运行正常，仅轻微发热</td>
+</tr>
+<tr>
+<td>PCB 尺寸</td>
+<td>49.5mm x 20.5mm</td>
+</tr>
+<tr>
+<td>元件布局</td>
+<td>单面元件布局，便于焊接、检查和返修</td>
+</tr>
+</tbody></table>
+<h2 id="设计背景"><a href="#设计背景" class="headerlink" title="设计背景"></a>设计背景</h2><p>有刷电机驱动在智能车、电赛和小型机器人里仍然很常见，原因是控制简单、响应直接、调试成本低。但这类应用经常同时提出两个要求：</p>
+<ul>
+<li>体积要小，便于塞进车模或紧凑结构里。</li>
+<li>电流要足，能够承受启动、堵转、急加速等高负载瞬间。</li>
+</ul>
+<p>很多入门级开源驱动板更偏向低电流验证，适合跑小电机，但在比赛或较大负载下容易发热明显；而电流能力更强的方案往往板子更大，安装和走线都不够灵活。因此本项目的核心目标是把双路驱动能力压缩到更小面积内，并通过布局和器件选择降低温升。</p>
+<h2 id="硬件架构"><a href="#硬件架构" class="headerlink" title="硬件架构"></a>硬件架构</h2><p>本项目以 DRV8701 为有刷驱动核心，外围配合功率级、供电、接口和保护电路，形成双路有刷电机驱动板。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">控制信号<br>  -&gt; DRV8701 驱动控制<br>  -&gt; 功率 MOS / H 桥输出<br>  -&gt; 有刷电机<br><br>动力输入<br>  -&gt; 输入保护与滤波<br>  -&gt; 驱动功率级<br>  -&gt; 双路电机输出<br></code></pre></td></tr></table></figure>
+
+<p>双路设计的意义在于可以在同一块板上同时驱动两个有刷电机，适合差速车、智能车底盘、执行机构或需要左右轮独立控制的系统。单面元件布局也让焊接、测量、返修和课堂复刻更直接。</p>
+<h2 id="关键设计点"><a href="#关键设计点" class="headerlink" title="关键设计点"></a>关键设计点</h2><h3 id="小体积与电流能力"><a href="#小体积与电流能力" class="headerlink" title="小体积与电流能力"></a>小体积与电流能力</h3><p>49.5mm x 20.5mm 的板型让它可以安装在空间较紧的车模或电赛结构里。较大电流能力并不是只靠单个器件参数决定，还需要同时处理功率走线、铜皮面积、热路径和输入电容配置。</p>
+<p>本项目的设计重点包括：</p>
+<ul>
+<li>缩短高电流回路，降低走线压降和寄生电感。</li>
+<li>增加功率路径铜皮面积，提高散热能力。</li>
+<li>将发热器件集中在便于导热和检查的位置。</li>
+<li>保持控制信号与功率开关节点的距离，降低干扰。</li>
+</ul>
+<h3 id="双路驱动"><a href="#双路驱动" class="headerlink" title="双路驱动"></a>双路驱动</h3><p>双路有刷驱动适合需要两个独立电机通道的场景。与单路驱动相比，双路设计需要更注意通道之间的热耦合、电源回流和瞬态电流叠加问题。</p>
+<p>实际使用时建议根据负载情况确认：</p>
+<ul>
+<li>两路电机是否会同时启动或堵转。</li>
+<li>母线电源是否有足够电流余量。</li>
+<li>输入端电容是否能抑制电机启动带来的电压跌落。</li>
+<li>PCB 安装位置是否有基本通风或散热空间。</li>
+</ul>
+<h3 id="单面元件布局"><a href="#单面元件布局" class="headerlink" title="单面元件布局"></a>单面元件布局</h3><p>单面元件布局的优势是装配和调试更方便。对开源硬件来说，这一点很重要：使用者可以更容易地检查焊点、定位故障、替换器件，也便于在课堂或比赛调试现场快速维修。</p>
+<p>代价是布局空间更紧张，需要在尺寸、走线宽度、散热铜皮和接口位置之间做取舍。本项目的价值就在于把这些约束压缩在一个较小板型里，同时保留较好的电流能力。</p>
+<h2 id="验证记录"><a href="#验证记录" class="headerlink" title="验证记录"></a>验证记录</h2><table>
+<thead>
+<tr>
+<th>测试条件</th>
+<th>结果</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12V &#x2F; 10A</td>
+<td>运行正常</td>
+<td>发热很小</td>
+</tr>
+<tr>
+<td>16V &#x2F; 20A</td>
+<td>运行正常</td>
+<td>仅轻微发热</td>
+</tr>
+</tbody></table>
+<p>目前记录能够证明该板在智能车和电赛常见功率段内具备较好的可用性。后续如果补充测试条件，可以继续把负载类型、测试时长、环境温度、MOS 温升和电机波形整理成更完整的验证表。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
+<li>智能车底盘电机驱动。</li>
+<li>电赛小型执行机构或移动平台。</li>
+<li>需要较大电流但空间有限的有刷电机项目。</li>
+<li>有刷电机驱动原理、功率布局和热设计教学。</li>
+</ul>
+<h2 id="原理图以及LAYOUT"><a href="#原理图以及LAYOUT" class="headerlink" title="原理图以及LAYOUT"></a>原理图以及LAYOUT</h2><p class='item-img' data-src='https://image-pro.lceda.cn/pullimages/9a84f15ea2d2472e9d96b1ae2146b3f9.webp'><img src="https://image-pro.lceda.cn/pullimages/9a84f15ea2d2472e9d96b1ae2146b3f9.webp" alt="img"></p>
+<p class='item-img' data-src='https://image-pro.lceda.cn/pullimages/13ed564120194194a030b802d7117f34.webp'><img src="https://image-pro.lceda.cn/pullimages/13ed564120194194a030b802d7117f34.webp" alt="img"></p>
+<h2 id="原始工程"><a href="#原始工程" class="headerlink" title="原始工程"></a>原始工程</h2><ul>
+<li>OSHWHub：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/ji-yu-drv8701-de-dian-ji-qu-dong">https://oshwhub.com/pessenger/ji-yu-drv8701-de-dian-ji-qu-dong</a></li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/projects/cyt4bb7-flight-controller/">← Next CYT4BB7 开源飞控</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2023/10/28/%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">使用hexo搭建个人博客 Prev →</a></div></div></div><details id="reward" open><summary>reward</summary><div><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/WeChat.png"></div></details></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">PassengerDong</a></h1><div id="description"><p>PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">项目简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%A7%84%E6%A0%BC"><span class="toc-number">2.</span> <span class="toc-text">快速规格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%83%8C%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">设计背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%9E%B6%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">硬件架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AE%BE%E8%AE%A1%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">关键设计点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E4%BD%93%E7%A7%AF%E4%B8%8E%E7%94%B5%E6%B5%81%E8%83%BD%E5%8A%9B"><span class="toc-number">5.1.</span> <span class="toc-text">小体积与电流能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E8%B7%AF%E9%A9%B1%E5%8A%A8"><span class="toc-number">5.2.</span> <span class="toc-text">双路驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E9%9D%A2%E5%85%83%E4%BB%B6%E5%B8%83%E5%B1%80"><span class="toc-number">5.3.</span> <span class="toc-text">单面元件布局</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E8%AE%B0%E5%BD%95"><span class="toc-number">6.</span> <span class="toc-text">验证记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">7.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E5%9B%BE%E4%BB%A5%E5%8F%8ALAYOUT"><span class="toc-number">8.</span> <span class="toc-text">原理图以及LAYOUT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%B7%A5%E7%A8%8B"><span class="toc-number">9.</span> <span class="toc-text">原始工程</span></a></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 680" role="img" aria-labelledby="title desc">
+  <title id="title">DRV8701 dual brushed motor driver portfolio graphic</title>
+  <desc id="desc">A compact portfolio graphic for a small dual-channel brushed motor driver using DRV8701, showing two motor channels, measured current capability and board dimensions.</desc>
+  <defs>
+    <linearGradient id="board" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#143d4a"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="copper" x1="0" x2="1">
+      <stop offset="0" stop-color="#d97706"/>
+      <stop offset="1" stop-color="#fbbf24"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+    <style>
+      .bg{fill:#f8fafc}.panel{fill:#fff;stroke:#d7dee8;stroke-width:2}.board{fill:url(#board)}.trace{fill:none;stroke:#facc15;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke:#a7f3d0;stroke-width:3;stroke-linecap:round}.chip{fill:#111827;stroke:#334155;stroke-width:2}.mos{fill:#1f2937;stroke:#475569;stroke-width:2}.pad{fill:url(#copper);stroke:#92400e;stroke-width:2}.via{fill:#eab308}.label{font-family:Arial,'Microsoft YaHei',sans-serif;fill:#111827}.white{fill:#f8fafc}.muted{fill:#475569}.green{fill:#0f766e}.big{font-size:40px;font-weight:700}.mid{font-size:25px}.small{font-size:18px}.badge{fill:#ecfeff;stroke:#67e8f9;stroke-width:2}.motor{fill:#e5e7eb;stroke:#94a3b8;stroke-width:3}.shaft{stroke:#64748b;stroke-width:8;stroke-linecap:round}.coil{fill:none;stroke:#dc2626;stroke-width:4}.dim{fill:none;stroke:#334155;stroke-width:3;marker-start:url(#arrow);marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#334155"/></marker>
+  </defs>
+  <rect class="bg" width="1180" height="680" rx="28"/>
+  <rect x="36" y="34" width="1108" height="612" rx="26" class="panel" filter="url(#shadow)"/>
+  <text x="78" y="92" class="label big">DRV8701 双路有刷电机驱动</text>
+  <text x="80" y="130" class="label mid muted">小体积、高电流余量、面向智能车与电赛场景</text>
+  <g transform="translate(80 174)">
+    <rect x="0" y="0" width="610" height="330" rx="28" class="board"/>
+    <rect x="28" y="38" width="116" height="72" rx="9" class="chip"/>
+    <text x="86" y="80" text-anchor="middle" class="label small white">DRV8701</text>
+    <rect x="28" y="220" width="116" height="72" rx="9" class="chip"/>
+    <text x="86" y="262" text-anchor="middle" class="label small white">DRV8701</text>
+    <g transform="translate(220 42)">
+      <rect x="0" y="0" width="72" height="48" rx="6" class="mos"/><rect x="104" y="0" width="72" height="48" rx="6" class="mos"/>
+      <rect x="0" y="126" width="72" height="48" rx="6" class="mos"/><rect x="104" y="126" width="72" height="48" rx="6" class="mos"/>
+      <text x="88" y="94" text-anchor="middle" class="label small white">CH1 H Bridge</text>
+    </g>
+    <g transform="translate(220 200)">
+      <rect x="0" y="0" width="72" height="48" rx="6" class="mos"/><rect x="104" y="0" width="72" height="48" rx="6" class="mos"/>
+      <rect x="0" y="76" width="72" height="48" rx="6" class="mos"/><rect x="104" y="76" width="72" height="48" rx="6" class="mos"/>
+      <text x="88" y="64" text-anchor="middle" class="label small white">CH2 H Bridge</text>
+    </g>
+    <path d="M144 74 H220 M144 256 H220 M396 74 H510 M396 256 H510" class="trace"/>
+    <path d="M510 74 V256 M170 38 H556 M170 292 H556" class="thin"/>
+    <rect x="508" y="44" width="74" height="78" rx="8" class="pad"/><text x="545" y="88" text-anchor="middle" class="label small">M1</text>
+    <rect x="508" y="212" width="74" height="78" rx="8" class="pad"/><text x="545" y="256" text-anchor="middle" class="label small">M2</text>
+    <rect x="28" y="134" width="108" height="54" rx="8" class="pad"/><text x="82" y="168" text-anchor="middle" class="label small">VIN</text>
+    <circle cx="172" cy="46" r="5" class="via"/><circle cx="190" cy="46" r="5" class="via"/><circle cx="172" cy="284" r="5" class="via"/><circle cx="190" cy="284" r="5" class="via"/>
+    <line x1="0" y1="360" x2="610" y2="360" class="dim"/>
+    <text x="305" y="398" text-anchor="middle" class="label mid">49.5mm</text>
+    <line x1="642" y1="0" x2="642" y2="330" class="dim"/>
+    <text x="680" y="174" text-anchor="middle" class="label mid" transform="rotate(90 680 174)">20.5mm</text>
+  </g>
+  <g transform="translate(790 180)">
+    <rect x="0" y="0" width="300" height="80" rx="16" class="badge"/>
+    <text x="24" y="34" class="label small muted">实测能力</text>
+    <text x="24" y="64" class="label mid green">12V / 10A 稳定</text>
+    <rect x="0" y="104" width="300" height="80" rx="16" class="badge"/>
+    <text x="24" y="138" class="label small muted">补充测试</text>
+    <text x="24" y="168" class="label mid green">16V / 20A 轻微发热</text>
+    <rect x="0" y="208" width="300" height="80" rx="16" class="badge"/>
+    <text x="24" y="242" class="label small muted">结构</text>
+    <text x="24" y="272" class="label mid green">单面元件布局</text>
+  </g>
+  <g transform="translate(826 500)">
+    <circle cx="54" cy="54" r="52" class="motor"/><line x1="106" y1="54" x2="166" y2="54" class="shaft"/><path d="M32 38 c16 -16 28 -16 44 0 M32 70 c16 16 28 16 44 0" class="coil"/><text x="54" y="128" text-anchor="middle" class="label small muted">Brushed Motor</text>
+    <circle cx="218" cy="54" r="52" class="motor"/><line x1="270" y1="54" x2="330" y2="54" class="shaft"/><path d="M196 38 c16 -16 28 -16 44 0 M196 70 c16 16 28 16 44 0" class="coil"/><text x="218" y="128" text-anchor="middle" class="label small muted">Brushed Motor</text>
+  </g>
+</svg>

@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CYT4BB7 开源飞控 | PassengerDong Portfolio</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: 'confirm'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="PassengerDong Portfolio" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>CYT4BB7 开源飞控</h1></div><hr><div id="post-content"><blockquote>
+<p>迁移来源：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/project_dpztsddn">OSHWHub 开源工程</a><br>项目定位：面向第 21 届智能车竞赛“飞跃雷区”组别的小型化高集成核心控制板。</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>本项目是一个专为第 21 届智能车竞赛“飞跃雷区”组别设计的高集成度、小型化核心控制板。针对竞赛车模空间受限、重量与重心控制敏感的问题，本设计舍弃了传统开发板“大而全”的冗余布局，对电源、接口和外围资源进行了精简。</p>
+<p>板型对齐业内无人机飞控常见的 30.5mm 标准安装孔位，目标是在有限空间里提供稳定、紧凑、易于集成的飞控硬件。需要特别注意：本项目引脚分配不适配逐飞学习板，复刻时必须重新核对引脚表和接口定义。</p>
+<span id="more"></span>
+
+<p class='item-img' data-src='https://image.lceda.cn/oshwhub/pullImage/358ae21b00154302bd213beffd6cf128.jpg'><img src="https://image.lceda.cn/oshwhub/pullImage/358ae21b00154302bd213beffd6cf128.jpg" alt="CYT4BB7 开源飞控实物图"></p>
+<h2 id="快速规格"><a href="#快速规格" class="headerlink" title="快速规格"></a>快速规格</h2><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主控</td>
+<td>CYT4BB7 &#x2F; CYT4 系列主控</td>
+</tr>
+<tr>
+<td>内核资源</td>
+<td>双 M7 核 + 一个 M4 核</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>第 21 届智能车竞赛“飞跃雷区”组别</td>
+</tr>
+<tr>
+<td>安装孔位</td>
+<td>30.5mm 标准飞控孔位</td>
+</tr>
+<tr>
+<td>输入电源</td>
+<td>从电机驱动信号线取电，支持 2-6S 宽电压锂电输入</td>
+</tr>
+<tr>
+<td>主降压</td>
+<td>SY8303AIC，同步降压输出 5V 主电源轨</td>
+</tr>
+<tr>
+<td>核心供电</td>
+<td>两个 LDO 分别提供 3.3V 与 1.15V 核心电源</td>
+</tr>
+<tr>
+<td>连接器</td>
+<td>GH1.25mm 间距插座为主</td>
+</tr>
+<tr>
+<td>IMU</td>
+<td>外置 IMU 小板方案，原工程使用 FPC，复刻建议改 GH1.25 等更易用接口</td>
+</tr>
+<tr>
+<td>适配生态</td>
+<td>已针对本人开源的 STC 四合一电调做底层驱动适配与接口对齐</td>
+</tr>
+<tr>
+<td>开源协议</td>
+<td>GPL 3.0</td>
+</tr>
+</tbody></table>
+<h2 id="图片与电源路径"><a href="#图片与电源路径" class="headerlink" title="图片与电源路径"></a>图片与电源路径</h2><p class='item-img' data-src='https://image.lceda.cn/oshwhub/pullImage/41297fa004ce45e79da29272b4f393f1.png'><img src="https://image.lceda.cn/oshwhub/pullImage/41297fa004ce45e79da29272b4f393f1.png" alt="电调接口与飞控输入"></p>
+<p>电源输入直接来自电机驱动信号线，这样可以减少整车供电线束和额外电源模块。代价是飞控和电调联调时必须严格控制上电顺序，避免驱动端异常启动。</p>
+<p class='item-img' data-src='https://image.lceda.cn/oshwhub/pullImage/a7d7fd117cbc40b583f742a15ce17486.png'><img src="https://image.lceda.cn/oshwhub/pullImage/a7d7fd117cbc40b583f742a15ce17486.png" alt="24V 到 5V 降压"></p>
+<p>主电源轨使用 SY8303AIC 做宽输入同步降压，将高压电池输入转换为稳定 5V，给后级外设和核心电源提供输入。</p>
+<p class='item-img' data-src='https://image.lceda.cn/oshwhub/pullImage/e844ad4bc06c4844a64ebb61fbcb353d.png'><img src="https://image.lceda.cn/oshwhub/pullImage/e844ad4bc06c4844a64ebb61fbcb353d.png" alt="核心供电与状态指示"></p>
+<p>核心供电没有沿用逐飞开源方案中的双路 DCDC，而是用两个 LDO 完成 3.3V 和 1.15V 供电。这样布局和走线更灵活，也便于在小尺寸飞控板上压缩面积。</p>
+<h2 id="硬件方案"><a href="#硬件方案" class="headerlink" title="硬件方案"></a>硬件方案</h2><h3 id="主控与板型"><a href="#主控与板型" class="headerlink" title="主控与板型"></a>主控与板型</h3><p>主控使用 CYT4BB7，按本项目资料记录为双 M7 核 + 一个 M4 核，具备较强的运算能力和外设资源，适合承载视觉算法、姿态控制、传感器读取和竞赛状态机等任务。</p>
+<p>板型参考无人机飞控生态，使用 30.5mm 标准安装孔位，便于与常见机架、减震柱和叠层结构配合。相比通用开发板，这块板更强调小尺寸、低重量和线束简化。</p>
+<h3 id="电源架构"><a href="#电源架构" class="headerlink" title="电源架构"></a>电源架构</h3><p>输入级直接从电机驱动信号线取电，支持 2-6S 宽电压锂电输入。主降压使用 SY8303AIC，同步降压得到 5V，再由 LDO 分出 3.3V 和 1.15V，为 MCU 核心和外设供电。</p>
+<p>这种结构压缩了电源模块数量，但也让飞控与电调之间的上电顺序更重要。联调时建议先确认 5V、3.3V、1.15V 都稳定，再接入电调控制信号和大电流负载。</p>
+<h3 id="接口与传感器布局"><a href="#接口与传感器布局" class="headerlink" title="接口与传感器布局"></a>接口与传感器布局</h3><p>主控连接器采用 GH1.25mm 间距插座，在保证机械强度的同时减小体积。板载预留了距离检测、位移测量和声学提示单元接口。</p>
+<p>IMU 使用外置小板思路，本项目原版使用 FPC 适配个人 IMU 小板。复刻时建议按自己的 IMU 模块改成 GH1.25 或其他更容易焊接和维修的接口。</p>
+<h3 id="IMU-设计留白"><a href="#IMU-设计留白" class="headerlink" title="IMU 设计留白"></a>IMU 设计留白</h3><p>本核心板未直接集成陀螺仪，这个留白是有意为之：使用者可以根据控制策略选择外置高精度 IMU，例如 ICM 系列，并通过 I2C 或 SPI 与飞控通讯。</p>
+<p>这样牺牲了一部分“一板即用”的便利性，但换来更高的传感器选择自由度，也便于根据车体结构把 IMU 放到更合适的机械位置。</p>
+<h3 id="与-STC-四合一电调配合"><a href="#与-STC-四合一电调配合" class="headerlink" title="与 STC 四合一电调配合"></a>与 STC 四合一电调配合</h3><p>本飞控板已针对本人开源的 STC 四合一电调做了底层驱动适配和硬件接口对齐。两者配合时可以构成完整的动力与控制系统。</p>
+<p>由于飞控电源取自驱动端，联调时建议严格遵守上电时序。个人建议给缓冲器增加下拉电阻，否则 STC 电调可能在上电阶段出现异常启动。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>本电路已经通过数月连续高负载上电测试，长时间运行稳定性表现良好。无出现明显问题，可支持长时间负载。</p>
+<h2 id="可取舍设计"><a href="#可取舍设计" class="headerlink" title="可取舍设计"></a>可取舍设计</h2><p>板载 SY6280 电源路径管理芯片在特定应用场景下不是必需项。根据实测，移除该芯片不影响系统正常运行，可以根据 BOM、焊接难度和实际供电结构取舍。</p>
+<p>如果队伍有双路供电需求，可以把输入端升级成理想二极管控制器，实现更平滑的电源切换。不过这会占用额外 PCB 面积，需要在可靠性和空间成本之间权衡。</p>
+<h2 id="复刻提醒"><a href="#复刻提醒" class="headerlink" title="复刻提醒"></a>复刻提醒</h2><ul>
+<li>本项目引脚分配不适配逐飞学习板，复刻前必须核对原理图和工程 pin 表。</li>
+<li>电源来自驱动端，飞控与电调联调前先确认上电时序。</li>
+<li>FPC IMU 接口适配的是个人小板，通用复刻建议改成 GH1.25。</li>
+<li>30.5mm 孔位方便机械集成，但实际减震和重心还需要结合车架调整。</li>
+<li>如果后续改双电源输入，应重新评估电源路径芯片和 PCB 面积。</li>
+</ul>
+<h2 id="LAYOUT"><a href="#LAYOUT" class="headerlink" title="LAYOUT"></a>LAYOUT</h2><p class='item-img' data-src='https://image-pro.lceda.cn/projects/thumbs/927bc777ba994a748444c1714ebd4d30.webp'><img src="https://image-pro.lceda.cn/projects/thumbs/927bc777ba994a748444c1714ebd4d30.webp"></p>
+<h2 id="原始工程"><a href="#原始工程" class="headerlink" title="原始工程"></a>原始工程</h2><ul>
+<li>OSHWHub：<a target="_blank" rel="noopener" href="https://oshwhub.com/pessenger/project_dpztsddn">https://oshwhub.com/pessenger/project_dpztsddn</a></li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/projects/stc-4in1-esc/">← Next STC 四合一电调</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/projects/drv8701-motor-driver/">基于 DRV8701 的双路有刷电机驱动 Prev →</a></div></div></div><details id="reward" open><summary>reward</summary><div><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/WeChat.png"></div></details></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">PassengerDong</a></h1><div id="description"><p>PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">项目简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E8%A7%84%E6%A0%BC"><span class="toc-number">2.</span> <span class="toc-text">快速规格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E4%B8%8E%E7%94%B5%E6%BA%90%E8%B7%AF%E5%BE%84"><span class="toc-number">3.</span> <span class="toc-text">图片与电源路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%96%B9%E6%A1%88"><span class="toc-number">4.</span> <span class="toc-text">硬件方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%8E%A7%E4%B8%8E%E6%9D%BF%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">主控与板型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%BA%90%E6%9E%B6%E6%9E%84"><span class="toc-number">4.2.</span> <span class="toc-text">电源架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E4%B8%8E%E4%BC%A0%E6%84%9F%E5%99%A8%E5%B8%83%E5%B1%80"><span class="toc-number">4.3.</span> <span class="toc-text">接口与传感器布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IMU-%E8%AE%BE%E8%AE%A1%E7%95%99%E7%99%BD"><span class="toc-number">4.4.</span> <span class="toc-text">IMU 设计留白</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E-STC-%E5%9B%9B%E5%90%88%E4%B8%80%E7%94%B5%E8%B0%83%E9%85%8D%E5%90%88"><span class="toc-number">4.5.</span> <span class="toc-text">与 STC 四合一电调配合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">5.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8F%96%E8%88%8D%E8%AE%BE%E8%AE%A1"><span class="toc-number">6.</span> <span class="toc-text">可取舍设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E5%88%BB%E6%8F%90%E9%86%92"><span class="toc-number">7.</span> <span class="toc-text">复刻提醒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LAYOUT"><span class="toc-number">8.</span> <span class="toc-text">LAYOUT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%B7%A5%E7%A8%8B"><span class="toc-number">9.</span> <span class="toc-text">原始工程</span></a></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
