@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AXDR X7 速度环 FOC 移植与 300 rpm 调参复盘 | PassengerDong Portfolio</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AXDR-L X7 速度环 FOC 移植与 300 rpm 调参复盘 | PassengerDong Portfolio</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
   font-family: Bender;
   src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
 }
@@ -10,7 +10,7 @@
   font-family: 'JetBrains Mono';
   src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }
-</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"数据检索","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"复制"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
  document.documentElement.setAttribute('theme-mode', 'light')
 if (window.localStorage.getItem('theme-mode') === 'dark')
  document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
@@ -23,7 +23,7 @@ if (window.localStorage.getItem('theme-mode') === 'dark')
 }</style><style>:root {
  --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
  --light-background: url('/img/bk.jpg');
- --theme-encrypt-confirm: '确认'
+ --theme-encrypt-confirm: 'confirm'
 }</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
 window.mermaid = mermaid;
 code.paintMermaid();
@@ -60,11 +60,326 @@ lightGallery(document.getElementById('post-bg'), {
  }
 });
 document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="PassengerDong Portfolio" type="application/atom+xml">
-</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>AXDR X7 速度环 FOC 移植与 300 rpm 调参复盘</h1></div><hr><div id="post-content"><blockquote>
-<p>本文记录一次从 X7&#x2F;Simulink 速度环思路迁移到 AXDR &#x2F; AxDrive-L 实物平台的完整过程。重点不是“电机能转”，而是把速度环、Id&#x2F;Iq 电流环、编码器电角度、SVPWM、保护、VOFA 遥测和自动化验证串成一个能反复调参的闭环框架。</p>
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>AXDR-L X7 速度环 FOC 移植与 300 rpm 调参复盘</h1></div><hr><div id="post-content"><blockquote>
+<p>本文记录一次从 X7&#x2F;Simulink 速度环仿真迁移到 AXDR-L &#x2F; AxDrive-L 实物平台的完整过程。重点不是“电机能转”，而是说明一个课程设计里的仿真文件，如何一步步被拆成参数脚本、控制器验证模型、可编译 C 工程、20 kHz 电流环、1 kHz 速度环、编码器电角度闭环、SVPWM 输出、保护状态机、VOFA 遥测和自动化验证脚本。</p>
 </blockquote>
 <span id="more"></span>
 
+<h2 id="从仿真到实机的整体路线"><a href="#从仿真到实机的整体路线" class="headerlink" title="从仿真到实机的整体路线"></a>从仿真到实机的整体路线</h2><p>一开始的输入不是一个能直接刷进板子的工程，而是一组 X7 FOC 学习模型。<code>0.AxDr_simulink</code> 目录里既有坐标变换、SVPWM、V&#x2F;f、I&#x2F;f、电流环、速度环、位置环，也有电阻&#x2F;电感&#x2F;磁链&#x2F;惯量辨识、ESMO、PLL、弱磁、RLS、EKF 等后续模型。真正用于本次课程设计主线的是 <code>x7_foc_speedloop.slx</code> 及它的 R2025b 兼容版本，目标是把速度环控制思路迁到 AXDR-L 的 STM32G474 + M2006 + MT6816 实物平台上。</p>
+<p>整个开发过程可以按下面这条链理解：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs text">Simulink FOC 学习模型<br>  -&gt; foc_para.m 提取控制参数、物理参数和采样频率<br>  -&gt; R2025b 兼容处理：SPS/Simscape 块迁移和 fixed-step 设置<br>  -&gt; 无 SPS 数值脚本：先验证速度环、限流、负载扰动是否合理<br>  -&gt; controller-only 模型：只保留 ref/speed -&gt; Iq 的控制器接口<br>  -&gt; C 工程安全演示：sim2board_demo 在板端跑同一套离散算法但关闭相 PWM<br>  -&gt; 硬件遥测模式：确认 ADC、VBUS、MT6816、R_EN、TIM1 状态都可观测<br>  -&gt; 开环低功率转动：验证相序、角度方向、PWM/SVPWM 输出路径<br>  -&gt; 编码器电角度校准：建立 theta_e 与 MT6816 的 offset/dir 关系<br>  -&gt; 速度环闭环：1 kHz 外环输出 Iq_ref，20 kHz 内环执行 Id/Iq FOC<br>  -&gt; 自动化脚本验收：固定命令、固定采样窗口、固定安全阈值重复测试<br></code></pre></td></tr></table></figure>
+
+<p>这个路线的核心取舍是：不把 Simulink 自动生成代码当成最终固件，而是把 Simulink 当作“控制结构和参数来源”。真正上板时，需要重写和补齐仿真里没有的部分：ADC 触发、PWM 互补输出、R_EN 使能、编码器 SPI、故障停机、串口命令、LCD 显示和测试脚本。</p>
+<h2 id="仿真文件族与角色分工"><a href="#仿真文件族与角色分工" class="headerlink" title="仿真文件族与角色分工"></a>仿真文件族与角色分工</h2><p>本次不是只打开一个 <code>.slx</code>，而是先把仿真目录里的模型按用途分类。这样做的好处是，后续文章和代码都能说明“哪个模型贡献了控制算法，哪个脚本只是为兼容或报告服务”。</p>
+<table>
+<thead>
+<tr>
+<th>文件 &#x2F; 目录</th>
+<th>角色</th>
+<th>在移植中的作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>x1_foc_transform.slx</code></td>
+<td>坐标变换基础模型</td>
+<td>对应固件里的 Clarke &#x2F; Park &#x2F; inverse Park</td>
+</tr>
+<tr>
+<td><code>x2_foc_svpwm.slx</code></td>
+<td>SVPWM 模型</td>
+<td>对应 <code>foc_calc.c</code> 的 <code>svm()</code> 和 TIM1 CCR 更新</td>
+</tr>
+<tr>
+<td><code>x3_foc_vf.slx</code></td>
+<td>V&#x2F;f 开环模型</td>
+<td>用作实机最早的低功率开环转动思路</td>
+</tr>
+<tr>
+<td><code>x5_foc_if.slx</code></td>
+<td>I&#x2F;f 启动模型</td>
+<td>为后续无感和电角度拖动提供参考</td>
+</tr>
+<tr>
+<td><code>x6_foc_currentloop.slx</code></td>
+<td>Id&#x2F;Iq 电流环模型</td>
+<td>提供 <code>Kp=L*wc</code>、<code>Ki=R*wc</code> 的电流环整定主线</td>
+</tr>
+<tr>
+<td><code>x7_foc_speedloop.slx</code></td>
+<td>速度环主模型</td>
+<td>本文主线，速度误差经 PID 输出转矩&#x2F;电流请求</td>
+</tr>
+<tr>
+<td><code>x7_foc_speedloop_R2025b_latched.slx</code></td>
+<td>R2025b 兼容版本</td>
+<td>保留速度环主线，解决新版 MATLAB 兼容问题</td>
+</tr>
+<tr>
+<td><code>x7_foc_speedloop_R2025b_codegen_fixedstep.slx</code></td>
+<td>fixed-step 版本</td>
+<td>用于代码生成检查，强调离散固定步长</td>
+</tr>
+<tr>
+<td><code>converted_x7/x7_foc_speedloop_simscape_patched.slx</code></td>
+<td>Simscape 转换模型</td>
+<td>验证原 SPS 功率器件导入情况</td>
+</tr>
+<tr>
+<td><code>foc_para.m</code></td>
+<td>参数脚本</td>
+<td>提供 PWM 频率、母线电压、电机参数、电流环&#x2F;速度环公式</td>
+</tr>
+<tr>
+<td><code>run_axdr_pid_speedloop_demo.m</code></td>
+<td>无 SPS 数值仿真</td>
+<td>不依赖 Simscape，快速生成报告曲线和 CSV</td>
+</tr>
+<tr>
+<td><code>create_x7_foc_speedloop_basic_pid.m</code></td>
+<td>R2025b-safe 仿真模型生成脚本</td>
+<td>自动生成一个只含离散 PID + 机械对象的 <code>.slx</code></td>
+</tr>
+<tr>
+<td><code>create_x7_pid_controller_codegen.m</code></td>
+<td>controller-only 代码生成模型</td>
+<td>把接口收敛为 <code>ref_rpm, speed_rpm -&gt; iq_cmd_a</code></td>
+</tr>
+<tr>
+<td><code>report_outputs/</code></td>
+<td>仿真输出</td>
+<td>保存 <code>axdr_pid_speedloop_demo.csv/.png</code> 等报告素材</td>
+</tr>
+</tbody></table>
+<p>这里最重要的分界线是：<code>x7_foc_speedloop</code> 这种完整模型适合说明控制对象和闭环结构，但不适合直接搬到 STM32 工程；<code>x7_pid_controller_codegen</code> 这种 controller-only 模型才接近嵌入式接口，因为它不再包含逆变器、PMSM plant、Scope、To Workspace 和测试激励，只留下可落到 C 函数的控制器输入输出。</p>
+<h2 id="原始-Simulink-参数与-M2006-参数替换"><a href="#原始-Simulink-参数与-M2006-参数替换" class="headerlink" title="原始 Simulink 参数与 M2006 参数替换"></a>原始 Simulink 参数与 M2006 参数替换</h2><p><code>foc_para.m</code> 是仿真到工程的第一层接口。原模型里给出了 20 kHz 开关频率、24 V 母线、PMSM 参数、电流环带宽、速度环推导公式、SMO&#x2F;PLL 参数以及弱磁相关参数。文章里需要特别说明：这些参数不是全部照抄到 M2006 上，而是保留公式和控制结构，再把电机对象换成实物台架的 M2006。</p>
+<p>原始脚本里与本次最相关的参数如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs matlab">SwitchFrequency = <span class="hljs-number">20e3</span>;<br>Ts = <span class="hljs-number">1</span> / SwitchFrequency;<br>vbus = <span class="hljs-number">24</span>;<br><br>Np = <span class="hljs-number">4</span>;<br>Rs = <span class="hljs-number">0.45</span>;<br>Ls = <span class="hljs-number">0.00042</span>;<br>Ld = <span class="hljs-number">0.00042</span>;<br>Lq = <span class="hljs-number">0.00042</span>;<br>Flux = <span class="hljs-number">0.00525</span>;<br>Jx = <span class="hljs-number">0.000004483738</span>;<br><br>CurrentLoopBandwidth = <span class="hljs-number">500</span> * <span class="hljs-number">2</span> * <span class="hljs-built_in">pi</span>;<br>id_kp = Ls * CurrentLoopBandwidth;<br>id_ki = Rs * CurrentLoopBandwidth;<br>iq_kp = Ls * CurrentLoopBandwidth;<br>iq_ki = Rs * CurrentLoopBandwidth;<br>vd_limit = vbus / <span class="hljs-built_in">sqrt</span>(<span class="hljs-number">3</span>);<br>vq_limit = vbus / <span class="hljs-built_in">sqrt</span>(<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<p>迁移到 AXDR-L 时，保留了几个关键思想：</p>
+<ol>
+<li>PWM &#x2F; 电流环频率仍按 20 kHz 设计。</li>
+<li>电流环带宽仍以 500 Hz 为初始目标。</li>
+<li>Id&#x2F;Iq PI 仍使用 <code>Kp=L*wc</code>、<code>Ki=R*wc</code>，只替换为 M2006 的 <code>Rs/Ls</code>。</li>
+<li>SVPWM 线性区仍受 <code>Vbus/sqrt(3)</code> 限制。</li>
+<li>速度环仍让外环输出转矩电流，也就是工程里的 <code>Iq_ref</code>。</li>
+</ol>
+<p>真正替换掉的是电机对象：原脚本的 <code>Np=4</code>、<code>Ls=0.42 mH</code>、<code>Flux=0.00525 Wb</code>、<code>Jx=4.48e-6 kg*m^2</code> 更像教学模型参数；实机工程改为 M2006：7 极对、36:1 减速箱、相电阻 0.461 ohm、相电感 64.22 uH、输出轴转矩常数 0.18 N<em>m&#x2F;A、输出轴惯量 0.0008 kg</em>m^2、机械时间常数 0.05278 s。</p>
+<p>映射到固件后，参数集中在 <code>User/motor/axdr_motor_config.h</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_SUPPLY_NOMINAL_V 24.0f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_CURRENT_LIMIT_A 8.5f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_CURRENT_TRIP_A 10.5f</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_M2006_POLE_PAIRS 7.0f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_M2006_GEAR_RATIO 36.0f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_M2006_PHASE_RESISTANCE_OHM 0.461f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_M2006_PHASE_INDUCTANCE_H 0.00006422f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_M2006_OUTPUT_KT_NM_PER_A 0.18f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_M2006_OUTPUT_J_KGM2 0.0008f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_M2006_MECH_TAU_S 0.05278f</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_CURRENT_LOOP_BW_HZ 500.0f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_CURRENT_LOOP_V_LIMIT_V 8.5f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_CURRENT_LOOP_I_TERM_LIMIT_V 6.5f</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> AXDR_CURRENT_LOOP_DECOUPLE_ENABLE 0</span><br></code></pre></td></tr></table></figure>
+
+<p>其中磁链没有手写死值，而是由输出轴转矩常数和减速比反推到电机高速轴：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">Kt_motor = Kt_output / gear_ratio<br>flux = Kt_motor / (1.5 * pole_pairs)<br>      = 0.18 / 36 / (1.5 * 7)<br>      ≈ 4.76e-4 Wb<br></code></pre></td></tr></table></figure>
+
+<p>这个值后面只用于 FOC 参数和可能的解耦&#x2F;观测器扩展；本次 300 rpm 内，电流环解耦关闭，重点先保证采样、角度和限流稳定。</p>
+<h2 id="R2025b-兼容处理与为什么不用完整模型直接生成代码"><a href="#R2025b-兼容处理与为什么不用完整模型直接生成代码" class="headerlink" title="R2025b 兼容处理与为什么不用完整模型直接生成代码"></a>R2025b 兼容处理与为什么不用完整模型直接生成代码</h2><p>原始 <code>x7_foc_speedloop.slx</code> 含有电力电子器件和 PMSM 物理对象。迁移到 MATLAB R2025b 后，部分 Specialized Power Systems &#x2F; Simscape 元件需要转换。导入报告显示：6 个 MOSFET 块为 partially supported，主要是体二极管电感和初始电流参数未完整导入；PMSM、直流电压源和电压测量块可以导入。</p>
+<p>这说明模型仍然可以作为控制结构参考，但如果直接对完整模型做嵌入式代码生成，会混进很多不适合 MCU 的内容：</p>
+<ol>
+<li>MOSFET &#x2F; PMSM plant 属于仿真对象，上板后由真实逆变器和真实电机替代。</li>
+<li>Scope、To Workspace、测试激励不应该进入固件主循环。</li>
+<li>变量步长求解器不适合实时电机控制，必须改成 fixed-step discrete。</li>
+<li>STM32 上的 ADC&#x2F;PWM 同步、死区、R_EN、故障停机、编码器 SPI 都不在原模型内。</li>
+</ol>
+<p>因此我把模型处理分成两条线：一条线保留完整仿真用于报告说明，另一条线把控制器剥离出来，用固定步长、明确输入输出的形式接近嵌入式实现。</p>
+<p><code>set_x7_codegen_fixed_step.m</code> 做的事情很直接：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs matlab">set_param(model, ...<br>    <span class="hljs-string">&#x27;SolverType&#x27;</span>, <span class="hljs-string">&#x27;Fixed-step&#x27;</span>, ...<br>    <span class="hljs-string">&#x27;Solver&#x27;</span>, <span class="hljs-string">&#x27;FixedStepDiscrete&#x27;</span>, ...<br>    <span class="hljs-string">&#x27;FixedStep&#x27;</span>, <span class="hljs-string">&#x27;1e-4&#x27;</span>, ...<br>    <span class="hljs-string">&#x27;AutoInsertRateTranBlk&#x27;</span>, <span class="hljs-string">&#x27;on&#x27;</span>);<br><br><span class="hljs-keyword">try</span><br>    set_param(model, <span class="hljs-string">&#x27;SystemTargetFile&#x27;</span>, <span class="hljs-string">&#x27;ert.tlc&#x27;</span>);<br><span class="hljs-keyword">catch</span><br>    set_param(model, <span class="hljs-string">&#x27;SystemTargetFile&#x27;</span>, <span class="hljs-string">&#x27;grt.tlc&#x27;</span>);<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<p>这里的 <code>1e-4</code> 是 10 kHz 仿真步长，不是最终电流环 ISR 频率。它用于桌面速度环验证和代码生成检查；实机闭环最终采用 20 kHz 电流环和 1 kHz 速度环。</p>
+<h2 id="无-SPS-数值仿真：先验证控制思路"><a href="#无-SPS-数值仿真：先验证控制思路" class="headerlink" title="无 SPS 数值仿真：先验证控制思路"></a>无 SPS 数值仿真：先验证控制思路</h2><p>为了不被 R2025b 的 SPS&#x2F;Simscape 兼容问题卡住，先写了 <code>run_axdr_pid_speedloop_demo.m</code>。这个脚本把完整三相逆变器和 PMSM 电磁细节简化为输出轴机械方程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">J * dω/dt = Kt * Iq - B * ω - Tload<br>B = J / tau<br></code></pre></td></tr></table></figure>
+
+<p>在脚本里，速度环仍然按离散 PID + 前馈 + 限流计算 <code>Iq</code>：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs matlab">ref = refRpm(k) * <span class="hljs-number">2</span>*<span class="hljs-built_in">pi</span>/<span class="hljs-number">60</span>;<br>err = ref - speed;<br>derr = (err - lastErr) / Ts;<br>ff = B * ref / Kt;<br>uUnsat = Kp * err + Ki * integrator + Kd * derr + ff;<br>u = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">max</span>(uUnsat, -iqLimit), iqLimit);<br><br><span class="hljs-keyword">if</span> u == uUnsat<br>    integrator = integrator + err * Ts;<br><span class="hljs-keyword">end</span><br><br>speedDot = (Kt * u - B * speed - loadTorque(k)) / Jx;<br>speed = speed + speedDot * Ts;<br></code></pre></td></tr></table></figure>
+
+<p>仿真激励也刻意设计成和后续实机测试类似：0.03 s 给 150 rpm，0.25 s 加 0.05 N*m 负载扰动，0.32 s 切到 90 rpm。这样能观察三件事：启动阶段是否撞限流，负载进入后积分能否补偿，参考下降时是否出现长时间超调。</p>
+<p class='item-img' data-src='/img/articles/axdr-x7/axdr-pid-speedloop-demo.png'><img src="/img/articles/axdr-x7/axdr-pid-speedloop-demo.png" alt="AXDR PID 速度环桌面仿真"></p>
+<p>这组无 SPS 仿真输出 <code>5001</code> 个样本，最高速度约 <code>163.11 rpm</code>，<code>Iq</code> 上限被限制在 <code>2 A</code>，0.45 s 后平均绝对误差约 <code>6.96 rpm</code>，0.5 s 末速度约 <code>85.39 rpm</code>、目标为 <code>90 rpm</code>。这个结果没有被当作实机性能结论，只作为控制器方向正确、限流&#x2F;积分逻辑合理的桌面检查。</p>
+<h2 id="Controller-only-模型：把接口收敛成嵌入式函数"><a href="#Controller-only-模型：把接口收敛成嵌入式函数" class="headerlink" title="Controller-only 模型：把接口收敛成嵌入式函数"></a>Controller-only 模型：把接口收敛成嵌入式函数</h2><p>下一步是 <code>create_x7_pid_controller_codegen.m</code>。它不再生成完整电机系统，而是只保留两个输入、三个输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">输入：ref_rpm, speed_rpm<br>输出：iq_cmd_a, error_rpm, integrator_rpm_s<br></code></pre></td></tr></table></figure>
+
+<p>模型内部 MATLAB Function 与脚本中的控制器一致：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">[iq_cmd_a, error_rpm, integrator_rpm_s]</span> = <span class="hljs-title">x7_pid_controller</span><span class="hljs-params">(ref_rpm, speed_rpm)</span></span><br><span class="hljs-comment">%#codegen</span><br><span class="hljs-keyword">persistent</span> integrator_rad error_last_radps<br><br>Kt = <span class="hljs-number">0.18</span>;<br>B = <span class="hljs-number">0.0008</span> / <span class="hljs-number">0.05278</span>;<br>Ts = <span class="hljs-number">0.0001</span>;<br>Kp = <span class="hljs-number">0.08</span>;<br>Ki = <span class="hljs-number">2.0</span>;<br>Kd = <span class="hljs-number">0.0</span>;<br>iqLimit = <span class="hljs-number">2.0</span>;<br><br>ref_radps = ref_rpm * <span class="hljs-number">2.0</span> * <span class="hljs-built_in">pi</span> / <span class="hljs-number">60.0</span>;<br>speed_radps = speed_rpm * <span class="hljs-number">2.0</span> * <span class="hljs-built_in">pi</span> / <span class="hljs-number">60.0</span>;<br>error_radps = ref_radps - speed_radps;<br>feedforward_iq_a = B * ref_radps / Kt;<br>iq_unsat_a = Kp * error_radps + Ki * integrator_rad + feedforward_iq_a;<br>iq_cmd_a = <span class="hljs-built_in">min</span>(<span class="hljs-built_in">max</span>(iq_unsat_a, -iqLimit), iqLimit);<br></code></pre></td></tr></table></figure>
+
+<p>这个模型的价值不是生成最终代码，而是逼迫自己把控制器接口讲清楚：速度环只应该知道 <code>ref_rpm</code> 和 <code>speed_rpm</code>，输出只能是 <code>Iq_ref</code>，不能直接操作 PWM，也不能读 ADC 寄存器。等到进入 STM32 工程，<code>speed_rpm</code> 由 MT6816 估计器提供，<code>Iq_ref</code> 交给 20 kHz 电流环执行。</p>
+<h2 id="板端安全演示：先跑-C-版本仿真，不开三相-PWM"><a href="#板端安全演示：先跑-C-版本仿真，不开三相-PWM" class="headerlink" title="板端安全演示：先跑 C 版本仿真，不开三相 PWM"></a>板端安全演示：先跑 C 版本仿真，不开三相 PWM</h2><p>进入 <code>3.AXDR_X7_Speedloop</code> 工程后，第一版不是直接驱动电机，而是做 <code>sim2board_demo.c</code>：把 <code>run_axdr_pid_speedloop_demo.m</code> 的离散速度环和一阶机械对象搬到 STM32 上运行，USB&#x2F;VOFA 输出曲线，同时保持相 PWM 关闭。</p>
+<p>这个阶段的 CMake 开关如下：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">option</span>(AXDR_SIM2BOARD_DEMO <span class="hljs-string">&quot;Run safe PID/encoder telemetry demo with phase PWM disabled&quot;</span> <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">option</span>(AXDR_ESMO_MATH_DEMO <span class="hljs-string">&quot;Run ESMO math telemetry demo with phase PWM disabled&quot;</span> <span class="hljs-keyword">OFF</span>)<br><span class="hljs-keyword">option</span>(AXDR_HW_TELEMETRY_DEMO <span class="hljs-string">&quot;Run hardware ADC/encoder/protection telemetry with phase PWM disabled&quot;</span> <span class="hljs-keyword">OFF</span>)<br><span class="hljs-keyword">option</span>(AXDR_LIVE_OPENLOOP_TEST <span class="hljs-string">&quot;Run low-power open-loop motor rotation test&quot;</span> <span class="hljs-keyword">OFF</span>)<br><span class="hljs-keyword">option</span>(AXDR_LIVE_SPEED_PID_TEST <span class="hljs-string">&quot;Run low-power PID speed-loop motor test&quot;</span> <span class="hljs-keyword">OFF</span>)<br></code></pre></td></tr></table></figure>
+
+<p>同时工程强制只允许一个模式打开：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">math</span>(EXPR AXDR_DEMO_MODE_COUNT <span class="hljs-string">&quot;$&#123;AXDR_SIM2BOARD_DEMO_VALUE&#125; + $&#123;AXDR_ESMO_MATH_DEMO_VALUE&#125; + $&#123;AXDR_HW_TELEMETRY_DEMO_VALUE&#125; + $&#123;AXDR_LIVE_OPENLOOP_TEST_VALUE&#125; + $&#123;AXDR_LIVE_SPEED_PID_TEST_VALUE&#125;&quot;</span>)<br><span class="hljs-keyword">if</span>(AXDR_DEMO_MODE_COUNT <span class="hljs-keyword">GREATER</span> <span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">message</span>(FATAL_ERROR <span class="hljs-string">&quot;Enable only one AXDR demo mode at a time&quot;</span>)<br><span class="hljs-keyword">endif</span>()<br></code></pre></td></tr></table></figure>
+
+<p>这样做的目的很明确：在没有任何三相输出风险的情况下，先证明下面几件事：</p>
+<ol>
+<li>工程可以用 GCC&#x2F;CMake 编译出 ELF&#x2F;HEX&#x2F;BIN。</li>
+<li>USB CDC 和 VOFA 帧格式正常。</li>
+<li>MATLAB 中的离散 PID 能在 STM32 单精度浮点下跑出同类曲线。</li>
+<li>MT6816 原始角度、状态字能跟随遥测输出。</li>
+<li>主循环调度和 20 ms 发送周期不会卡死。</li>
+</ol>
+<p><code>sim2board_demo.c</code> 里板端机械对象就是仿真方程的 C 实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">float</span> <span class="hljs-title function_">plant_step</span><span class="hljs-params">(<span class="hljs-type">float</span> current_speed_radps, <span class="hljs-type">float</span> iq_cmd_a, <span class="hljs-type">float</span> load_torque_nm)</span><br>&#123;<br>    <span class="hljs-type">const</span> <span class="hljs-type">float</span> iq_limited_a = clampf_local(iq_cmd_a,<br>                                            -SIM2BOARD_IQ_LIMIT_A,<br>                                            SIM2BOARD_IQ_LIMIT_A);<br>    <span class="hljs-type">const</span> <span class="hljs-type">float</span> speed_dot = (SIM2BOARD_KT_NM_PER_A * iq_limited_a<br>        - SIM2BOARD_B_NMS * current_speed_radps - load_torque_nm) / SIM2BOARD_J_KGM2;<br><br>    <span class="hljs-keyword">return</span> current_speed_radps + speed_dot * SIM2BOARD_DT_S;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>它每 1 ms 执行 10 个 <code>0.0001 s</code> 仿真步，20 ms 发一次 VOFA。这个模式下 <code>foc_pwm_stop()</code> 会在初始化时执行，所以它本质上是“板端运行的仿真代码”，不是电机实转。</p>
+<h2 id="从仿真对象到真实无刷驱动工程"><a href="#从仿真对象到真实无刷驱动工程" class="headerlink" title="从仿真对象到真实无刷驱动工程"></a>从仿真对象到真实无刷驱动工程</h2><p>仿真里通常可以把对象画成“逆变器 + PMSM + 传感器 + Scope”，但实机工程必须把这些抽象替换成具体外设和具体文件。最终工程结构如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs text">3.AXDR_X7_Speedloop<br>  Core/Src/main.c              外设初始化、模式选择、主循环、TIM3 tick<br>  Core/Src/adc.c               ADC1/ADC2 注入通道、触发源、采样时间<br>  Core/Src/tim.c               TIM1 三相 PWM、CH4 ADC 触发、TIM3 1 kHz tick<br>  Core/Src/spi.c               MT6816 磁编码器 SPI<br>  USB_Device/App/usbd_cdc_if.c USB CDC 收发，把字符命令转给 live_speed_test<br>  User/motor/axdr_motor_config.h  M2006、MT6816、限流、电流环带宽<br>  User/motor/foc_calc.c        Clarke / Park / inverse Park / SVPWM<br>  User/motor/foc_drv.c         ADC 换算、Id/Iq PI、PWM start/stop、FOC 主流程<br>  User/motor/foc_ctrl.c        ADC injected 回调、故障检测、旧状态机入口<br>  User/motor/encoder_mt6816.c  MT6816 raw angle 和状态读取<br>  User/motor/live_speed_test.c 实机速度环、profile、电角度校准、保护、VOFA<br>  User/motor/speed_display.c   LCD 曲线和状态显示<br>  tools/validate_live_speed_test.py 早期 2 A 验证脚本<br>  tools/run_hs300_test.py      100/300 rpm 自动化验收脚本<br></code></pre></td></tr></table></figure>
+
+<p>仿真模块和实机文件的对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th>仿真概念</th>
+<th>实机落点</th>
+<th>迁移要点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>三相逆变器</td>
+<td><code>TIM1 CH1/2/3 + CH1N/2N/3N</code>、<code>foc_pwm_start/stop()</code></td>
+<td>需要互补 PWM、死区、CCR 更新、R_EN 使能和安全关闭</td>
+</tr>
+<tr>
+<td>SVPWM</td>
+<td><code>foc_calc.c::svm()</code>、<code>foc_pwm_run()</code></td>
+<td>仿真输出占空比，实机要限制在 0..1 并写入 TIM1 CCR</td>
+</tr>
+<tr>
+<td>PMSM plant</td>
+<td>真实 M2006 + AXDR 功率级</td>
+<td>plant 不进固件，换成 ADC 电流、编码器速度和真实机械响应</td>
+</tr>
+<tr>
+<td>电流采样</td>
+<td><code>ADC1-&gt;JDR1..JDR3</code>、1 mOhm、20x 放大</td>
+<td>需要零偏校准和 A&#x2F;LSB 换算</td>
+</tr>
+<tr>
+<td>母线电压</td>
+<td><code>ADC2-&gt;JDR1</code>、20k&#x2F;1k 分压</td>
+<td>Vbus 用于保护和电压矢量限幅</td>
+</tr>
+<tr>
+<td>机械角&#x2F;速度</td>
+<td>MT6816 SPI raw angle</td>
+<td>需要 unwrap、减速比、方向、offset 和低通预测</td>
+</tr>
+<tr>
+<td>速度 PID</td>
+<td><code>live_speed_test.c::pid_iq_cmd()</code></td>
+<td>输出 <code>Iq_ref</code>，不是直接输出 PWM</td>
+</tr>
+<tr>
+<td>电流 PI</td>
+<td><code>foc_drv.c::foc_curr()</code></td>
+<td>20 kHz ISR 内执行，输出 <code>Vd/Vq</code></td>
+</tr>
+<tr>
+<td>Scope &#x2F; To Workspace</td>
+<td>VOFA 48 通道 + CSV&#x2F;JSON</td>
+<td>保留可复核数据，而不是只看屏幕曲线</td>
+</tr>
+<tr>
+<td>仿真 stop condition</td>
+<td><code>abort_current_count</code>、fault、脚本阈值</td>
+<td>实机必须有明确停机路径</td>
+</tr>
+</tbody></table>
+<h2 id="工程初始化顺序"><a href="#工程初始化顺序" class="headerlink" title="工程初始化顺序"></a>工程初始化顺序</h2><p><code>main.c</code> 中的初始化顺序按真实电机控制需求展开：先配 GPIO&#x2F;DMA&#x2F;SPI&#x2F;TIM&#x2F;USB&#x2F;ADC，再启动 ADC injected 和 TIM1 CH4 触发，最后初始化 PMSM 参数、编码器和测试任务。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c">MX_GPIO_Init();<br>MX_DMA_Init();<br>MX_SPI1_Init();<br>MX_TIM1_Init();<br>MX_TIM3_Init();<br>MX_USB_Device_Init();<br>MX_ADC1_Init();<br>MX_ADC2_Init();<br><br>HAL_ADCEx_Calibration_Start(&amp;hadc1, ADC_SINGLE_ENDED);<br>HAL_ADCEx_Calibration_Start(&amp;hadc2, ADC_SINGLE_ENDED);<br>HAL_ADCEx_InjectedStart_IT(&amp;hadc1);<br>HAL_ADCEx_InjectedStart(&amp;hadc2);<br><br>__HAL_TIM_SET_COMPARE(&amp;htim1, TIM_CHANNEL_4, <span class="hljs-number">3900</span>);<br>HAL_TIM_PWM_Start(&amp;htim1, TIM_CHANNEL_4);<br><br>pmsm_init();<br>encoder_init();<br>speed_display_init();<br>live_speed_test_init();<br></code></pre></td></tr></table></figure>
+
+<p>这里 <code>TIM1_CH4</code> 不参与三相输出，而是作为 ADC 注入采样触发点；真正三相输出由 CH1&#x2F;2&#x2F;3 和互补通道 CH1N&#x2F;2N&#x2F;3N 完成。ADC1 用中断启动，因为 ADC1 的 JDR1..JDR3 是三相电流；ADC2 只采 VBUS，不开 JEOS 中断，避免一个 PWM 周期里把 FOC 算两次。</p>
+<p>主循环只做慢任务：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>    live_speed_test_task();<br>    speed_display_task(live_speed_test_get_sample());<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>TIM3 的 1 kHz 中断不直接读 SPI，也不直接跑复杂控制，而是只投递 tick：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_TIM_PeriodElapsedCallback</span><span class="hljs-params">(TIM_HandleTypeDef *htim)</span><br>&#123;<br>  <span class="hljs-keyword">if</span> (htim != <span class="hljs-literal">NULL</span> &amp;&amp; htim-&gt;Instance == TIM3) &#123;<br>    live_speed_test_speed_tick_isr();<br>    speed_display_tick_isr();<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样可以避免在定时器中断里阻塞等待 MT6816 SPI，同时还能用 <code>speed_ticks_pending</code> 统计是否有速度环 tick 丢失。</p>
+<h2 id="开发流程拆解"><a href="#开发流程拆解" class="headerlink" title="开发流程拆解"></a>开发流程拆解</h2><p>按时间推进，整个 AXDR-L 速度环工程可以拆成八个阶段。每个阶段都只解决一个风险点，确认之后再进入下一层闭环。</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>目标</th>
+<th>主要文件 &#x2F; 开关</th>
+<th>验证方式</th>
+<th>进入下一阶段的条件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0. 仿真参数整理</td>
+<td>从 X7 模型中抽出采样频率、PMSM 参数、电流环带宽和速度环结构</td>
+<td><code>foc_para.m</code>、<code>x7_foc_speedloop.slx</code></td>
+<td>检查 <code>20e3</code> PWM、<code>500 Hz</code> 电流环带宽、<code>vbus/sqrt(3)</code> 电压限制</td>
+<td>明确哪些参数沿用公式，哪些必须替换为 M2006 实测&#x2F;资料值</td>
+</tr>
+<tr>
+<td>1. 兼容性修复</td>
+<td>让 R2025b 能打开和更新模型</td>
+<td><code>x7_foc_speedloop_R2025b_latched.slx</code>、<code>set_x7_codegen_fixed_step.m</code></td>
+<td>fixed-step update，不依赖变量步长</td>
+<td>模型能更新，且不再把 solver 问题当作控制问题</td>
+</tr>
+<tr>
+<td>2. 桌面等效仿真</td>
+<td>在不依赖 SPS&#x2F;Simscape 的情况下复现速度环响应</td>
+<td><code>run_axdr_pid_speedloop_demo.m</code></td>
+<td>生成 <code>axdr_pid_speedloop_demo.csv/.png</code></td>
+<td>速度环输出方向、限流、负载扰动响应合理</td>
+</tr>
+<tr>
+<td>3. 控制器接口收敛</td>
+<td>把控制器变成嵌入式可接受的输入输出</td>
+<td><code>create_x7_pid_controller_codegen.m</code></td>
+<td>接口固定为 <code>ref_rpm + speed_rpm -&gt; iq_cmd_a</code></td>
+<td>速度环不依赖仿真 plant、Scope 或 Workspace</td>
+</tr>
+<tr>
+<td>4. 板端仿真代码</td>
+<td>把离散 PID 放到 STM32 上跑，但关闭相 PWM</td>
+<td><code>AXDR_SIM2BOARD_DEMO=ON</code>、<code>sim2board_demo.c</code></td>
+<td>VOFA 输出 ref&#x2F;speed&#x2F;iq&#x2F;error，三相 PWM 保持关闭</td>
+<td>证明 USB、VOFA、调度和浮点计算可用</td>
+</tr>
+<tr>
+<td>5. 硬件遥测</td>
+<td>不转电机，先确认采样和状态可观察</td>
+<td><code>AXDR_HW_TELEMETRY_DEMO=ON</code>、<code>hw_telemetry_demo.c</code></td>
+<td>观察 ADC、VBUS、MT6816、TIM1、R_EN</td>
+<td>采样比例、编码器状态、保护字段可信</td>
+</tr>
+<tr>
+<td>6. 低功率开环</td>
+<td>用小 <code>Vq</code> 验证三相输出、相序和角度方向</td>
+<td><code>AXDR_LIVE_OPENLOOP_TEST=ON</code>、<code>foc_volt()</code></td>
+<td>限流电源 + VOFA，确认无 fault&#x2F;abort</td>
+<td>电机可按预期方向缓慢转动，停机能关 PWM&#x2F;R_EN</td>
+</tr>
+<tr>
+<td>7. 低速闭环</td>
+<td>低电流下建立 MT6816 电角度 offset 和基础速度闭环</td>
+<td><code>AXDR_LIVE_SPEED_PID_TEST=ON</code>、<code>live_speed_test.c</code></td>
+<td>40&#x2F;50 rpm 测试，检查 eangle、Iq、Vd&#x2F;Vq、dt</td>
+<td>角度校准、20 kHz 电流环、1 kHz 速度环同时成立</td>
+</tr>
+<tr>
+<td>8. 100&#x2F;300 rpm 调参</td>
+<td>把课程设计从演示扩展到 100&#x2F;300 rpm 可重复验证</td>
+<td><code>run_hs300_test.py</code>、低&#x2F;中&#x2F;高速参数表</td>
+<td><code>M/H/G/P/R/T</code> 固定命令，输出 CSV&#x2F;JSON</td>
+<td>保持测试无 fault&#x2F;abort，脚本结束后 idle 安全</td>
+</tr>
+</tbody></table>
+<p>这个阶段化推进比“直接闭环调 PID”慢一些，但能把错误定位清楚：桌面仿真有问题就是控制器公式问题；板端仿真有问题就是 C 移植&#x2F;通信问题；硬件遥测有问题就是采样或接口问题；开环有问题才去查相序、PWM、驱动和电机；最后闭环有问题才调速度环和电角度。</p>
+<h3 id="实际构建目标"><a href="#实际构建目标" class="headerlink" title="实际构建目标"></a>实际构建目标</h3><p>GCC&#x2F;CMake 侧使用 preset 管理不同阶段，避免手改宏导致测试状态混乱：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs powershell">cmake <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-live-check</span><br>cmake <span class="hljs-literal">--build</span> <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-live-check</span><br><br>cmake <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-hw-telemetry</span><br>cmake <span class="hljs-literal">--build</span> <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-hw-telemetry</span><br><br>cmake <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-live-openloop</span><br>cmake <span class="hljs-literal">--build</span> <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-live-openloop</span><br><br>cmake <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-live-speed-pid</span><br>cmake <span class="hljs-literal">--build</span> <span class="hljs-literal">--preset</span> gcc<span class="hljs-literal">-live-speed-pid</span><br></code></pre></td></tr></table></figure>
+
+<p>Keil&#x2F;MDK 侧保留 <code>MDK-ARM/AxDr.uvprojx</code>，target 名为 <code>AxDr</code>。最终可下载产物是 <code>MDK-ARM/AxDr/AxDr.hex</code>；GCC 侧产物是 <code>build/gcc-live-speed-pid/AxDr_X7_Speedloop.elf/.hex/.bin</code>。课程报告里我更倾向写清楚两条构建链：MDK 用于最终下载和同学复现，GCC&#x2F;CMake 用于快速模式切换和 CI 风格的编译检查。</p>
+<h3 id="验证命令"><a href="#验证命令" class="headerlink" title="验证命令"></a>验证命令</h3><p>早期 2 A 低风险阶段用 <code>validate_live_speed_test.py</code>，它关注“基础闭环是否可信”：帧数、通道数、VBUS 范围、电流限制、MT6816 状态、fault&#x2F;abort、PWM&#x2F;R_EN 状态、速度环 dt 和电流环 20 kHz 频率。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">python tools\validate_live_speed_test.py <span class="hljs-literal">--port</span> COM37 <span class="hljs-literal">--expected-mode</span> <span class="hljs-number">2</span> <span class="hljs-literal">--command</span> S <span class="hljs-literal">--duration</span> <span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+
+<p>后期 100&#x2F;300 rpm 阶段用 <code>run_hs300_test.py</code>，它关注“固定 profile 下指标是否可复现”：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">python tools\run_hs300_test.py X M <span class="hljs-built_in">H</span> G <span class="hljs-literal">--port</span> COM37<br></code></pre></td></tr></table></figure>
+
+<p>脚本会在每次测试前先发 <code>X</code>，测试结束后再发 <code>X</code> 并记录 <code>idle.csv</code>，所以日志里同时包含运行段和停机段。这个习惯很重要，因为对电机控制来说，“跑起来”只是一半，“能明确停下来且没有 fault&#x2F;abort 残留”才是完整验证。</p>
 <h2 id="项目定位与最终结果"><a href="#项目定位与最终结果" class="headerlink" title="项目定位与最终结果"></a>项目定位与最终结果</h2><p>这次课程设计的对象是 AXDR &#x2F; AxDrive-L 平台，主控为 STM32G474RETx，电机为 DJI M2006 减速无刷电机，位置反馈使用 MT6816 14 bit 磁编码器。最初目标只是复现 X7 速度环 PID，但实际落板后，工作量主要集中在三个方向：</p>
 <ol>
 <li>把 Simulink 中的速度环输出映射成真实 <code>Iq_ref</code>，由内层 FOC 电流环闭环执行。</li>
@@ -937,4 +1252,4 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 </tbody></table>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这次移植的核心收获是：真实电机控制里，算法本身只占一部分。Simulink 能给出速度环、电流环和坐标变换的主结构，但真正决定闭环能否稳定复现的是采样时序、电角度交接、保护策略、遥测字段和可重复测试脚本。</p>
 <p>最终程序已经形成较完整的闭环：MT6816 位置反馈、1 kHz 速度环、20 kHz Id&#x2F;Iq 电流环、Clarke&#x2F;Park&#x2F;SVPWM、TIM1 三相互补 PWM、LCD 曲线显示、USB CDC 命令、48 通道 VOFA 和 Python 自动化验证。当前版本在 100 rpm 保持、300 rpm 保持和 86 s 自动序列中均未触发 fault&#x2F;abort，并能在测试结束后回到明确的 idle 安全状态。</p>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/projects/q-car-unicycle-board/">← 下一篇 Q 车模独轮主板</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/projects/smartcar-integrated-board/">21 届智能车疯狂电路组全集成开发板 上一篇 →</a></div></div></div><details id="reward" open><summary>打赏</summary><div><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/WeChat.png"></div></details></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">PassengerDong</a></h1><div id="description"><p>PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D%E4%B8%8E%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">项目定位与最终结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E4%B8%8E%E5%85%B3%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="toc-number">2.</span> <span class="toc-text">硬件与关键约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6"><span class="toc-number">3.</span> <span class="toc-text">程序框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E9%93%BE%E8%B7%AF"><span class="toc-number">4.</span> <span class="toc-text">控制算法链路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E8%A7%92%E5%BA%A6%E6%A0%A1%E5%87%86%E4%B8%8E%E7%BC%96%E7%A0%81%E5%99%A8%E4%BA%A4%E6%8E%A5"><span class="toc-number">4.1.</span> <span class="toc-text">电角度校准与编码器交接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9F%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%99%A8"><span class="toc-number">4.2.</span> <span class="toc-text">速度估计器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9F%E5%BA%A6%E7%8E%AF%EF%BC%9A%E5%88%86%E6%AE%B5-PID-%E5%89%8D%E9%A6%88-%E9%98%BB%E5%B0%BC-%E8%B6%85%E9%80%9F%E5%88%B9%E8%BD%A6"><span class="toc-number">4.3.</span> <span class="toc-text">速度环：分段 PID + 前馈 + 阻尼 + 超速刹车</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%B5%81%E7%8E%AF%E4%B8%8E-SVPWM"><span class="toc-number">4.4.</span> <span class="toc-text">电流环与 SVPWM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%8C%87%E4%BB%A4%E3%80%81UI-%E4%B8%8E%E9%81%A5%E6%B5%8B"><span class="toc-number">5.</span> <span class="toc-text">测试指令、UI 与遥测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#USB-CDC-%E6%8C%87%E4%BB%A4"><span class="toc-number">5.1.</span> <span class="toc-text">USB CDC 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%94%AE%E5%92%8C-LCD"><span class="toc-number">5.2.</span> <span class="toc-text">按键和 LCD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VOFA-%E9%80%9A%E9%81%93"><span class="toc-number">5.3.</span> <span class="toc-text">VOFA 通道</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%AA%8C%E8%AF%81%E8%84%9A%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">自动化验证脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E4%B8%8E%E8%B0%83%E5%8F%82%E8%BF%87%E7%A8%8B"><span class="toc-number">7.</span> <span class="toc-text">测试数据与调参过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A9%E6%9C%9F-2-A-%E5%AE%89%E5%85%A8%E9%98%B6%E6%AE%B5"><span class="toc-number">7.1.</span> <span class="toc-text">早期 2 A 安全阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#100-rpm-%E8%87%AA%E5%8A%A8%E5%BA%8F%E5%88%97%E9%98%B6%E6%AE%B5"><span class="toc-number">7.2.</span> <span class="toc-text">100 rpm 自动序列阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#300-rpm-%E8%B0%83%E5%8F%82%E9%98%B6%E6%AE%B5"><span class="toc-number">7.3.</span> <span class="toc-text">300 rpm 调参阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B%E5%A4%8D%E7%9B%98"><span class="toc-number">8.</span> <span class="toc-text">优化过程复盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E4%BB%8D%E9%9C%80%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">9.</span> <span class="toc-text">目前仍需注意的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%A4%8D%E6%A0%B8%E6%96%87%E4%BB%B6"><span class="toc-number">10.</span> <span class="toc-text">可复核文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">11.</span> <span class="toc-text">总结</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/projects/q-car-unicycle-board/">← Next Q 车模独轮主板</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/projects/smartcar-integrated-board/">21 届智能车疯狂电路组全集成开发板 Prev →</a></div></div></div><details id="reward" open><summary>reward</summary><div><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/WeChat.png"></div></details></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">PassengerDong</a></h1><div id="description"><p>PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E4%BB%BF%E7%9C%9F%E5%88%B0%E5%AE%9E%E6%9C%BA%E7%9A%84%E6%95%B4%E4%BD%93%E8%B7%AF%E7%BA%BF"><span class="toc-number">1.</span> <span class="toc-text">从仿真到实机的整体路线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E6%96%87%E4%BB%B6%E6%97%8F%E4%B8%8E%E8%A7%92%E8%89%B2%E5%88%86%E5%B7%A5"><span class="toc-number">2.</span> <span class="toc-text">仿真文件族与角色分工</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B-Simulink-%E5%8F%82%E6%95%B0%E4%B8%8E-M2006-%E5%8F%82%E6%95%B0%E6%9B%BF%E6%8D%A2"><span class="toc-number">3.</span> <span class="toc-text">原始 Simulink 参数与 M2006 参数替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#R2025b-%E5%85%BC%E5%AE%B9%E5%A4%84%E7%90%86%E4%B8%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8%E5%AE%8C%E6%95%B4%E6%A8%A1%E5%9E%8B%E7%9B%B4%E6%8E%A5%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">R2025b 兼容处理与为什么不用完整模型直接生成代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0-SPS-%E6%95%B0%E5%80%BC%E4%BB%BF%E7%9C%9F%EF%BC%9A%E5%85%88%E9%AA%8C%E8%AF%81%E6%8E%A7%E5%88%B6%E6%80%9D%E8%B7%AF"><span class="toc-number">5.</span> <span class="toc-text">无 SPS 数值仿真：先验证控制思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Controller-only-%E6%A8%A1%E5%9E%8B%EF%BC%9A%E6%8A%8A%E6%8E%A5%E5%8F%A3%E6%94%B6%E6%95%9B%E6%88%90%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">Controller-only 模型：把接口收敛成嵌入式函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%BF%E7%AB%AF%E5%AE%89%E5%85%A8%E6%BC%94%E7%A4%BA%EF%BC%9A%E5%85%88%E8%B7%91-C-%E7%89%88%E6%9C%AC%E4%BB%BF%E7%9C%9F%EF%BC%8C%E4%B8%8D%E5%BC%80%E4%B8%89%E7%9B%B8-PWM"><span class="toc-number">7.</span> <span class="toc-text">板端安全演示：先跑 C 版本仿真，不开三相 PWM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E4%BB%BF%E7%9C%9F%E5%AF%B9%E8%B1%A1%E5%88%B0%E7%9C%9F%E5%AE%9E%E6%97%A0%E5%88%B7%E9%A9%B1%E5%8A%A8%E5%B7%A5%E7%A8%8B"><span class="toc-number">8.</span> <span class="toc-text">从仿真对象到真实无刷驱动工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F"><span class="toc-number">9.</span> <span class="toc-text">工程初始化顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B%E6%8B%86%E8%A7%A3"><span class="toc-number">10.</span> <span class="toc-text">开发流程拆解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E6%9E%84%E5%BB%BA%E7%9B%AE%E6%A0%87"><span class="toc-number">10.1.</span> <span class="toc-text">实际构建目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%91%BD%E4%BB%A4"><span class="toc-number">10.2.</span> <span class="toc-text">验证命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D%E4%B8%8E%E6%9C%80%E7%BB%88%E7%BB%93%E6%9E%9C"><span class="toc-number">11.</span> <span class="toc-text">项目定位与最终结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E4%B8%8E%E5%85%B3%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="toc-number">12.</span> <span class="toc-text">硬件与关键约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6"><span class="toc-number">13.</span> <span class="toc-text">程序框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E9%93%BE%E8%B7%AF"><span class="toc-number">14.</span> <span class="toc-text">控制算法链路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E8%A7%92%E5%BA%A6%E6%A0%A1%E5%87%86%E4%B8%8E%E7%BC%96%E7%A0%81%E5%99%A8%E4%BA%A4%E6%8E%A5"><span class="toc-number">14.1.</span> <span class="toc-text">电角度校准与编码器交接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9F%E5%BA%A6%E4%BC%B0%E8%AE%A1%E5%99%A8"><span class="toc-number">14.2.</span> <span class="toc-text">速度估计器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9F%E5%BA%A6%E7%8E%AF%EF%BC%9A%E5%88%86%E6%AE%B5-PID-%E5%89%8D%E9%A6%88-%E9%98%BB%E5%B0%BC-%E8%B6%85%E9%80%9F%E5%88%B9%E8%BD%A6"><span class="toc-number">14.3.</span> <span class="toc-text">速度环：分段 PID + 前馈 + 阻尼 + 超速刹车</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%B5%81%E7%8E%AF%E4%B8%8E-SVPWM"><span class="toc-number">14.4.</span> <span class="toc-text">电流环与 SVPWM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%8C%87%E4%BB%A4%E3%80%81UI-%E4%B8%8E%E9%81%A5%E6%B5%8B"><span class="toc-number">15.</span> <span class="toc-text">测试指令、UI 与遥测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#USB-CDC-%E6%8C%87%E4%BB%A4"><span class="toc-number">15.1.</span> <span class="toc-text">USB CDC 指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E9%94%AE%E5%92%8C-LCD"><span class="toc-number">15.2.</span> <span class="toc-text">按键和 LCD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VOFA-%E9%80%9A%E9%81%93"><span class="toc-number">15.3.</span> <span class="toc-text">VOFA 通道</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%AA%8C%E8%AF%81%E8%84%9A%E6%9C%AC"><span class="toc-number">16.</span> <span class="toc-text">自动化验证脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E4%B8%8E%E8%B0%83%E5%8F%82%E8%BF%87%E7%A8%8B"><span class="toc-number">17.</span> <span class="toc-text">测试数据与调参过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A9%E6%9C%9F-2-A-%E5%AE%89%E5%85%A8%E9%98%B6%E6%AE%B5"><span class="toc-number">17.1.</span> <span class="toc-text">早期 2 A 安全阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#100-rpm-%E8%87%AA%E5%8A%A8%E5%BA%8F%E5%88%97%E9%98%B6%E6%AE%B5"><span class="toc-number">17.2.</span> <span class="toc-text">100 rpm 自动序列阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#300-rpm-%E8%B0%83%E5%8F%82%E9%98%B6%E6%AE%B5"><span class="toc-number">17.3.</span> <span class="toc-text">300 rpm 调参阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E8%BF%87%E7%A8%8B%E5%A4%8D%E7%9B%98"><span class="toc-number">18.</span> <span class="toc-text">优化过程复盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E4%BB%8D%E9%9C%80%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">19.</span> <span class="toc-text">目前仍需注意的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%A4%8D%E6%A0%B8%E6%96%87%E4%BB%B6"><span class="toc-number">20.</span> <span class="toc-text">可复核文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">21.</span> <span class="toc-text">总结</span></a></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
