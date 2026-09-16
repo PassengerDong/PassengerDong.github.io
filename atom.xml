@@ -68,11 +68,11 @@
     
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
     
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
+    
     <category term="竞赛硬件" scheme="https://passengerdong.github.io/tags/%E7%AB%9E%E8%B5%9B%E7%A1%AC%E4%BB%B6/"/>
     
     <category term="TC264" scheme="https://passengerdong.github.io/tags/TC264/"/>
-    
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
   </entry>
   
@@ -191,13 +191,13 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
-    
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="飞控" scheme="https://passengerdong.github.io/tags/%E9%A3%9E%E6%8E%A7/"/>
     
     <category term="CYT4BB7" scheme="https://passengerdong.github.io/tags/CYT4BB7/"/>
+    
+    <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
   </entry>
   
