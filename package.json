@@ -6,6 +6,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
+    "publish": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/deploy-blog.ps1",
+    "publish:dry": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/deploy-blog.ps1 -DryRun",
     "server": "hexo server"
   },
   "hexo": {
