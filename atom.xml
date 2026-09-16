@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>PassengerDong Portfolio</title>
+  <title>Direject</title>
   
   <subtitle>嵌入式 / 硬件 / 工程实践</subtitle>
   <link href="https://passengerdong.github.io/atom.xml" rel="self"/>
@@ -10,14 +10,14 @@
   <id>https://passengerdong.github.io/</id>
   
   <author>
-    <name>PassengerDong</name>
+    <name>Direject</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>AXDR-L X7 速度环 FOC 移植与 300 rpm 调参复盘</title>
+    <title>基于STM32G4平台的无刷驱动FOC电流速度换控制</title>
     <link href="https://passengerdong.github.io/articles/axdr-x7-speedloop-pid-current-loop/"/>
     <id>https://passengerdong.github.io/articles/axdr-x7-speedloop-pid-current-loop/</id>
     <published>2026-09-15T05:00:00.000Z</published>
@@ -68,11 +68,11 @@
     
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
     
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
+    
     <category term="竞赛硬件" scheme="https://passengerdong.github.io/tags/%E7%AB%9E%E8%B5%9B%E7%A1%AC%E4%BB%B6/"/>
     
     <category term="TC264" scheme="https://passengerdong.github.io/tags/TC264/"/>
-    
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
   </entry>
   
@@ -127,11 +127,11 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
+    <category term="电调" scheme="https://passengerdong.github.io/tags/%E7%94%B5%E8%B0%83/"/>
+    
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
     
     <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
-    <category term="电调" scheme="https://passengerdong.github.io/tags/%E7%94%B5%E8%B0%83/"/>
     
     <category term="AI8051U" scheme="https://passengerdong.github.io/tags/AI8051U/"/>
     
@@ -160,13 +160,13 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
-    
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="电调" scheme="https://passengerdong.github.io/tags/%E7%94%B5%E8%B0%83/"/>
     
     <category term="STC32G" scheme="https://passengerdong.github.io/tags/STC32G/"/>
+    
+    <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
   </entry>
   
