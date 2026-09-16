@@ -37,9 +37,9 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
     <category term="TC377" scheme="https://passengerdong.github.io/tags/TC377/"/>
     
@@ -113,8 +113,6 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
     
     <category term="竞赛硬件" scheme="https://passengerdong.github.io/tags/%E7%AB%9E%E8%B5%9B%E7%A1%AC%E4%BB%B6/"/>
@@ -126,6 +124,8 @@
     <category term="DRV8701" scheme="https://passengerdong.github.io/tags/DRV8701/"/>
     
     <category term="无刷电调" scheme="https://passengerdong.github.io/tags/%E6%97%A0%E5%88%B7%E7%94%B5%E8%B0%83/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
   </entry>
   
@@ -149,9 +149,9 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="无刷电调" scheme="https://passengerdong.github.io/tags/%E6%97%A0%E5%88%B7%E7%94%B5%E8%B0%83/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
     <category term="逐飞固件" scheme="https://passengerdong.github.io/tags/%E9%80%90%E9%A3%9E%E5%9B%BA%E4%BB%B6/"/>
     
@@ -182,9 +182,9 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
     <category term="电调" scheme="https://passengerdong.github.io/tags/%E7%94%B5%E8%B0%83/"/>
     
@@ -219,9 +219,9 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
     <category term="电调" scheme="https://passengerdong.github.io/tags/%E7%94%B5%E8%B0%83/"/>
     
@@ -254,6 +254,8 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
+    
     <category term="飞控" scheme="https://passengerdong.github.io/tags/%E9%A3%9E%E6%8E%A7/"/>
     
     <category term="CYT4BB7" scheme="https://passengerdong.github.io/tags/CYT4BB7/"/>
@@ -265,8 +267,6 @@
     <category term="SY8303AIC" scheme="https://passengerdong.github.io/tags/SY8303AIC/"/>
     
     <category term="STC四合一电调" scheme="https://passengerdong.github.io/tags/STC%E5%9B%9B%E5%90%88%E4%B8%80%E7%94%B5%E8%B0%83/"/>
-    
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
   </entry>
   
@@ -290,11 +290,11 @@
     <category term="开源硬件" scheme="https://passengerdong.github.io/categories/%E5%BC%80%E6%BA%90%E7%A1%AC%E4%BB%B6/"/>
     
     
-    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
-    
     <category term="智能车" scheme="https://passengerdong.github.io/tags/%E6%99%BA%E8%83%BD%E8%BD%A6/"/>
     
     <category term="DRV8701" scheme="https://passengerdong.github.io/tags/DRV8701/"/>
+    
+    <category term="OSHWHub" scheme="https://passengerdong.github.io/tags/OSHWHub/"/>
     
     <category term="电机驱动" scheme="https://passengerdong.github.io/tags/%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A8/"/>
     
