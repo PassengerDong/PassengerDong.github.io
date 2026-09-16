@@ -6,8 +6,6 @@ category: 开源硬件
 tag:
   - 电调
   - STC32G
-  - 四合一电调
-  - 逐飞固件
   - 智能车
   - OSHWHub
 permalink: projects/stc-4in1-esc/

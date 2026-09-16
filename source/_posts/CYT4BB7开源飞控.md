@@ -6,10 +6,7 @@ category: 开源硬件
 tag:
   - 飞控
   - CYT4BB7
-  - 飞跃雷区
-  - 30.5mm
-  - SY8303AIC
-  - STC四合一电调
+  - 智能车
   - OSHWHub
 permalink: projects/cyt4bb7-flight-controller/
 cover_image: https://image.lceda.cn/oshwhub/pullImage/358ae21b00154302bd213beffd6cf128.jpg

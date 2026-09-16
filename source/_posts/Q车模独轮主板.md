@@ -1,14 +1,12 @@
 ---
 title: Q 车模独轮主板
-date: 2026-09-15 20:05:00
+date: 2025-07-16 20:05:00
+updated: 2025-07-16 20:05:00
 category: 开源硬件
 tag:
   - 智能车
   - TC377
   - 独轮车
-  - BGA292
-  - MT9V034
-  - 有刷驱动
   - OSHWHub
 permalink: projects/q-car-unicycle-board/
 cover_image: https://image.lceda.cn/pullimage/CXFr2DySrUB2fHgoAOhSuIkT90F22KvRQSQ3K9p6.png
