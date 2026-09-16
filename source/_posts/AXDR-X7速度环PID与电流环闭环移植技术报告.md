@@ -1,5 +1,5 @@
 ---
-title: AXDR X7 速度环 FOC 移植与 300 rpm 调参复盘
+title: AXDR-L X7 速度环 FOC 移植与 300 rpm 调参复盘
 date: 2026-09-15 13:00:00
 updated: 2026-09-15 13:00:00
 categories:
@@ -17,9 +17,414 @@ tags:
 permalink: articles/axdr-x7-speedloop-pid-current-loop/
 comments: false
 ---
-> 本文记录一次从 X7/Simulink 速度环思路迁移到 AXDR / AxDrive-L 实物平台的完整过程。重点不是“电机能转”，而是把速度环、Id/Iq 电流环、编码器电角度、SVPWM、保护、VOFA 遥测和自动化验证串成一个能反复调参的闭环框架。
+> 本文记录一次从 X7/Simulink 速度环仿真迁移到 AXDR-L / AxDrive-L 实物平台的完整过程。重点不是“电机能转”，而是说明一个课程设计里的仿真文件，如何一步步被拆成参数脚本、控制器验证模型、可编译 C 工程、20 kHz 电流环、1 kHz 速度环、编码器电角度闭环、SVPWM 输出、保护状态机、VOFA 遥测和自动化验证脚本。
 
 <!-- more -->
+
+## 从仿真到实机的整体路线
+
+一开始的输入不是一个能直接刷进板子的工程，而是一组 X7 FOC 学习模型。`0.AxDr_simulink` 目录里既有坐标变换、SVPWM、V/f、I/f、电流环、速度环、位置环，也有电阻/电感/磁链/惯量辨识、ESMO、PLL、弱磁、RLS、EKF 等后续模型。真正用于本次课程设计主线的是 `x7_foc_speedloop.slx` 及它的 R2025b 兼容版本，目标是把速度环控制思路迁到 AXDR-L 的 STM32G474 + M2006 + MT6816 实物平台上。
+
+整个开发过程可以按下面这条链理解：
+
+```text
+Simulink FOC 学习模型
+  -> foc_para.m 提取控制参数、物理参数和采样频率
+  -> R2025b 兼容处理：SPS/Simscape 块迁移和 fixed-step 设置
+  -> 无 SPS 数值脚本：先验证速度环、限流、负载扰动是否合理
+  -> controller-only 模型：只保留 ref/speed -> Iq 的控制器接口
+  -> C 工程安全演示：sim2board_demo 在板端跑同一套离散算法但关闭相 PWM
+  -> 硬件遥测模式：确认 ADC、VBUS、MT6816、R_EN、TIM1 状态都可观测
+  -> 开环低功率转动：验证相序、角度方向、PWM/SVPWM 输出路径
+  -> 编码器电角度校准：建立 theta_e 与 MT6816 的 offset/dir 关系
+  -> 速度环闭环：1 kHz 外环输出 Iq_ref，20 kHz 内环执行 Id/Iq FOC
+  -> 自动化脚本验收：固定命令、固定采样窗口、固定安全阈值重复测试
+```
+
+这个路线的核心取舍是：不把 Simulink 自动生成代码当成最终固件，而是把 Simulink 当作“控制结构和参数来源”。真正上板时，需要重写和补齐仿真里没有的部分：ADC 触发、PWM 互补输出、R_EN 使能、编码器 SPI、故障停机、串口命令、LCD 显示和测试脚本。
+
+## 仿真文件族与角色分工
+
+本次不是只打开一个 `.slx`，而是先把仿真目录里的模型按用途分类。这样做的好处是，后续文章和代码都能说明“哪个模型贡献了控制算法，哪个脚本只是为兼容或报告服务”。
+
+| 文件 / 目录 | 角色 | 在移植中的作用 |
+| --- | --- | --- |
+| `x1_foc_transform.slx` | 坐标变换基础模型 | 对应固件里的 Clarke / Park / inverse Park |
+| `x2_foc_svpwm.slx` | SVPWM 模型 | 对应 `foc_calc.c` 的 `svm()` 和 TIM1 CCR 更新 |
+| `x3_foc_vf.slx` | V/f 开环模型 | 用作实机最早的低功率开环转动思路 |
+| `x5_foc_if.slx` | I/f 启动模型 | 为后续无感和电角度拖动提供参考 |
+| `x6_foc_currentloop.slx` | Id/Iq 电流环模型 | 提供 `Kp=L*wc`、`Ki=R*wc` 的电流环整定主线 |
+| `x7_foc_speedloop.slx` | 速度环主模型 | 本文主线，速度误差经 PID 输出转矩/电流请求 |
+| `x7_foc_speedloop_R2025b_latched.slx` | R2025b 兼容版本 | 保留速度环主线，解决新版 MATLAB 兼容问题 |
+| `x7_foc_speedloop_R2025b_codegen_fixedstep.slx` | fixed-step 版本 | 用于代码生成检查，强调离散固定步长 |
+| `converted_x7/x7_foc_speedloop_simscape_patched.slx` | Simscape 转换模型 | 验证原 SPS 功率器件导入情况 |
+| `foc_para.m` | 参数脚本 | 提供 PWM 频率、母线电压、电机参数、电流环/速度环公式 |
+| `run_axdr_pid_speedloop_demo.m` | 无 SPS 数值仿真 | 不依赖 Simscape，快速生成报告曲线和 CSV |
+| `create_x7_foc_speedloop_basic_pid.m` | R2025b-safe 仿真模型生成脚本 | 自动生成一个只含离散 PID + 机械对象的 `.slx` |
+| `create_x7_pid_controller_codegen.m` | controller-only 代码生成模型 | 把接口收敛为 `ref_rpm, speed_rpm -> iq_cmd_a` |
+| `report_outputs/` | 仿真输出 | 保存 `axdr_pid_speedloop_demo.csv/.png` 等报告素材 |
+
+这里最重要的分界线是：`x7_foc_speedloop` 这种完整模型适合说明控制对象和闭环结构，但不适合直接搬到 STM32 工程；`x7_pid_controller_codegen` 这种 controller-only 模型才接近嵌入式接口，因为它不再包含逆变器、PMSM plant、Scope、To Workspace 和测试激励，只留下可落到 C 函数的控制器输入输出。
+
+## 原始 Simulink 参数与 M2006 参数替换
+
+`foc_para.m` 是仿真到工程的第一层接口。原模型里给出了 20 kHz 开关频率、24 V 母线、PMSM 参数、电流环带宽、速度环推导公式、SMO/PLL 参数以及弱磁相关参数。文章里需要特别说明：这些参数不是全部照抄到 M2006 上，而是保留公式和控制结构，再把电机对象换成实物台架的 M2006。
+
+原始脚本里与本次最相关的参数如下：
+
+```matlab
+SwitchFrequency = 20e3;
+Ts = 1 / SwitchFrequency;
+vbus = 24;
+
+Np = 4;
+Rs = 0.45;
+Ls = 0.00042;
+Ld = 0.00042;
+Lq = 0.00042;
+Flux = 0.00525;
+Jx = 0.000004483738;
+
+CurrentLoopBandwidth = 500 * 2 * pi;
+id_kp = Ls * CurrentLoopBandwidth;
+id_ki = Rs * CurrentLoopBandwidth;
+iq_kp = Ls * CurrentLoopBandwidth;
+iq_ki = Rs * CurrentLoopBandwidth;
+vd_limit = vbus / sqrt(3);
+vq_limit = vbus / sqrt(3);
+```
+
+迁移到 AXDR-L 时，保留了几个关键思想：
+
+1. PWM / 电流环频率仍按 20 kHz 设计。
+2. 电流环带宽仍以 500 Hz 为初始目标。
+3. Id/Iq PI 仍使用 `Kp=L*wc`、`Ki=R*wc`，只替换为 M2006 的 `Rs/Ls`。
+4. SVPWM 线性区仍受 `Vbus/sqrt(3)` 限制。
+5. 速度环仍让外环输出转矩电流，也就是工程里的 `Iq_ref`。
+
+真正替换掉的是电机对象：原脚本的 `Np=4`、`Ls=0.42 mH`、`Flux=0.00525 Wb`、`Jx=4.48e-6 kg*m^2` 更像教学模型参数；实机工程改为 M2006：7 极对、36:1 减速箱、相电阻 0.461 ohm、相电感 64.22 uH、输出轴转矩常数 0.18 N*m/A、输出轴惯量 0.0008 kg*m^2、机械时间常数 0.05278 s。
+
+映射到固件后，参数集中在 `User/motor/axdr_motor_config.h`：
+
+```c
+#define AXDR_SUPPLY_NOMINAL_V 24.0f
+#define AXDR_CURRENT_LIMIT_A 8.5f
+#define AXDR_CURRENT_TRIP_A 10.5f
+
+#define AXDR_M2006_POLE_PAIRS 7.0f
+#define AXDR_M2006_GEAR_RATIO 36.0f
+#define AXDR_M2006_PHASE_RESISTANCE_OHM 0.461f
+#define AXDR_M2006_PHASE_INDUCTANCE_H 0.00006422f
+#define AXDR_M2006_OUTPUT_KT_NM_PER_A 0.18f
+#define AXDR_M2006_OUTPUT_J_KGM2 0.0008f
+#define AXDR_M2006_MECH_TAU_S 0.05278f
+
+#define AXDR_CURRENT_LOOP_BW_HZ 500.0f
+#define AXDR_CURRENT_LOOP_V_LIMIT_V 8.5f
+#define AXDR_CURRENT_LOOP_I_TERM_LIMIT_V 6.5f
+#define AXDR_CURRENT_LOOP_DECOUPLE_ENABLE 0
+```
+
+其中磁链没有手写死值，而是由输出轴转矩常数和减速比反推到电机高速轴：
+
+```text
+Kt_motor = Kt_output / gear_ratio
+flux = Kt_motor / (1.5 * pole_pairs)
+      = 0.18 / 36 / (1.5 * 7)
+      ≈ 4.76e-4 Wb
+```
+
+这个值后面只用于 FOC 参数和可能的解耦/观测器扩展；本次 300 rpm 内，电流环解耦关闭，重点先保证采样、角度和限流稳定。
+
+## R2025b 兼容处理与为什么不用完整模型直接生成代码
+
+原始 `x7_foc_speedloop.slx` 含有电力电子器件和 PMSM 物理对象。迁移到 MATLAB R2025b 后，部分 Specialized Power Systems / Simscape 元件需要转换。导入报告显示：6 个 MOSFET 块为 partially supported，主要是体二极管电感和初始电流参数未完整导入；PMSM、直流电压源和电压测量块可以导入。
+
+这说明模型仍然可以作为控制结构参考，但如果直接对完整模型做嵌入式代码生成，会混进很多不适合 MCU 的内容：
+
+1. MOSFET / PMSM plant 属于仿真对象，上板后由真实逆变器和真实电机替代。
+2. Scope、To Workspace、测试激励不应该进入固件主循环。
+3. 变量步长求解器不适合实时电机控制，必须改成 fixed-step discrete。
+4. STM32 上的 ADC/PWM 同步、死区、R_EN、故障停机、编码器 SPI 都不在原模型内。
+
+因此我把模型处理分成两条线：一条线保留完整仿真用于报告说明，另一条线把控制器剥离出来，用固定步长、明确输入输出的形式接近嵌入式实现。
+
+`set_x7_codegen_fixed_step.m` 做的事情很直接：
+
+```matlab
+set_param(model, ...
+    'SolverType', 'Fixed-step', ...
+    'Solver', 'FixedStepDiscrete', ...
+    'FixedStep', '1e-4', ...
+    'AutoInsertRateTranBlk', 'on');
+
+try
+    set_param(model, 'SystemTargetFile', 'ert.tlc');
+catch
+    set_param(model, 'SystemTargetFile', 'grt.tlc');
+end
+```
+
+这里的 `1e-4` 是 10 kHz 仿真步长，不是最终电流环 ISR 频率。它用于桌面速度环验证和代码生成检查；实机闭环最终采用 20 kHz 电流环和 1 kHz 速度环。
+
+## 无 SPS 数值仿真：先验证控制思路
+
+为了不被 R2025b 的 SPS/Simscape 兼容问题卡住，先写了 `run_axdr_pid_speedloop_demo.m`。这个脚本把完整三相逆变器和 PMSM 电磁细节简化为输出轴机械方程：
+
+```text
+J * dω/dt = Kt * Iq - B * ω - Tload
+B = J / tau
+```
+
+在脚本里，速度环仍然按离散 PID + 前馈 + 限流计算 `Iq`：
+
+```matlab
+ref = refRpm(k) * 2*pi/60;
+err = ref - speed;
+derr = (err - lastErr) / Ts;
+ff = B * ref / Kt;
+uUnsat = Kp * err + Ki * integrator + Kd * derr + ff;
+u = min(max(uUnsat, -iqLimit), iqLimit);
+
+if u == uUnsat
+    integrator = integrator + err * Ts;
+end
+
+speedDot = (Kt * u - B * speed - loadTorque(k)) / Jx;
+speed = speed + speedDot * Ts;
+```
+
+仿真激励也刻意设计成和后续实机测试类似：0.03 s 给 150 rpm，0.25 s 加 0.05 N*m 负载扰动，0.32 s 切到 90 rpm。这样能观察三件事：启动阶段是否撞限流，负载进入后积分能否补偿，参考下降时是否出现长时间超调。
+
+![AXDR PID 速度环桌面仿真](/img/articles/axdr-x7/axdr-pid-speedloop-demo.png)
+
+这组无 SPS 仿真输出 `5001` 个样本，最高速度约 `163.11 rpm`，`Iq` 上限被限制在 `2 A`，0.45 s 后平均绝对误差约 `6.96 rpm`，0.5 s 末速度约 `85.39 rpm`、目标为 `90 rpm`。这个结果没有被当作实机性能结论，只作为控制器方向正确、限流/积分逻辑合理的桌面检查。
+
+## Controller-only 模型：把接口收敛成嵌入式函数
+
+下一步是 `create_x7_pid_controller_codegen.m`。它不再生成完整电机系统，而是只保留两个输入、三个输出：
+
+```text
+输入：ref_rpm, speed_rpm
+输出：iq_cmd_a, error_rpm, integrator_rpm_s
+```
+
+模型内部 MATLAB Function 与脚本中的控制器一致：
+
+```matlab
+function [iq_cmd_a, error_rpm, integrator_rpm_s] = x7_pid_controller(ref_rpm, speed_rpm)
+%#codegen
+persistent integrator_rad error_last_radps
+
+Kt = 0.18;
+B = 0.0008 / 0.05278;
+Ts = 0.0001;
+Kp = 0.08;
+Ki = 2.0;
+Kd = 0.0;
+iqLimit = 2.0;
+
+ref_radps = ref_rpm * 2.0 * pi / 60.0;
+speed_radps = speed_rpm * 2.0 * pi / 60.0;
+error_radps = ref_radps - speed_radps;
+feedforward_iq_a = B * ref_radps / Kt;
+iq_unsat_a = Kp * error_radps + Ki * integrator_rad + feedforward_iq_a;
+iq_cmd_a = min(max(iq_unsat_a, -iqLimit), iqLimit);
+```
+
+这个模型的价值不是生成最终代码，而是逼迫自己把控制器接口讲清楚：速度环只应该知道 `ref_rpm` 和 `speed_rpm`，输出只能是 `Iq_ref`，不能直接操作 PWM，也不能读 ADC 寄存器。等到进入 STM32 工程，`speed_rpm` 由 MT6816 估计器提供，`Iq_ref` 交给 20 kHz 电流环执行。
+
+## 板端安全演示：先跑 C 版本仿真，不开三相 PWM
+
+进入 `3.AXDR_X7_Speedloop` 工程后，第一版不是直接驱动电机，而是做 `sim2board_demo.c`：把 `run_axdr_pid_speedloop_demo.m` 的离散速度环和一阶机械对象搬到 STM32 上运行，USB/VOFA 输出曲线，同时保持相 PWM 关闭。
+
+这个阶段的 CMake 开关如下：
+
+```cmake
+option(AXDR_SIM2BOARD_DEMO "Run safe PID/encoder telemetry demo with phase PWM disabled" ON)
+option(AXDR_ESMO_MATH_DEMO "Run ESMO math telemetry demo with phase PWM disabled" OFF)
+option(AXDR_HW_TELEMETRY_DEMO "Run hardware ADC/encoder/protection telemetry with phase PWM disabled" OFF)
+option(AXDR_LIVE_OPENLOOP_TEST "Run low-power open-loop motor rotation test" OFF)
+option(AXDR_LIVE_SPEED_PID_TEST "Run low-power PID speed-loop motor test" OFF)
+```
+
+同时工程强制只允许一个模式打开：
+
+```cmake
+math(EXPR AXDR_DEMO_MODE_COUNT "${AXDR_SIM2BOARD_DEMO_VALUE} + ${AXDR_ESMO_MATH_DEMO_VALUE} + ${AXDR_HW_TELEMETRY_DEMO_VALUE} + ${AXDR_LIVE_OPENLOOP_TEST_VALUE} + ${AXDR_LIVE_SPEED_PID_TEST_VALUE}")
+if(AXDR_DEMO_MODE_COUNT GREATER 1)
+  message(FATAL_ERROR "Enable only one AXDR demo mode at a time")
+endif()
+```
+
+这样做的目的很明确：在没有任何三相输出风险的情况下，先证明下面几件事：
+
+1. 工程可以用 GCC/CMake 编译出 ELF/HEX/BIN。
+2. USB CDC 和 VOFA 帧格式正常。
+3. MATLAB 中的离散 PID 能在 STM32 单精度浮点下跑出同类曲线。
+4. MT6816 原始角度、状态字能跟随遥测输出。
+5. 主循环调度和 20 ms 发送周期不会卡死。
+
+`sim2board_demo.c` 里板端机械对象就是仿真方程的 C 实现：
+
+```c
+static float plant_step(float current_speed_radps, float iq_cmd_a, float load_torque_nm)
+{
+    const float iq_limited_a = clampf_local(iq_cmd_a,
+                                            -SIM2BOARD_IQ_LIMIT_A,
+                                            SIM2BOARD_IQ_LIMIT_A);
+    const float speed_dot = (SIM2BOARD_KT_NM_PER_A * iq_limited_a
+        - SIM2BOARD_B_NMS * current_speed_radps - load_torque_nm) / SIM2BOARD_J_KGM2;
+
+    return current_speed_radps + speed_dot * SIM2BOARD_DT_S;
+}
+```
+
+它每 1 ms 执行 10 个 `0.0001 s` 仿真步，20 ms 发一次 VOFA。这个模式下 `foc_pwm_stop()` 会在初始化时执行，所以它本质上是“板端运行的仿真代码”，不是电机实转。
+
+## 从仿真对象到真实无刷驱动工程
+
+仿真里通常可以把对象画成“逆变器 + PMSM + 传感器 + Scope”，但实机工程必须把这些抽象替换成具体外设和具体文件。最终工程结构如下：
+
+```text
+3.AXDR_X7_Speedloop
+  Core/Src/main.c              外设初始化、模式选择、主循环、TIM3 tick
+  Core/Src/adc.c               ADC1/ADC2 注入通道、触发源、采样时间
+  Core/Src/tim.c               TIM1 三相 PWM、CH4 ADC 触发、TIM3 1 kHz tick
+  Core/Src/spi.c               MT6816 磁编码器 SPI
+  USB_Device/App/usbd_cdc_if.c USB CDC 收发，把字符命令转给 live_speed_test
+  User/motor/axdr_motor_config.h  M2006、MT6816、限流、电流环带宽
+  User/motor/foc_calc.c        Clarke / Park / inverse Park / SVPWM
+  User/motor/foc_drv.c         ADC 换算、Id/Iq PI、PWM start/stop、FOC 主流程
+  User/motor/foc_ctrl.c        ADC injected 回调、故障检测、旧状态机入口
+  User/motor/encoder_mt6816.c  MT6816 raw angle 和状态读取
+  User/motor/live_speed_test.c 实机速度环、profile、电角度校准、保护、VOFA
+  User/motor/speed_display.c   LCD 曲线和状态显示
+  tools/validate_live_speed_test.py 早期 2 A 验证脚本
+  tools/run_hs300_test.py      100/300 rpm 自动化验收脚本
+```
+
+仿真模块和实机文件的对应关系如下：
+
+| 仿真概念 | 实机落点 | 迁移要点 |
+| --- | --- | --- |
+| 三相逆变器 | `TIM1 CH1/2/3 + CH1N/2N/3N`、`foc_pwm_start/stop()` | 需要互补 PWM、死区、CCR 更新、R_EN 使能和安全关闭 |
+| SVPWM | `foc_calc.c::svm()`、`foc_pwm_run()` | 仿真输出占空比，实机要限制在 0..1 并写入 TIM1 CCR |
+| PMSM plant | 真实 M2006 + AXDR 功率级 | plant 不进固件，换成 ADC 电流、编码器速度和真实机械响应 |
+| 电流采样 | `ADC1->JDR1..JDR3`、1 mOhm、20x 放大 | 需要零偏校准和 A/LSB 换算 |
+| 母线电压 | `ADC2->JDR1`、20k/1k 分压 | Vbus 用于保护和电压矢量限幅 |
+| 机械角/速度 | MT6816 SPI raw angle | 需要 unwrap、减速比、方向、offset 和低通预测 |
+| 速度 PID | `live_speed_test.c::pid_iq_cmd()` | 输出 `Iq_ref`，不是直接输出 PWM |
+| 电流 PI | `foc_drv.c::foc_curr()` | 20 kHz ISR 内执行，输出 `Vd/Vq` |
+| Scope / To Workspace | VOFA 48 通道 + CSV/JSON | 保留可复核数据，而不是只看屏幕曲线 |
+| 仿真 stop condition | `abort_current_count`、fault、脚本阈值 | 实机必须有明确停机路径 |
+
+## 工程初始化顺序
+
+`main.c` 中的初始化顺序按真实电机控制需求展开：先配 GPIO/DMA/SPI/TIM/USB/ADC，再启动 ADC injected 和 TIM1 CH4 触发，最后初始化 PMSM 参数、编码器和测试任务。
+
+```c
+MX_GPIO_Init();
+MX_DMA_Init();
+MX_SPI1_Init();
+MX_TIM1_Init();
+MX_TIM3_Init();
+MX_USB_Device_Init();
+MX_ADC1_Init();
+MX_ADC2_Init();
+
+HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
+HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
+HAL_ADCEx_InjectedStart_IT(&hadc1);
+HAL_ADCEx_InjectedStart(&hadc2);
+
+__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 3900);
+HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+
+pmsm_init();
+encoder_init();
+speed_display_init();
+live_speed_test_init();
+```
+
+这里 `TIM1_CH4` 不参与三相输出，而是作为 ADC 注入采样触发点；真正三相输出由 CH1/2/3 和互补通道 CH1N/2N/3N 完成。ADC1 用中断启动，因为 ADC1 的 JDR1..JDR3 是三相电流；ADC2 只采 VBUS，不开 JEOS 中断，避免一个 PWM 周期里把 FOC 算两次。
+
+主循环只做慢任务：
+
+```c
+while (1) {
+    live_speed_test_task();
+    speed_display_task(live_speed_test_get_sample());
+}
+```
+
+TIM3 的 1 kHz 中断不直接读 SPI，也不直接跑复杂控制，而是只投递 tick：
+
+```c
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if (htim != NULL && htim->Instance == TIM3) {
+    live_speed_test_speed_tick_isr();
+    speed_display_tick_isr();
+  }
+}
+```
+
+这样可以避免在定时器中断里阻塞等待 MT6816 SPI，同时还能用 `speed_ticks_pending` 统计是否有速度环 tick 丢失。
+
+## 开发流程拆解
+
+按时间推进，整个 AXDR-L 速度环工程可以拆成八个阶段。每个阶段都只解决一个风险点，确认之后再进入下一层闭环。
+
+| 阶段 | 目标 | 主要文件 / 开关 | 验证方式 | 进入下一阶段的条件 |
+| --- | --- | --- | --- | --- |
+| 0. 仿真参数整理 | 从 X7 模型中抽出采样频率、PMSM 参数、电流环带宽和速度环结构 | `foc_para.m`、`x7_foc_speedloop.slx` | 检查 `20e3` PWM、`500 Hz` 电流环带宽、`vbus/sqrt(3)` 电压限制 | 明确哪些参数沿用公式，哪些必须替换为 M2006 实测/资料值 |
+| 1. 兼容性修复 | 让 R2025b 能打开和更新模型 | `x7_foc_speedloop_R2025b_latched.slx`、`set_x7_codegen_fixed_step.m` | fixed-step update，不依赖变量步长 | 模型能更新，且不再把 solver 问题当作控制问题 |
+| 2. 桌面等效仿真 | 在不依赖 SPS/Simscape 的情况下复现速度环响应 | `run_axdr_pid_speedloop_demo.m` | 生成 `axdr_pid_speedloop_demo.csv/.png` | 速度环输出方向、限流、负载扰动响应合理 |
+| 3. 控制器接口收敛 | 把控制器变成嵌入式可接受的输入输出 | `create_x7_pid_controller_codegen.m` | 接口固定为 `ref_rpm + speed_rpm -> iq_cmd_a` | 速度环不依赖仿真 plant、Scope 或 Workspace |
+| 4. 板端仿真代码 | 把离散 PID 放到 STM32 上跑，但关闭相 PWM | `AXDR_SIM2BOARD_DEMO=ON`、`sim2board_demo.c` | VOFA 输出 ref/speed/iq/error，三相 PWM 保持关闭 | 证明 USB、VOFA、调度和浮点计算可用 |
+| 5. 硬件遥测 | 不转电机，先确认采样和状态可观察 | `AXDR_HW_TELEMETRY_DEMO=ON`、`hw_telemetry_demo.c` | 观察 ADC、VBUS、MT6816、TIM1、R_EN | 采样比例、编码器状态、保护字段可信 |
+| 6. 低功率开环 | 用小 `Vq` 验证三相输出、相序和角度方向 | `AXDR_LIVE_OPENLOOP_TEST=ON`、`foc_volt()` | 限流电源 + VOFA，确认无 fault/abort | 电机可按预期方向缓慢转动，停机能关 PWM/R_EN |
+| 7. 低速闭环 | 低电流下建立 MT6816 电角度 offset 和基础速度闭环 | `AXDR_LIVE_SPEED_PID_TEST=ON`、`live_speed_test.c` | 40/50 rpm 测试，检查 eangle、Iq、Vd/Vq、dt | 角度校准、20 kHz 电流环、1 kHz 速度环同时成立 |
+| 8. 100/300 rpm 调参 | 把课程设计从演示扩展到 100/300 rpm 可重复验证 | `run_hs300_test.py`、低/中/高速参数表 | `M/H/G/P/R/T` 固定命令，输出 CSV/JSON | 保持测试无 fault/abort，脚本结束后 idle 安全 |
+
+这个阶段化推进比“直接闭环调 PID”慢一些，但能把错误定位清楚：桌面仿真有问题就是控制器公式问题；板端仿真有问题就是 C 移植/通信问题；硬件遥测有问题就是采样或接口问题；开环有问题才去查相序、PWM、驱动和电机；最后闭环有问题才调速度环和电角度。
+
+### 实际构建目标
+
+GCC/CMake 侧使用 preset 管理不同阶段，避免手改宏导致测试状态混乱：
+
+```powershell
+cmake --preset gcc-live-check
+cmake --build --preset gcc-live-check
+
+cmake --preset gcc-hw-telemetry
+cmake --build --preset gcc-hw-telemetry
+
+cmake --preset gcc-live-openloop
+cmake --build --preset gcc-live-openloop
+
+cmake --preset gcc-live-speed-pid
+cmake --build --preset gcc-live-speed-pid
+```
+
+Keil/MDK 侧保留 `MDK-ARM/AxDr.uvprojx`，target 名为 `AxDr`。最终可下载产物是 `MDK-ARM/AxDr/AxDr.hex`；GCC 侧产物是 `build/gcc-live-speed-pid/AxDr_X7_Speedloop.elf/.hex/.bin`。课程报告里我更倾向写清楚两条构建链：MDK 用于最终下载和同学复现，GCC/CMake 用于快速模式切换和 CI 风格的编译检查。
+
+### 验证命令
+
+早期 2 A 低风险阶段用 `validate_live_speed_test.py`，它关注“基础闭环是否可信”：帧数、通道数、VBUS 范围、电流限制、MT6816 状态、fault/abort、PWM/R_EN 状态、速度环 dt 和电流环 20 kHz 频率。
+
+```powershell
+python tools\validate_live_speed_test.py --port COM37 --expected-mode 2 --command S --duration 8
+```
+
+后期 100/300 rpm 阶段用 `run_hs300_test.py`，它关注“固定 profile 下指标是否可复现”：
+
+```powershell
+python tools\run_hs300_test.py X M H G --port COM37
+```
+
+脚本会在每次测试前先发 `X`，测试结束后再发 `X` 并记录 `idle.csv`，所以日志里同时包含运行段和停机段。这个习惯很重要，因为对电机控制来说，“跑起来”只是一半，“能明确停下来且没有 fault/abort 残留”才是完整验证。
 
 ## 项目定位与最终结果
 

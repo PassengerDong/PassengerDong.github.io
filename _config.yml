@@ -110,7 +110,7 @@ theme: arknights
 #   type: ''
 deploy:
   type: git
-  repo: https://github.com/PassengerDong/PassengerDong.github.io
+  repo: https://github.com/PassengerDong/PassengerDong.github.io.git
   branch: master
   # message: Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }})
 
