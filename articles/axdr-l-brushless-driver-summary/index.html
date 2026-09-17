@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AXDR-L 无刷驱动程序阶段总结 | Direject</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"Search","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"复制"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: '确认'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Direject" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">HOME</span></a></li><li class="navItem"><a class="navBlock" href="/projects/"><span class="navItemTitle">Projects</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Articles</span></a></li><li class="navItem"><a class="navBlock" href="/tags/"><span class="navItemTitle">Tags</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>AXDR-L 无刷驱动程序阶段总结</h1></div><hr><div id="post-content"><p>这篇文章单独复盘 AXDR_L 无刷驱动程序，而不是再从头讲一遍 FOC 理论。当前工程源地址是 <code>C:\Users\35053\Desktop\Class\控制设计\AxDr_L\3.AXDR_X7_Speedloop</code>。它的目标很明确：把 X7&#x2F;Simulink 里的速度环和电流环思路，落到 AXDR-L 功率板、STM32G474、DJI M2006 减速无刷电机和 MT6816 磁编码器组成的实机平台上。</p>
+<span id="more"></span>
+
+<h2 id="程序定位"><a href="#程序定位" class="headerlink" title="程序定位"></a>程序定位</h2><p>这个工程不是一个通用电调固件，也不是单纯的开环转电机 Demo。它更像一个“可验证的 FOC 闭环实验平台”：先用 Simulink 和桌面脚本确定控制结构，再在板端拆成 20 kHz 电流环、1 kHz 速度环、编码器电角度、PWM&#x2F;SVPWM、保护停机、LCD 显示、USB CDC 命令和 Python 自动化测试。</p>
+<p>程序最终解决的是三个问题：</p>
+<ol>
+<li>电机能不能在真实 AXDR-L 功率级上闭环运行。</li>
+<li>速度环、电流环、编码器和 PWM 是否能按固定时序协同。</li>
+<li>结果能不能被日志、图像和脚本复现，而不是只靠肉眼判断“转起来了”。</li>
+</ol>
+<h2 id="硬件与关键参数"><a href="#硬件与关键参数" class="headerlink" title="硬件与关键参数"></a>硬件与关键参数</h2><p>当前源码里的主要约束集中在 <code>User/motor/axdr_motor_config.h</code>：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th align="right">当前值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主控</td>
+<td align="right">STM32G474RETx</td>
+<td>使用 TIM1、ADC injected、SPI、USB CDC 等外设</td>
+</tr>
+<tr>
+<td>母线电压</td>
+<td align="right">24.0 V nominal</td>
+<td>软件保护窗口为 18.0–30.0 V</td>
+</tr>
+<tr>
+<td>电机</td>
+<td align="right">DJI M2006 P36</td>
+<td>36:1 减速箱，输出轴目标速度用于测试</td>
+</tr>
+<tr>
+<td>极对数</td>
+<td align="right">7</td>
+<td>机械角到电角度换算的核心参数</td>
+</tr>
+<tr>
+<td>相电阻 &#x2F; 相电感</td>
+<td align="right">0.461 ohm &#x2F; 64.22 uH</td>
+<td>用于 Id&#x2F;Iq 电流环 PI 整定</td>
+</tr>
+<tr>
+<td>输出轴转矩常数</td>
+<td align="right">0.18 N*m&#x2F;A</td>
+<td>速度环前馈和负载估计参考</td>
+</tr>
+<tr>
+<td>编码器</td>
+<td align="right">MT6816, 14 bit</td>
+<td>当前按高速轴安装处理</td>
+</tr>
+<tr>
+<td>电流限制</td>
+<td align="right">8.5 A soft &#x2F; 10.5 A derate-zero</td>
+<td>300 rpm 阶段源码值</td>
+</tr>
+<tr>
+<td>电流环限制</td>
+<td align="right">500 Hz 带宽，8.5 V 输出限幅</td>
+<td>同时受<code>Vbus/sqrt(3)</code> 约束</td>
+</tr>
+</tbody></table>
+<p>这组参数的重点不是“数值看起来完整”，而是它们都落到了真实控制链路里：电阻电感决定 PI 初值，母线电压决定电压矢量上限，减速比决定速度和电角速度换算，编码器位置决定 Park 变换角度。</p>
+<h2 id="软件结构"><a href="#软件结构" class="headerlink" title="软件结构"></a>软件结构</h2><p>工程里最关键的文件可以按职责分层看：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Core/Src/main.c</code></td>
+<td>外设初始化、主循环、TIM3 速度 tick</td>
+</tr>
+<tr>
+<td><code>Core/Src/tim.c</code></td>
+<td>TIM1 三相 PWM、CH4 ADC 触发、TIM3 1 kHz tick</td>
+</tr>
+<tr>
+<td><code>Core/Src/adc.c</code></td>
+<td>ADC1 三相电流和 ADC2 母线电压采样</td>
+</tr>
+<tr>
+<td><code>User/motor/axdr_motor_config.h</code></td>
+<td>M2006、MT6816、限流、电流环参数</td>
+</tr>
+<tr>
+<td><code>User/motor/foc_calc.c</code></td>
+<td>Clarke、Park、inverse Park、SVPWM&#x2F;SVM</td>
+</tr>
+<tr>
+<td><code>User/motor/foc_drv.c</code></td>
+<td>电流换算、Id&#x2F;Iq PI、电压限幅、PWM start&#x2F;stop</td>
+</tr>
+<tr>
+<td><code>User/motor/foc_ctrl.c</code></td>
+<td>ADC injected 回调和旧 PMSM 状态机入口</td>
+</tr>
+<tr>
+<td><code>User/motor/live_speed_test.c</code></td>
+<td>实机速度环、profile、角度校准、保护、VOFA 输出</td>
+</tr>
+<tr>
+<td><code>User/motor/speed_display.c</code></td>
+<td>ST7789 状态显示和 0–500 rpm 曲线</td>
+</tr>
+<tr>
+<td><code>tools/run_hs300_test.py</code></td>
+<td>100&#x2F;300 rpm 自动化采集与验收</td>
+</tr>
+</tbody></table>
+<p>这套拆分比较清楚：底层 FOC 只负责“给定 Id&#x2F;Iq 和电角度，算出三相 PWM”；速度环只负责把目标 rpm 和实际 rpm 变成 <code>Iq_ref</code>；测试层只负责 profile、命令、停机和日志。这样后续换 profile 或调参数时，不需要改 PWM 和采样底层。</p>
+<h2 id="控制链路"><a href="#控制链路" class="headerlink" title="控制链路"></a>控制链路</h2><p>实机闭环路径可以压缩成一句话：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">MT6816 机械角/速度 -&gt; 1 kHz 速度环 -&gt; Iq_ref -&gt; 20 kHz Id/Iq 电流环 -&gt; Vd/Vq -&gt; inverse Park -&gt; SVPWM -&gt; TIM1 三相互补 PWM<br></code></pre></td></tr></table></figure>
+
+<p>电流环由 ADC1 injected 转换完成回调触发，避免 ADC2 母线电压采样再触发一次 FOC，导致一个 PWM 周期内重复计算。Id&#x2F;Iq PI 仍沿用仿真里的 <code>Kp=L*wc</code>、<code>Ki=R*wc</code> 主线，但在实机中增加了积分限幅、电压矢量限幅和 PWM 使能状态约束。</p>
+<p>速度环运行在 1 kHz。它不直接碰 PWM，而是生成 <code>Iq_ref</code>，再交给 20 kHz 电流环执行。后期 100&#x2F;300 rpm 调参时，程序引入了低速、中速、高速三段参数区，并为每段单独设置超速刹车电流、刹车增益和 slew rate。这个方向比单纯把速度滤波变慢更有效，因为慢滤波会把相位滞后带进闭环，让 100 rpm 保持反而变差。</p>
+<h2 id="人机交互与安全停机"><a href="#人机交互与安全停机" class="headerlink" title="人机交互与安全停机"></a>人机交互与安全停机</h2><p>当前交互有两条入口：USB CDC 字符命令和板载四个按键。USB 命令包括 <code>G/U/V/W/P/R/T/L/M/H/S/X/+/-</code>，覆盖自动序列、100 rpm 脉冲&#x2F;斜坡&#x2F;阶跃、300 rpm 脉冲&#x2F;斜坡&#x2F;阶跃、低速保持、中速保持、高速保持、固定 80 rpm、停止和手动增减速。</p>
+<p>按键逻辑已经改成更适合现场测试的“选中后执行”：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>引脚</th>
+<th>当前作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Key1</td>
+<td>PC9</td>
+<td>切换到上一个 LCD 命令</td>
+</tr>
+<tr>
+<td>Key2</td>
+<td>PC8</td>
+<td>切换到下一个 LCD 命令</td>
+</tr>
+<tr>
+<td>Key3</td>
+<td>PC7</td>
+<td>执行当前 LCD 选中的命令</td>
+</tr>
+<tr>
+<td>Key4</td>
+<td>PC6</td>
+<td>停止电机，关闭 PWM&#x2F;R_EN</td>
+</tr>
+</tbody></table>
+<p>安全路径也贯穿在程序里：<code>X</code> 命令、Key4、abort、fault 都会进入停机流程，清掉速度环状态，关闭三相 PWM，并把 R_EN 拉低。自动化脚本也会在测试开始前先发 <code>X</code>，结束后再发 <code>X</code>，并额外采集 idle 数据确认 <code>PWM=0</code>、<code>R_EN=0</code>、<code>ref_rpm=0</code>。</p>
+<h2 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h2><p>后期验证重点放在 100 rpm 和 300 rpm。最终 <code>hs300</code> 组日志里，100 rpm 保持、300 rpm 保持和 86 s 自动序列都没有触发 fault&#x2F;abort，测试结束后也都回到了 idle 安全状态。</p>
+<table>
+<thead>
+<tr>
+<th>测试</th>
+<th>命令</th>
+<th align="right">目标</th>
+<th align="right">最高速度</th>
+<th align="right">late MAE</th>
+<th>电流特征</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100 rpm 保持</td>
+<td><code>M</code></td>
+<td align="right">100 rpm</td>
+<td align="right">105.24 rpm</td>
+<td align="right">1.503 rpm</td>
+<td>无 fault&#x2F;abort</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>300 rpm 保持</td>
+<td><code>H</code></td>
+<td align="right">300 rpm</td>
+<td align="right">308.47 rpm</td>
+<td align="right">3.805 rpm</td>
+<td>P95 约 2.01 A，峰值记录 17.93 A</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>自动序列</td>
+<td><code>G</code></td>
+<td align="right">10&#x2F;100&#x2F;300 rpm</td>
+<td align="right">308.80 rpm</td>
+<td align="right">29.060 rpm</td>
+<td>P95 约 1.33 A，峰值记录 20.71 A</td>
+<td>通过</td>
+</tr>
+</tbody></table>
+<p class='item-img' data-src='/img/articles/axdr-x7/auto300-response-all-profiles.png'><img src="/img/articles/axdr-x7/auto300-response-all-profiles.png" alt="300 rpm 阶跃、脉冲、斜坡与保持响应"></p>
+<p>这里要特别说明：<code>G</code> 自动序列的 late MAE 不能直接当成 300 rpm 稳态误差，因为它包含 profile 切换和零速区间；判断 300 rpm 保持能力时，<code>H</code> 日志更有代表性。<code>current_abs_peak_a</code> 也不能单独作为“持续过流”结论，它更像 20 kHz ISR 内的尖峰诊断字段，需要和 P95&#x2F;P99、瞬时电流、fault&#x2F;abort 一起看。</p>
+<h2 id="这版程序的收获"><a href="#这版程序的收获" class="headerlink" title="这版程序的收获"></a>这版程序的收获</h2><p>这次 AXDR_L 程序最有价值的地方，不是某一个 PID 参数，而是把控制、保护和证据链分开了：</p>
+<ol>
+<li>电流环只从 ADC1 三相电流完成回调进入，避免重复 FOC 调度。</li>
+<li>速度环只输出 <code>Iq_ref</code>，不直接改 PWM，使 1 kHz 外环和 20 kHz 内环边界清楚。</li>
+<li>MT6816 电角度校准、减速比换算和速度估计都进入遥测，便于排查角度问题。</li>
+<li>LCD 显示当前命令、状态和速度曲线，现场不依赖电脑也能做基本判断。</li>
+<li>Python 脚本固定测试流程、阈值和 summary 字段，让每次调参有可比数据。</li>
+<li>低&#x2F;中&#x2F;高速分段参数比单一参数表更适合 M2006 这种带减速箱、低速摩擦明显的对象。</li>
+</ol>
+<h2 id="后续可以继续补的地方"><a href="#后续可以继续补的地方" class="headerlink" title="后续可以继续补的地方"></a>后续可以继续补的地方</h2><p>当前版本已经能支撑课程设计和阶段复盘，但如果继续往更大功率、更高速度或长期运行走，还需要补几件事：</p>
+<ol>
+<li>TIM1 Break&#x2F;COMP 硬件过流链路仍应实测打通，不能只依赖软件 abort。</li>
+<li>300 rpm 阶跃和脉冲还有明显瞬态误差，后续可以单独调高动态响应，但要保持电流边界。</li>
+<li>电流环解耦目前关闭，更高转速或弱磁前要重新检查 <code>Vd/Vq</code> 余量和角度延迟。</li>
+<li>如果 MT6816 换到输出轴，减速比、unwrap、速度估计和电角速度换算必须同步重审。</li>
+<li>当前参数绑定 AXDR-L、M2006、MT6816 和当前台架负载，不适合直接复制到其它无刷电机。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>AXDR_L 无刷驱动程序目前已经从“能跑 Demo”推进到了“能闭环、能停机、能记录、能复现”的状态。它把 Simulink 的 FOC&#x2F;速度环思路落成了 STM32G474 上的实机控制链：MT6816 位置反馈、1 kHz 速度环、20 kHz Id&#x2F;Iq 电流环、Clarke&#x2F;Park&#x2F;SVPWM、TIM1 三相互补 PWM、USB CDC 命令、LCD 曲线显示和 VOFA&#x2F;Python 验证脚本。</p>
+<p>从工程角度看，这版程序最大的意义是把“电机转起来”拆成了可检查的状态：采样是否可信，角度是否对齐，电流环是否稳定，速度环是否可控，保护是否能停住，日志是否能复现。做到这一步，后续再谈更快响应、更高转速或无感观测器，才有可靠的基线。</p>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/articles/axdr-x7-speedloop-pid-current-loop/">基于 STM32G4 平台的无刷驱动 FOC 电流环与速度环闭环控制 上一篇 →</a></div></div></div><details id="reward" open><summary>打赏</summary><div><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/WeChat.png"></div></details><div id="comments"><div id="utterances"><script src="https://utteranc.es/client.js" repo="PassengerDong/PassengerDong.github.io" issue-term="pathname" label="comment" theme="github-dark" crossorigin="anonymous" async></script></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Direject</a></h1><div id="description"><p>个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://oshwhub.com/pessenger?tab=works&amp;jspm=hub.ss.zp&amp;jlc_vid=RVdaAlNeQlNbAQdfRgdbBlBTTgBWVQBSRFZbV1UFEwMxVlNeTlVWUVZRQFZXVTsOAxUeFF5JWA8aF0oLBA9ABApJKA0NAgAHWQIA"><i class="fa fa-microchip" alt="立创开源"></i></a><a class="social" href="mailto:3505337350@qq.com"><i class="fa fa-envelope" alt="E-Mail"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/3546391322298955?spm_id_from=333.1007.0.0"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.</span> <span class="toc-text">程序定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E4%B8%8E%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">硬件与关键参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">软件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E9%93%BE%E8%B7%AF"><span class="toc-number">4.</span> <span class="toc-text">控制链路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92%E4%B8%8E%E5%AE%89%E5%85%A8%E5%81%9C%E6%9C%BA"><span class="toc-number">5.</span> <span class="toc-text">人机交互与安全停机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%9C"><span class="toc-number">6.</span> <span class="toc-text">验证结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E7%89%88%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%94%B6%E8%8E%B7"><span class="toc-number">7.</span> <span class="toc-text">这版程序的收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E5%8F%AF%E4%BB%A5%E7%BB%A7%E7%BB%AD%E8%A1%A5%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-number">8.</span> <span class="toc-text">后续可以继续补的地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
