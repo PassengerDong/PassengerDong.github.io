@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>3-6S 双路 BEC 智能分电板设计 | Direject</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"键入以继续","blurHolder":"Search","noResult":"无 $0 相关数据"},"code":{"codeInfo":"$0 - $1 行","copy":"复制"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: '确认'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Direject" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">HOME</span></a></li><li class="navItem"><a class="navBlock" href="/projects/"><span class="navItemTitle">Projects</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Articles</span></a></li><li class="navItem"><a class="navBlock" href="/tags/"><span class="navItemTitle">Tags</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>3-6S 双路 BEC 智能分电板设计</h1></div><hr><div id="post-content"><p>这是一块面向 3-6S 动力系统设计的智能分电板。它在完成基础电源分配的同时，把双路 BEC、母线电流与电压检测、温度采集、CAN 通信和状态指示集成到一块 47 mm × 46 mm 的六层 PCB 上。</p>
+<p>目前这块板已经完成上机测试，并分别在四旋翼平台和固定翼平台上完成飞行验证。40 A 负载测试下，板上温度约为 40 °C，满足当前平台对体积、供电能力和遥测功能的要求。</p>
+<span id="more"></span>
+
+<h2 id="项目定位"><a href="#项目定位" class="headerlink" title="项目定位"></a>项目定位</h2><p>传统分电板通常只负责把电池电压分配到各路动力设备，电流、电压和温度信息还需要额外的传感器模块完成。本设计希望把这些功能集中到分电板本体中：</p>
+<ul>
+<li>适配 3-6S 锂电池动力系统。</li>
+<li>同时提供舵机和飞控所需的两路稳定供电。</li>
+<li>由板载单片机采集运行信息，并通过 CAN 发送给飞控。</li>
+<li>使用 WS2812 提供直观的上电、运行和异常状态显示。</li>
+<li>在较小尺寸内完成电源、检测、通信和保护电路的六层板布局。</li>
+</ul>
+<h2 id="主要规格"><a href="#主要规格" class="headerlink" title="主要规格"></a>主要规格</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入电压</td>
+<td>3-6S 锂电池</td>
+</tr>
+<tr>
+<td>PCB 尺寸</td>
+<td>47 mm × 46 mm</td>
+</tr>
+<tr>
+<td>PCB 层数</td>
+<td>六层板</td>
+</tr>
+<tr>
+<td>BEC 1</td>
+<td>7.4 V &#x2F; 10 A，用于舵机等外设</td>
+</tr>
+<tr>
+<td>BEC 2</td>
+<td>5 V &#x2F; 5 A，用于飞控等设备</td>
+</tr>
+<tr>
+<td>主控</td>
+<td>CH32V203</td>
+</tr>
+<tr>
+<td>通信接口</td>
+<td>CAN，向飞控发送电流、电压和温度数据</td>
+</tr>
+<tr>
+<td>温度检测</td>
+<td>CH32V203 内部温度检测</td>
+</tr>
+<tr>
+<td>状态显示</td>
+<td>WS2812</td>
+</tr>
+<tr>
+<td>电流采样</td>
+<td>0.5 mΩ 分流电阻，50 V&#x2F;V 增益</td>
+</tr>
+<tr>
+<td>电压采样</td>
+<td>15 kΩ &#x2F; 1 kΩ 分压网络</td>
+</tr>
+</tbody></table>
+<h2 id="电源架构"><a href="#电源架构" class="headerlink" title="电源架构"></a>电源架构</h2><h3 id="双路-BEC"><a href="#双路-BEC" class="headerlink" title="双路 BEC"></a>双路 BEC</h3><p>板载两路 BEC，分别承担不同的供电任务：</p>
+<ul>
+<li><strong>7.4 V &#x2F; 10 A</strong>：主要给舵机以及需要较高电压的外设供电。</li>
+<li><strong>5 V &#x2F; 5 A</strong>：主要给飞控、接收机和其他低压控制设备供电。</li>
+</ul>
+<p>将舵机电源和飞控电源分开，可以减少舵机动作、电机负载变化对飞控供电轨的影响，也便于根据不同平台的电源需求进行接线和故障排查。</p>
+<p>输入和外设侧加入二极管，用于抑制外设侧电流倒灌，降低多路供电或外接设备接入时对电源路径的影响。输入端同时设置 TVS，用于改善静电和瞬态冲击下的保护能力。</p>
+<h2 id="电流、电压与温度检测"><a href="#电流、电压与温度检测" class="headerlink" title="电流、电压与温度检测"></a>电流、电压与温度检测</h2><p>母线电流检测使用 0.5 mΩ 分流电阻，并配合 50 V&#x2F;V 增益的电流检测放大链路。低阻值分流电阻可以减少大电流路径上的额外损耗，放大器输出则交给 CH32V203 进行采样和换算。</p>
+<p>母线电压通过 15 kΩ &#x2F; 1 kΩ 电阻分压后送入单片机 ADC。软件可以根据分压比例恢复实际电池电压，并将电压和电流数据通过 CAN 周期性发送给飞控。</p>
+<p>温度信息当前使用 CH32V203 的内部温度检测结果。它可以作为板载运行状态的参考，配合电流和电压数据，帮助飞控侧识别异常负载或电源系统的热状态。</p>
+<h2 id="板载通信与状态显示"><a href="#板载通信与状态显示" class="headerlink" title="板载通信与状态显示"></a>板载通信与状态显示</h2><p>这块分电板没有把自己限制成“只分电”的被动电源板，而是增加了一个 CH32V203 作为板载信息处理单元。当前板载单片机主要负责：</p>
+<ol>
+<li>采集母线电流。</li>
+<li>采集母线电压。</li>
+<li>读取内部温度检测结果。</li>
+<li>通过 CAN 向飞控发送电流、电压和温度数据。</li>
+<li>驱动 WS2812 显示板卡状态。</li>
+</ol>
+<p>WS2812 可以用于区分上电、自检、正常运行和异常状态。相比单色指示灯，多色状态显示更适合在飞行器装配完成后快速判断板卡是否已经进入预期状态。</p>
+<h2 id="PCB-设计"><a href="#PCB-设计" class="headerlink" title="PCB 设计"></a>PCB 设计</h2><p>PCB 尺寸控制在 47 mm × 46 mm，采用六层板设计，为大电流电源路径、控制信号、CAN 通信和模拟采样提供更充足的布线空间。布局时将两路 BEC、输入输出端子、采样电路和 CH32V203 控制区域分开，尽量缩短大电流回路，同时减少开关电源噪声对模拟检测链路的耦合。</p>
+<p>当前设计资料包括三张主要图纸：原理图、PCB LAYOUT 和 3D 仿真图。它们分别对应电源架构与检测电路、器件布局与大电流走线，以及整板装配效果。</p>
+<p class='item-img' data-src='/img/portfolio/3-6s-smart-power-distribution-board/schematic.png'><img src="/img/portfolio/3-6s-smart-power-distribution-board/schematic.png" alt="图 1：分电板原理图"></p>
+<p class='item-img' data-src='/img/portfolio/3-6s-smart-power-distribution-board/layout.png'><img src="/img/portfolio/3-6s-smart-power-distribution-board/layout.png" alt="图 2：分电板 PCB LAYOUT"></p>
+<p class='item-img' data-src='/img/portfolio/3-6s-smart-power-distribution-board/3d.png'><img src="/img/portfolio/3-6s-smart-power-distribution-board/3d.png" alt="图 3：分电板 3D 仿真图"></p>
+<h2 id="测试与飞行验证"><a href="#测试与飞行验证" class="headerlink" title="测试与飞行验证"></a>测试与飞行验证</h2><p>这块分电板已经完成上机测试，并在两类平台上进行了飞行验证：</p>
+<table>
+<thead>
+<tr>
+<th>验证项目</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>40 A 负载测试</td>
+<td>板上温度约 40 °C</td>
+</tr>
+<tr>
+<td>四旋翼平台</td>
+<td>已完成飞行验证</td>
+</tr>
+<tr>
+<td>固定翼平台</td>
+<td>已完成飞行验证</td>
+</tr>
+<tr>
+<td>CAN 遥测</td>
+<td>用于发送电流、电压和温度数据</td>
+</tr>
+<tr>
+<td>板载状态显示</td>
+<td>使用 WS2812 指示运行状态</td>
+</tr>
+</tbody></table>
+<p>这里的温度数据是当前 40 A 负载测试下的实测板上温度，后续如果继续扩大测试范围，还需要补充环境温度、持续时间、输入电压、输出功率和温升曲线，形成更完整的热性能记录。</p>
+<h2 id="当前方案的取舍"><a href="#当前方案的取舍" class="headerlink" title="当前方案的取舍"></a>当前方案的取舍</h2><p>当前版本优先验证了小型化、电源输出能力、板载遥测和实际飞行可用性，因此仍保留了一些可以继续加强的部分：</p>
+<ul>
+<li>BEC 健康状态还没有被单独建模和监测。</li>
+<li>BEC 的开关控制仍可以进一步交给单片机，实现故障隔离和远程断电。</li>
+<li>模拟电流、电压采样仍然需要关注开关电源噪声、地回路和 ADC 布局。</li>
+<li>CH32V203 内部温度检测适合做趋势参考，后续还可以增加更接近功率器件的外部温度测量。</li>
+</ul>
+<h2 id="后续优化方向"><a href="#后续优化方向" class="headerlink" title="后续优化方向"></a>后续优化方向</h2><p>下一版计划重点放在电源健康管理和采样精度上：</p>
+<ol>
+<li>使用单片机监测板载 BEC 的健康状态，包括输出电压、负载异常和过温等条件。</li>
+<li>使用单片机控制 BEC 开关，在启动、故障和维护状态下实现更明确的电源管理。</li>
+<li>使用 INA226 数字功率计完成电压、电流和功率监测，减少模拟采样链路受到的干扰。</li>
+<li>继续完善 CAN 数据协议，让飞控可以区分正常、降额和故障状态。</li>
+<li>补充不同输入电压、不同负载和不同环境温度下的连续运行测试。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这块 3-6S 智能分电板在 47 mm × 46 mm 的六层 PCB 上集成了双路 BEC、TVS 防护、外设防倒灌、电流电压检测、CH32V203 板载信息处理、CAN 遥测和 WS2812 状态显示。40 A 负载测试下板上温度约 40 °C，并已经在四旋翼和固定翼平台完成飞行验证。</p>
+<p>相比只提供电源分配的传统分电板，这个方案把电源管理和飞控遥测结合在了一起。后续通过 BEC 健康监测、单片机开关控制和 INA226 数字功率计升级后，可以进一步提高电源系统的可观测性和故障处理能力。</p>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/articles/axdr-l-brushless-driver-summary/">AXDR-L 无刷驱动程序阶段总结 上一篇 →</a></div></div></div><details id="reward" open><summary>打赏</summary><div><span>支付宝 | Alipay</span><br><img src="/img/site/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/site/WeChat.png"></div></details><div id="comments"><div id="utterances"><script src="https://utteranc.es/client.js" repo="PassengerDong/PassengerDong.github.io" issue-term="pathname" label="comment" theme="github-dark" crossorigin="anonymous" async></script></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="回到顶部" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="文章目录">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="切换主题"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Direject</a></h1><div id="description"><p>个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://oshwhub.com/pessenger?tab=works&amp;jspm=hub.ss.zp&amp;jlc_vid=RVdaAlNeQlNbAQdfRgdbBlBTTgBWVQBSRFZbV1UFEwMxVlNeTlVWUVZRQFZXVTsOAxUeFF5JWA8aF0oLBA9ABApJKA0NAgAHWQIA"><i class="fa fa-microchip" alt="立创开源"></i></a><a class="social" href="mailto:3505337350@qq.com"><i class="fa fa-envelope" alt="E-Mail"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/3546391322298955?spm_id_from=333.1007.0.0"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.</span> <span class="toc-text">项目定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E8%A7%84%E6%A0%BC"><span class="toc-number">2.</span> <span class="toc-text">主要规格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%BA%90%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">电源架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E8%B7%AF-BEC"><span class="toc-number">3.1.</span> <span class="toc-text">双路 BEC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%B5%81%E3%80%81%E7%94%B5%E5%8E%8B%E4%B8%8E%E6%B8%A9%E5%BA%A6%E6%A3%80%E6%B5%8B"><span class="toc-number">4.</span> <span class="toc-text">电流、电压与温度检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%BF%E8%BD%BD%E9%80%9A%E4%BF%A1%E4%B8%8E%E7%8A%B6%E6%80%81%E6%98%BE%E7%A4%BA"><span class="toc-number">5.</span> <span class="toc-text">板载通信与状态显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PCB-%E8%AE%BE%E8%AE%A1"><span class="toc-number">6.</span> <span class="toc-text">PCB 设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%8E%E9%A3%9E%E8%A1%8C%E9%AA%8C%E8%AF%81"><span class="toc-number">7.</span> <span class="toc-text">测试与飞行验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E5%89%8D%E6%96%B9%E6%A1%88%E7%9A%84%E5%8F%96%E8%88%8D"><span class="toc-number">8.</span> <span class="toc-text">当前方案的取舍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E4%BC%98%E5%8C%96%E6%96%B9%E5%90%91"><span class="toc-number">9.</span> <span class="toc-text">后续优化方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">10.</span> <span class="toc-text">总结</span></a></li></ol></div></div><footer><nobr>构建自 <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
