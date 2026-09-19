@@ -38,7 +38,25 @@
   </url>
   
   <url>
+    <loc>https://passengerdong.github.io/projects/q-car-unicycle-board/</loc>
+    
+    <lastmod>2026-09-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://passengerdong.github.io/articles/axdr-l-brushless-driver-summary/</loc>
+    
+    <lastmod>2026-09-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/articles/axdr-x7-speedloop-pid-current-loop/</loc>
     
     <lastmod>2026-09-18</lastmod>
     
@@ -65,6 +83,15 @@
   </url>
   
   <url>
+    <loc>https://passengerdong.github.io/projects/drv8701-motor-driver/</loc>
+    
+    <lastmod>2026-09-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://passengerdong.github.io/projects/ai8051u-4in1-esc/</loc>
     
     <lastmod>2026-09-18</lastmod>
@@ -74,34 +101,7 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/articles/axdr-x7-speedloop-pid-current-loop/</loc>
-    
-    <lastmod>2026-09-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://passengerdong.github.io/projects/ai8051u-brushless-esc-zf/</loc>
-    
-    <lastmod>2026-09-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/projects/q-car-unicycle-board/</loc>
-    
-    <lastmod>2026-09-18</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/projects/drv8701-motor-driver/</loc>
     
     <lastmod>2026-09-18</lastmod>
     
@@ -244,28 +244,7 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/tags/AM32/</loc>
-    <lastmod>2026-09-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://passengerdong.github.io/tags/%E6%9C%89%E5%88%B7%E7%94%B5%E6%9C%BA/</loc>
-    <lastmod>2026-09-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/tags/%E6%97%A0%E6%84%9F/</loc>
-    <lastmod>2026-09-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/tags/%E7%BA%B9%E6%B3%A2%E8%AE%A1%E6%95%B0/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -280,6 +259,27 @@
   
   <url>
     <loc>https://passengerdong.github.io/tags/%E7%94%B5%E8%B5%9B/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/tags/AM32/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/tags/%E6%97%A0%E6%84%9F/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/tags/%E7%BA%B9%E6%B3%A2%E8%AE%A1%E6%95%B0/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -302,14 +302,14 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/categories/article/</loc>
+    <loc>https://passengerdong.github.io/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/categories/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>https://passengerdong.github.io/categories/article/</loc>
     <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
