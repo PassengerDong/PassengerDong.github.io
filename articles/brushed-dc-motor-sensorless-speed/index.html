@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-CN" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>有刷电机的无感驱动：基于换相纹波与电压尖峰的测速思路 | Direject</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: 'confirm'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Direject" type="application/atom+xml">
+</head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">HOME</span></a></li><li class="navItem"><a class="navBlock" href="/projects/"><span class="navItemTitle">Projects</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Articles</span></a></li><li class="navItem"><a class="navBlock" href="/tags/"><span class="navItemTitle">Tags</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>有刷电机的无感驱动：基于换相纹波与电压尖峰的测速思路</h1><div id="post-info"><span>First Post: <div class="control"><time datetime="2026-04-08T12:00:00.000Z" id="date"> 2026-04-08</time></div></span><br><span>Last Update: <div class="control"><time datetime="2026-09-19T12:00:00.000Z" id="updated"> 2026-09-19</time></div></span><br><span>Word Count: <div class="control">6480</div></span><br><span>Read Time: <div class="control">22 min</div></span></div></div><hr><div id="post-content"><p>有刷直流电机通常被认为是最容易驱动的一类电机：只要给电机两端施加直流电压，电刷和换向器就会自动完成绕组换相，控制器只需要负责 PWM、方向和电流限制即可。但如果希望进一步实现闭环调速、堵转判断、行程控制或者位置估计，问题就会变成：在不增加霍尔传感器、光电编码器或磁编码器的情况下，能不能从电机本身的电气信号中推断出转速和位置？</p>
+<p>这个问题就是本文想讨论的“有刷电机无感驱动”。这里的“无感”不是指完全不测量任何信号，而是指不额外安装专门的转子位置传感器。控制器仍然需要观察电机电流、电压或由这些信号经过滤波得到的脉冲，才能建立速度和位置反馈。</p>
+<p>本文的思路来自对有刷和无刷电机控制方式的对比，也参考了 TI 关于有刷直流电机纹波计数的应用报告、DRV8214&#x2F;DRV8234 数据手册和应用简报。文章中的图片来自 TI 公开文档，主要用来说明换向器、电流纹波和 RC_OUT 脉冲之间的关系；真正复刻时仍然需要根据电机型号、负载和供电条件重新测试。</p>
+<span id="more"></span>
+
+<h2 id="有刷与无刷：区别不只是有没有电刷"><a href="#有刷与无刷：区别不只是有没有电刷" class="headerlink" title="有刷与无刷：区别不只是有没有电刷"></a>有刷与无刷：区别不只是有没有电刷</h2><p>电机按照换相方式可以粗略分为有刷电机和无刷电机。传统有刷直流电机的转子上有绕组，定子提供磁场，电刷和换向器负责在转子旋转时自动切换绕组电流方向。控制器看到的是一个相对简单的两线负载，方向由 H 桥决定，转速主要由平均电压、PWM 占空比和负载决定。</p>
+<p>无刷直流电机则把机械换向器替换成了电子逆变器。转子通常使用永磁体，定子绕组需要由三相桥按照转子位置依次通电。由于没有电刷磨损、换向火花和机械触点，系统可以获得更高的寿命、更好的高速能力和更灵活的控制方式，但控制器必须知道转子当前的位置，至少要知道什么时候应该进行下一次换相。</p>
+<p>因此无刷电机的无感控制通常围绕“估计转子位置”展开。低速时反电动势较弱，常用 I&#x2F;F 或 V&#x2F;F 开环强拖启动；速度建立后，可以切换到滑模观测器、龙伯格观测器、反电动势观测器、PLL 或其他状态观测器。对于低速和静止位置，也可以使用 HFI，即高频注入，通过电机磁阻凸极或高频响应差异估计角度。这些方法建立在三相绕组和电子换相的模型上，对无刷电机很有效。</p>
+<p>有刷电机不太适合直接照搬这套路线。电刷和换向器会不断改变绕组连接关系，电流中包含明显的接触抖动、换向火花、机械偏心和负载相关成分。高频注入信号很容易被电刷接触变化和换向过程污染，观测器也很难保持一个固定的电机电气模型。不过，有刷电机的换向器同时也提供了一个新的观测入口：每次机械换相都会在电流或电压上留下可检测的纹波。</p>
+<h2 id="换向器为什么会产生电流纹波"><a href="#换向器为什么会产生电流纹波" class="headerlink" title="换向器为什么会产生电流纹波"></a>换向器为什么会产生电流纹波</h2><p>换向器可以理解为一组随转子一起旋转的触点，电刷则是固定不动的滑动触点。转子旋转时，电刷会从当前换向片滑向相邻换向片，原本连接到某组线圈的电流会逐步转移到另一组线圈。在这个过程中，部分换向片可能出现瞬时短接、断开和重新导通，线圈电感又会阻止电流瞬间变化，于是电机输入电流中会出现周期性的尖峰或凹口。</p>
+<p>这类纹波不是单纯的电源噪声，而是与电机机械转动存在相关关系的事件。转子每转过一个特定的机械角度，就会触发一次类似的换相过程。只要能够从电流波形中稳定地识别这些事件，就可以通过单位时间内的纹波数量估算转速，通过累计纹波数量估算相对位置。</p>
+<p class='item-img' data-src='/img/articles/brushed-dc-motor-sensorless-speed/ti/ti-bdc-ripple-concept.png'><img src="/img/articles/brushed-dc-motor-sensorless-speed/ti/ti-bdc-ripple-concept.png" alt="有刷电机换向器与电刷的结构示意图"></p>
+<p><em>图 1：TI 应用报告中的有刷电机换向器示意图。电刷在换向片之间滑动时，绕组连接关系会发生切换，这个过程是电流纹波产生的物理基础。图片来源：TI，ZHCADY5A。</em></p>
+<p>TI 文档给出了一个有用的近似关系。设电机有 <code>N_B</code> 个电刷、<code>N_C</code> 个换向片，则每转纹波数量可以近似写成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">N_R = LCM(N_B, N_C)<br></code></pre></td></tr></table></figure>
+
+<p>其中 <code>LCM</code> 是最小公倍数。例如两个电刷、三个换向片的结构，每转可以得到六个换相相关事件。实际电机的纹波数量还会受到绕组连接方式、刷握位置、换向片数量、空载或带载状态以及检测阈值影响，因此这个公式适合用来建立初始估计，最终仍应以示波器波形和编码器对照结果为准。</p>
+<p>如果单位时间内检测到的纹波频率为 <code>f_R</code>，单位为 Hz，则转速可以按下面的关系换算：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">n_rpm = 60 × f_R / N_R<br></code></pre></td></tr></table></figure>
+
+<p>反过来，如果希望估算相对机械位置，可以把累计纹波数 <code>C_R</code> 换算成机械角度：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">theta_mech = 2π × C_R / N_R<br></code></pre></td></tr></table></figure>
+
+<p>这个位置是相对于计数起点的相对位置，不是上电后天然知道的绝对角度。如果应用需要知道滑台或转轴的绝对位置，还需要增加一次归零动作、限位开关、磁标记、光电标记或其他参考点。无感纹波计数更适合速度、相对位移、堵转和行程控制，不应该直接宣传成与高分辨率绝对编码器等价。</p>
+<h2 id="电流波形中的纹波如何被识别"><a href="#电流波形中的纹波如何被识别" class="headerlink" title="电流波形中的纹波如何被识别"></a>电流波形中的纹波如何被识别</h2><p>理想情况下，电机电流波形可以写成“平均直流分量 + PWM 纹波 + 换相纹波 + 机械和电磁噪声”。真正需要的信号只是其中与换相同步的那一部分。下图可以看到，有刷电机运行时电流波形上会重复出现尖锐的周期性变化，但这些变化并不是每一个都同样明显。</p>
+<p class='item-img' data-src='/img/articles/brushed-dc-motor-sensorless-speed/ti/ti-bdc-ripple-waveform-and-block.png'><img src="/img/articles/brushed-dc-motor-sensorless-speed/ti/ti-bdc-ripple-waveform-and-block.png" alt="有刷电机电流纹波示例"></p>
+<p><em>图 2：TI 应用报告中的有刷电机电流纹波示例。实际波形中同时存在平均电流、PWM 开关分量和换相导致的尖峰，算法需要先滤波再计数。图片来源：TI，ZHCADY5A。</em></p>
+<p>一个可落地的模拟前端通常包含以下几部分：</p>
+<ol>
+<li><strong>电流检测元件</strong>：可以是低阻值分流电阻，也可以是集成驱动器提供的比例电流输出。分流电阻的压降为 <code>V_SHUNT = I_M × R_SHUNT</code>，阻值越大越容易检测小纹波，但损耗和发热也越大。</li>
+<li><strong>电流放大器</strong>：把毫伏级分流信号放大到 ADC 或比较器容易处理的范围。增益不能只按平均电流选择，还要为启动、堵转和换向尖峰保留输入输出余量。</li>
+<li><strong>带通或高通滤波器</strong>：去除电流的慢变化和一部分 PWM 载波，让换相纹波更加突出。只使用一个很重的低通滤波器可能把需要的尖峰也一起滤掉。</li>
+<li><strong>比较器或 ADC</strong>：比较器适合生成硬件边沿，ADC 适合保留波形并在软件中自适应判断。两者也可以组合，ADC 用于调试和阈值标定，比较器用于实时计数。</li>
+<li><strong>消隐和去抖</strong>：换相后的一小段时间内可能出现多个尖峰，必须设置最小脉冲间隔、数字消隐时间或迟滞，否则一次换相会被误计数成两个甚至多个纹波。</li>
+</ol>
+<p>这里最关键的不是“把电流放大得越大越好”，而是让有效纹波和噪声之间有稳定的信噪比。TI 文档特别强调了低平均电流、低 PWM 占空比和启动浪涌对纹波计数的影响：电流太小时，纹波幅度接近噪声，算法容易漏计或多计；启动电流变化太快时，纹波可能被浪涌包络覆盖；负载突变时，滤波器响应速度又可能跟不上真实转速变化。</p>
+<h2 id="三种实现路线"><a href="#三种实现路线" class="headerlink" title="三种实现路线"></a>三种实现路线</h2><h3 id="路线一：使用集成纹波计数的电机驱动器"><a href="#路线一：使用集成纹波计数的电机驱动器" class="headerlink" title="路线一：使用集成纹波计数的电机驱动器"></a>路线一：使用集成纹波计数的电机驱动器</h3><p>TI 的 DRV8214 和 DRV8234 是专门面向有刷直流电机的集成驱动器，除了 H 桥和电流调节外，还集成了 Ripple Counting、速度调节和堵转检测等功能。DRV8214 面向较低的电机供电范围，DRV8234 的电机供电范围更宽，适合更高电压的有刷电机系统。两者都提供 <code>RC_OUT</code> 输出，可以把内部纹波计数结果转换成脉冲或逻辑信号交给 MCU。</p>
+<p>这种方案的优点是模拟前端、滤波、误差校正和一部分计数逻辑已经在芯片内部完成，MCU 不需要高速采样整条电流波形，只需要通过 I2C 配置参数并捕获 <code>RC_OUT</code> 脉冲即可。缺点是器件成本高于普通 H 桥，并且不同电机需要重新调整电阻参数、反电动势常数相关参数、滤波参数、纹波阈值和机械滤波时间常数。</p>
+<p class='item-img' data-src='/img/articles/brushed-dc-motor-sensorless-speed/ti/ti-rc-out-steady-state.png'><img src="/img/articles/brushed-dc-motor-sensorless-speed/ti/ti-rc-out-steady-state.png" alt="TI DRV8234 的 RC_OUT 稳态波形示例"></p>
+<p><em>图 3：TI DRV8234 数据手册中的 RC_OUT 波形。RC_OUT 可以作为 MCU 的脉冲输入，用于计算纹波频率和估算速度。图片来源：TI，DRV8234 数据手册。</em></p>
+<p>如果使用这种集成方案，软件侧的基本流程可以简化成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">读取电机参数<br>  -&gt; 通过 I2C 写入纹波计数和滤波配置<br>  -&gt; 使能驱动与软启动<br>  -&gt; 定时器捕获 RC_OUT 边沿<br>  -&gt; 统计脉冲周期与计数值<br>  -&gt; 输出速度、相对位置、堵转和故障状态<br></code></pre></td></tr></table></figure>
+
+<p>这条路线适合量产产品、空间敏感产品和希望缩短开发周期的项目。需要注意，集成算法并不能消除电机差异，芯片仍然需要根据目标电机调参，不能把一个电机的参数表直接复制到另一个电机上。</p>
+<h3 id="路线二：外置分流电阻、放大器和-MCU"><a href="#路线二：外置分流电阻、放大器和-MCU" class="headerlink" title="路线二：外置分流电阻、放大器和 MCU"></a>路线二：外置分流电阻、放大器和 MCU</h3><p>如果已经有一颗普通 H 桥或 MOS 功率级，也可以单独增加电流检测通道。硬件可以采用低边分流、高边分流或电机母线分流，前端接电流检测放大器，再把信号送入 MCU ADC。软件侧通过 PWM 同步采样、数字滤波和边沿检测提取换相纹波。</p>
+<p>低边分流成本低、共模电压较小，但会让功率地发生随电流变化的压降；高边分流不容易影响地参考，但对放大器共模范围和布局要求更高。对于只关心速度而不需要特别精确转矩控制的应用，可以优先选择容易调试的低边方案，但要把 ADC 地、功率地和逻辑地的回流路径规划清楚。</p>
+<p>ADC 采样的优点是能保留原始波形，便于观察不同转速、不同占空比和不同负载下的纹波形状。缺点是采样率、DMA 缓冲、CPU 负担和阈值算法都需要自己处理。建议把快速检测和慢速显示分开：快速路径只做去直流、带通、峰值检测和时间戳，显示路径再使用滑动平均或低通滤波，不能把慢速滤波后的速度值直接反馈给快速控制环。</p>
+<h3 id="路线三：串联小电感加电压尖峰检测"><a href="#路线三：串联小电感加电压尖峰检测" class="headerlink" title="路线三：串联小电感加电压尖峰检测"></a>路线三：串联小电感加电压尖峰检测</h3><p>如果主要目标是低成本测速，而不是精确电流闭环，可以尝试在电机供电或 H 桥输出回路中串联一个小电感。电感的作用不是“凭空制造速度信息”，而是利用阻抗随频率变化的特点，减弱部分低频平均电流和高频 PWM 干扰的直接耦合，让换相瞬间的电压或电流变化更容易被观察到。</p>
+<p>清华卓晴老师的视频中展示了类似思路：通过在直流电机回路中串联电感，滤掉一部分杂波，同时保留换相相关的电压尖峰，再使用比较器或示波器观察这些事件。对于成本敏感的系统，电感甚至可以尝试使用 PCB 走线绕线形成，但 PCB 走线电感的实际电感量、寄生电容、直流电阻和饱和特性受板材、线宽、走线形状和安装环境影响较大，只能作为实验方案，不能直接当作精密磁性器件替代品。</p>
+<p>这条路线需要特别关注三个副作用。第一，串联电感会改变电机电流的上升速度和 PWM 电流纹波，可能影响低速转矩和堵转保护；第二，电感的 DCR 会带来额外压降和发热；第三，电感饱和后，信号形状会随电流变化，导致速度检测阈值不再固定。因此建议先用可更换的独立电感验证波形，再决定是否把它集成到 PCB 走线中。</p>
+<h2 id="来自交流测试的阶段性验证"><a href="#来自交流测试的阶段性验证" class="headerlink" title="来自交流测试的阶段性验证"></a>来自交流测试的阶段性验证</h2><p>在和技术大佬交流这个方向时，STC 的王煜顺也在同期进行了相关测试，后续已经把“串联电感 + 电机电压脉冲计数”的方案成功落地。从工程角度看，这个结果很有价值：它说明换相过程中产生的电压脉冲并不是只存在于示波器上的偶然波形，而是可以经过适当的硬件处理后，转换成 MCU 能够识别和计数的测速信号。</p>
+<p>不过，这类结果需要明确验证边界。目前已经能够说明方案在原型和基础运行条件下有效可行，但实际带载能力、不同负载变化下的计数稳定性、低速启动成功率、堵转保护以及长时间投入使用后的可靠性还没有完成系统测试。因此，文章把它作为独立的阶段性旁证，而不是把它表述成已经完成产品级验证。后续仍然需要使用编码器作为真值参考，对空载、轻载、额定负载、突加负载、突卸负载和堵转状态分别记录电机电压脉冲、纹波计数、实际转速、电流和温升。</p>
+<p>这个交流测试也进一步支持了本文的判断：对于有刷电机，直接套用无刷电机的高频注入或反电动势观测器未必是最合适的路线，但利用电刷换相带来的电流变化和电压尖峰建立专用观测链路，是一条具有实际落地可能性的方向。尤其是在不希望增加编码器、又需要获得基本速度信息的低成本执行器中，电感、比较器和定时器捕获可以组成一个相对简单的检测前端。</p>
+<h2 id="一个可复刻的低成本系统框图"><a href="#一个可复刻的低成本系统框图" class="headerlink" title="一个可复刻的低成本系统框图"></a>一个可复刻的低成本系统框图</h2><p>如果使用普通 H 桥和通用 MCU，我认为可以按下面的结构搭建第一版验证板：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs text">电池 / 电源<br>    |<br>    +--&gt; H 桥驱动 --&gt; 有刷直流电机<br>    |                    |<br>    |                    +--&gt; 换相电流 / 电压尖峰<br>    |<br>    +--&gt; 分流电阻或串联小电感<br>                         |<br>                         +--&gt; 放大器 / RC 带通<br>                                      |<br>                                      +--&gt; 比较器 --&gt; MCU 定时器输入捕获<br>                                      |<br>                                      +--&gt; ADC 原始波形记录<br></code></pre></td></tr></table></figure>
+
+<p>MCU 中可以使用一个定时器输入捕获通道记录比较器边沿时间，使用另一个 ADC 通道记录平均电流或母线电压。每次捕获到边沿时，先计算相邻边沿的时间差 <code>T_R</code>，再按照纹波数量换算速度：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">f_R = 1 / T_R<br>n_rpm = 60 / (N_R × T_R)<br></code></pre></td></tr></table></figure>
+
+<p>为了避免单个异常边沿造成速度突变，可以使用三点中值、限幅的一阶 IIR 或基于周期的异常点剔除。一个简单的工程状态机可以包含：<code>IDLE</code>、<code>OPEN_LOOP_START</code>、<code>RIPPLE_SEARCH</code>、<code>VALID_SPEED</code>、<code>STALL</code> 和 <code>FAULT</code>。只有在连续捕获到若干个周期相近的纹波后，才从 <code>RIPPLE_SEARCH</code> 进入 <code>VALID_SPEED</code>；如果超过最大允许时间没有新的有效纹波，就进入 <code>STALL</code> 或回到开环重启。</p>
+<p>比较器最好增加迟滞和最小脉冲间隔。迟滞用于防止纹波信号在阈值附近来回抖动，最小脉冲间隔用于避免同一换相尖峰产生重复计数。这个间隔不能写成一个完全固定的经验值，因为高速和低速对应的纹波周期不同，更合理的做法是使用一个覆盖最高转速的硬件最小脉宽，再在软件中根据最近一段周期动态判断。</p>
+<h2 id="启动、低速和低电流是最大难点"><a href="#启动、低速和低电流是最大难点" class="headerlink" title="启动、低速和低电流是最大难点"></a>启动、低速和低电流是最大难点</h2><p>无感有刷测速并不是任意状态都能工作。电机静止时没有换相事件，无法凭空得到绝对角度；刚启动时电流被 PWM 和绕组电感主导，换相纹波可能没有稳定形状；低速小负载时，纹波幅度变小，信噪比下降；堵转时电流很大，但没有新的有效换相，容易把电流尖峰误认为速度脉冲。</p>
+<p>因此启动阶段不能直接依赖无感反馈。可以先使用固定方向、限流的开环 PWM 让电机转起来，等检测到连续几个纹波后，再启用速度估计。对于带减速箱或低速大转矩应用，可以使用一个外部限位或归零动作建立初始位置，然后把纹波计数用于相对位移和速度跟踪。</p>
+<p>低速时可以延长统计窗口，例如累计多个纹波后再更新一次速度；但窗口太长会增加反馈延迟。若要用于闭环调速，应把速度估计的更新周期、滤波器时间常数和控制环带宽一起考虑。速度反馈只适合进入慢速外环，不能把一个抖动很大的纹波计数值直接拿去驱动快速电流环。</p>
+<p>堵转识别则应同时使用电流和纹波两个条件：电流超过阈值且在一段时间内没有新的有效纹波，可以判定为疑似堵转；如果只有电流变大但纹波仍然存在，可能只是负载突然增加；如果只有纹波消失而电流没有上升，可能是电机断线、比较器故障或检测链路掉线。把多个观测量组合起来，比只看一个阈值可靠得多。</p>
+<h2 id="与编码器方案的对比"><a href="#与编码器方案的对比" class="headerlink" title="与编码器方案的对比"></a>与编码器方案的对比</h2><p>有刷电机无感测速最大的优点是减少外部传感器、连接器和机械安装件。对于小型执行器、打印机、风门、滑台、泵和低成本机器人关节，省掉一块编码器 PCB 可能同时降低 BOM、装配时间和故障点。TI 的专用器件还可以把纹波计数、速度调节、软启动和堵转检测集成到一颗驱动芯片中。</p>
+<p>但它不能全面替代编码器。编码器通常能提供更高分辨率、更明确的方向和绝对或准绝对位置信息；纹波计数依赖电机内部结构和负载，低速、低电流、启动、换向火花和机械冲击都会影响计数质量。无感方案还需要为每种电机做参数标定，尤其是每转纹波数、滤波器、阈值、机械时间常数和错误校正参数。</p>
+<p>因此可以按应用目标选择方案：只需要速度闭环和堵转检测时，优先考虑纹波计数；需要中等精度的相对位置时，可以在无感计数的基础上增加归零点；需要高精度绝对位置、高可靠低速控制或频繁正反转时，仍然应该使用霍尔、磁编码器或光电编码器。</p>
+<h2 id="建议的验证方法"><a href="#建议的验证方法" class="headerlink" title="建议的验证方法"></a>建议的验证方法</h2><p>第一版样机最好同时安装一个临时编码器，把编码器作为真值参考，而不是一开始就完全相信无感计数。测试项目至少包括：</p>
+<table>
+<thead>
+<tr>
+<th>测试项目</th>
+<th>需要记录的内容</th>
+<th>主要目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空载匀速</td>
+<td>编码器转速、纹波频率、PWM、平均电流</td>
+<td>确认每转纹波数和速度换算</td>
+</tr>
+<tr>
+<td>多档 PWM</td>
+<td>低、中、高速下的漏计与多计次数</td>
+<td>观察检测带宽和阈值稳定性</td>
+</tr>
+<tr>
+<td>负载阶跃</td>
+<td>电流、纹波周期、速度恢复时间</td>
+<td>验证负载变化下的鲁棒性</td>
+</tr>
+<tr>
+<td>低速运行</td>
+<td>最低可检测转速、速度抖动</td>
+<td>判断低速信噪比和反馈延迟</td>
+</tr>
+<tr>
+<td>堵转测试</td>
+<td>电流上升、纹波停止、保护时间</td>
+<td>验证堵转识别和安全停机</td>
+</tr>
+<tr>
+<td>正反转</td>
+<td>纹波方向、计数复位、零速判断</td>
+<td>检查方向切换和位置累计</td>
+</tr>
+</tbody></table>
+<p>评价指标不要只写“能测速”。建议至少计算速度平均误差、最大误差、纹波漏计率、多计率、从启动到有效测速的时间、负载变化后的恢复时间，以及堵转到关断的延迟。对于速度闭环，还要检查纹波测速值经过滤波后是否引入过大的相位滞后。</p>
+<p>如果使用串联小电感方案，还需要额外记录电感两端电压、电机电流上升时间、稳态温升和不同电流下的波形变化。可以先用示波器确认换相尖峰的重复频率，再把信号接入比较器，最后才交给 MCU 定时器捕获。这样能把“没有波形”“有波形但比较器没翻转”“比较器翻转但软件误计数”这三类问题分开。</p>
+<h2 id="后续可以继续优化的方向"><a href="#后续可以继续优化的方向" class="headerlink" title="后续可以继续优化的方向"></a>后续可以继续优化的方向</h2><p>后续如果要把这个思路做成真正可用的模块，我认为可以沿着四个方向推进：</p>
+<ol>
+<li><strong>自适应阈值</strong>：根据平均电流、PWM 占空比和最近纹波幅值动态调整比较器阈值，减小不同负载下的漏计和多计。</li>
+<li><strong>PWM 同步采样</strong>：让 ADC 采样点避开 MOS 切换瞬间，或者使用同步解调，把 PWM 载波和换相纹波分离开。</li>
+<li><strong>多观测量融合</strong>：把纹波频率、电流幅值、母线电压和电机模型结合起来，在启动、加速和堵转阶段使用不同判据。</li>
+<li><strong>集成磁性器件</strong>：先用独立小电感验证，再比较磁珠、电感、PCB 走线电感和电流互感结构的成本、带宽、饱和和一致性。</li>
+</ol>
+<p>还可以把 MCU 内置比较器、定时器捕获和 DMA 结合起来，让快速边沿检测完全由硬件完成，CPU 只在低频任务中读取周期和状态。这样既能降低软件负担，也能减少中断延迟对测速精度的影响。对于资源较少的 8051、Cortex-M0 或 RISC-V MCU，这可能比持续采样整条电流波形更容易落地。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>有刷电机虽然没有无刷电机那样的三相电子换相结构，但电刷和换向器并不是只有损耗和寿命问题。换向过程中产生的电流纹波、电压尖峰和电流变化，本身就携带了转子运动信息。通过分流电阻、放大器、带通滤波器、比较器和定时器捕获，可以构建一个不依赖编码器的速度检测链路；通过累计纹波并配合归零点，还可以进一步获得相对位置。</p>
+<p>TI 的 DRV8214 和 DRV8234 说明了这条路线已经可以被集成到专用驱动芯片中；外置模拟前端和 MCU 方案则更适合学习、低成本验证和已有 H 桥平台改造；串联小电感加换相尖峰检测则提供了一个值得实验的极低成本方向。它们的共同前提都是：纹波必须先被可靠地从 PWM、噪声、浪涌和机械冲击中分离出来，而且每种电机都需要重新标定。</p>
+<p>因此，“有刷电机无感驱动”并不是简单地把无刷电机的观测器搬过来，而是要利用有刷电机独有的换相器结构建立新的观测模型。它不一定能替代所有编码器，但在速度闭环、堵转检测、相对位置和成本敏感的执行器中，确实是一条值得继续验证的工程路线。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/an/zhcady5a/zhcady5a.pdf">TI：使用纹波计数算法解决无传感器有刷直流电机转速和位置控制问题（ZHCADY5A）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ti.com.cn/cn/lit/ab/zhcadr9/zhcadr9.pdf">TI：有刷直流电机的无传感器位置控制（ZHCADR9）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/drv8214.pdf">TI：DRV8214 数据表</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/drv8234.pdf">TI：DRV8234 数据表</a></li>
+<li><a target="_blank" rel="noopener" href="https://oshwhub.com/star/bdc-enc-os">OSHWHub：BDC-ENC-OS 分立器件研究</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yL5kzVELJ/">清华大学卓晴：直流电机换相信号与测速实验视频</a></li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div class="footer-link" style="width: 50%;text-align:right;border-right:1px #fe2 solid"><a href="/projects/cyt4bb7-flight-controller/">← Next CYT4BB7 开源飞控</a></div><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/projects/q-car-unicycle-board/">Q 车模独轮主板 Prev →</a></div></div></div><details id="reward" open><summary>reward</summary><div><span>支付宝 | Alipay</span><br><img src="/img/site/Alipay.png"></div><div><span>微信 | Wechat</span><br><img src="/img/site/WeChat.png"></div></details><div id="comments"><div id="utterances"><script src="https://utteranc.es/client.js" repo="PassengerDong/PassengerDong.github.io" issue-term="pathname" label="comment" theme="github-dark" crossorigin="anonymous" async></script></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">Direject</a></h1><div id="description"><p>个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://oshwhub.com/pessenger?tab=works&amp;jspm=hub.ss.zp&amp;jlc_vid=RVdaAlNeQlNbAQdfRgdbBlBTTgBWVQBSRFZbV1UFEwMxVlNeTlVWUVZRQFZXVTsOAxUeFF5JWA8aF0oLBA9ABApJKA0NAgAHWQIA"><i class="fa fa-microchip" alt="立创开源"></i></a><a class="social" href="mailto:3505337350@qq.com"><i class="fa fa-envelope" alt="E-Mail"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/3546391322298955?spm_id_from=333.1007.0.0"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E5%88%B7%E4%B8%8E%E6%97%A0%E5%88%B7%EF%BC%9A%E5%8C%BA%E5%88%AB%E4%B8%8D%E5%8F%AA%E6%98%AF%E6%9C%89%E6%B2%A1%E6%9C%89%E7%94%B5%E5%88%B7"><span class="toc-number">1.</span> <span class="toc-text">有刷与无刷：区别不只是有没有电刷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E5%90%91%E5%99%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E4%BA%A7%E7%94%9F%E7%94%B5%E6%B5%81%E7%BA%B9%E6%B3%A2"><span class="toc-number">2.</span> <span class="toc-text">换向器为什么会产生电流纹波</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E6%B5%81%E6%B3%A2%E5%BD%A2%E4%B8%AD%E7%9A%84%E7%BA%B9%E6%B3%A2%E5%A6%82%E4%BD%95%E8%A2%AB%E8%AF%86%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">电流波形中的纹波如何被识别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E8%B7%AF%E7%BA%BF"><span class="toc-number">4.</span> <span class="toc-text">三种实现路线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%BA%BF%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8%E9%9B%86%E6%88%90%E7%BA%B9%E6%B3%A2%E8%AE%A1%E6%95%B0%E7%9A%84%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A8%E5%99%A8"><span class="toc-number">4.1.</span> <span class="toc-text">路线一：使用集成纹波计数的电机驱动器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%BA%BF%E4%BA%8C%EF%BC%9A%E5%A4%96%E7%BD%AE%E5%88%86%E6%B5%81%E7%94%B5%E9%98%BB%E3%80%81%E6%94%BE%E5%A4%A7%E5%99%A8%E5%92%8C-MCU"><span class="toc-number">4.2.</span> <span class="toc-text">路线二：外置分流电阻、放大器和 MCU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%BA%BF%E4%B8%89%EF%BC%9A%E4%B8%B2%E8%81%94%E5%B0%8F%E7%94%B5%E6%84%9F%E5%8A%A0%E7%94%B5%E5%8E%8B%E5%B0%96%E5%B3%B0%E6%A3%80%E6%B5%8B"><span class="toc-number">4.3.</span> <span class="toc-text">路线三：串联小电感加电压尖峰检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A5%E8%87%AA%E4%BA%A4%E6%B5%81%E6%B5%8B%E8%AF%95%E7%9A%84%E9%98%B6%E6%AE%B5%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">来自交流测试的阶段性验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%8F%AF%E5%A4%8D%E5%88%BB%E7%9A%84%E4%BD%8E%E6%88%90%E6%9C%AC%E7%B3%BB%E7%BB%9F%E6%A1%86%E5%9B%BE"><span class="toc-number">6.</span> <span class="toc-text">一个可复刻的低成本系统框图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E3%80%81%E4%BD%8E%E9%80%9F%E5%92%8C%E4%BD%8E%E7%94%B5%E6%B5%81%E6%98%AF%E6%9C%80%E5%A4%A7%E9%9A%BE%E7%82%B9"><span class="toc-number">7.</span> <span class="toc-text">启动、低速和低电流是最大难点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E7%BC%96%E7%A0%81%E5%99%A8%E6%96%B9%E6%A1%88%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">8.</span> <span class="toc-text">与编码器方案的对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E8%AE%AE%E7%9A%84%E9%AA%8C%E8%AF%81%E6%96%B9%E6%B3%95"><span class="toc-number">9.</span> <span class="toc-text">建议的验证方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E5%8F%AF%E4%BB%A5%E7%BB%A7%E7%BB%AD%E4%BC%98%E5%8C%96%E7%9A%84%E6%96%B9%E5%90%91"><span class="toc-number">10.</span> <span class="toc-text">后续可以继续优化的方向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">11.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">12.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
