@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: PassengerDong Portfolio
+title: Direject
 subtitle: '嵌入式 / 硬件 / 工程实践'
-description: 'PassengerDong 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。'
-keywords: embedded, STM32, Arduino, hardware, portfolio, PassengerDong
-author: PassengerDong
+description: 'Direject 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。'
+keywords: embedded, STM32, Arduino, hardware, portfolio, Direject
+author: Direject
 language: zh-CN
 timezone: ''
 

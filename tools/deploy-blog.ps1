@@ -1,7 +1,9 @@
 param(
     [string]$RemoteUrl = "https://github.com/PassengerDong/PassengerDong.github.io.git",
-    [string]$SourceBranch = "source",
+    [string]$DeployBranch = "master",
+    [string]$SourceBranch = "master",
     [string]$Message = "Update blog $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')",
+    [switch]$PushSource,
     [switch]$SkipSourcePush,
     [switch]$SkipHexoDeploy,
     [switch]$DryRun
@@ -77,7 +79,8 @@ foreach ($file in $requiredFiles) {
 Write-Host "Hexo blog deploy helper" -ForegroundColor Green
 Write-Host "Root: $repoRoot"
 Write-Host "Remote: $RemoteUrl"
-Write-Host "Source branch: $SourceBranch"
+Write-Host "Deploy branch: $DeployBranch"
+Write-Host "Source push target: $SourceBranch"
 
 Write-Step "Check git repository"
 Invoke-Native "git" @("rev-parse", "--is-inside-work-tree")
@@ -97,24 +100,8 @@ if ([string]::IsNullOrWhiteSpace($originUrl)) {
 Write-Step "Check git proxy"
 Test-GitProxy
 
-if (-not $SkipSourcePush) {
+if ($PushSource -and -not $SkipSourcePush) {
     Write-Step "Commit and push Hexo source"
-
-    $currentBranch = Get-NativeOutput "git" @("branch", "--show-current")
-    if ($currentBranch -ne $SourceBranch) {
-        if (-not $DryRun) {
-            & git show-ref --verify --quiet "refs/heads/$SourceBranch"
-            $branchExists = ($LASTEXITCODE -eq 0)
-        } else {
-            $branchExists = $true
-        }
-
-        if ($branchExists) {
-            Invoke-Native "git" @("switch", $SourceBranch)
-        } else {
-            Invoke-Native "git" @("switch", "-c", $SourceBranch)
-        }
-    }
 
     Invoke-Native "git" @("add", "-A")
 
@@ -125,9 +112,10 @@ if (-not $SkipSourcePush) {
         Write-Host "No source changes to commit."
     }
 
-    Invoke-Native "git" @("push", "-u", "origin", $SourceBranch)
+    Invoke-Native "git" @("push", "-u", "origin", "HEAD:$SourceBranch")
 } else {
-    Write-Step "Skip source push"
+    Write-Step "Skip source branch push"
+    Write-Host "Only generated Hexo files will be deployed to $DeployBranch. Use -PushSource if you also want to push the Hexo source tree."
 }
 
 Write-Step "Generate Hexo site"
@@ -135,8 +123,22 @@ Invoke-Native "pnpm" @("exec", "hexo", "clean")
 Invoke-Native "pnpm" @("exec", "hexo", "generate")
 
 if (-not $SkipHexoDeploy) {
-    Write-Step "Deploy generated site"
-    Invoke-Native "pnpm" @("exec", "hexo", "deploy")
+    Write-Step "Deploy generated site to $DeployBranch"
+    $hexoDeployFailed = $false
+
+    try {
+        Invoke-Native "pnpm" @("exec", "hexo", "deploy")
+    } catch {
+        $hexoDeployFailed = $true
+        Write-Warning $_.Exception.Message
+        Write-Host "Trying a direct .deploy_git push next."
+    }
+
+    if (Test-Path -LiteralPath (Join-Path $repoRoot ".deploy_git")) {
+        Invoke-Native "git" @("-C", ".deploy_git", "push", $RemoteUrl, "HEAD:$DeployBranch")
+    } elseif ($hexoDeployFailed) {
+        throw "Hexo deploy failed and .deploy_git was not created."
+    }
 } else {
     Write-Step "Skip Hexo deploy"
 }

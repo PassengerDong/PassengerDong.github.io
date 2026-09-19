@@ -1,6 +1,6 @@
 profile:
   kicker: "Personal Engineering Portfolio"
-  name: "PassengerDong"
+  name: "Direject"
   role: "嵌入式系统 / 开源硬件 / 电机控制"
   focus: "Open Hardware + Firmware"
   summary: "我把开源硬件工程、固件调试和学习笔记整理成个人作品集。首页先展示可公开访问的 OSHWHub 项目，后续可以继续补充实物图、测试数据、视频和完整复盘。"
@@ -196,9 +196,9 @@ projects:
     status: "已补充"
     summary: "开源学习型 BLDC 电调平台，支持 3-6S，使用逐飞 8051 电调固件，经测试稳定 30A+。"
     media:
-      image: "/img/portfolio/project-esc.svg"
-      alt: "STC8051U 学习型无刷电调占位图"
-      note: "可替换为电调板、波形或 30A+ 测试截图"
+      image: "https://image.lceda.cn/pullimage/VoIHyi7h7BmSH5ulTb54NxEMKqvO01kCeEtVOcos.png"
+      alt: "STC8051U 学习型无刷电调封面图"
+      note: "直接引用 OSHWHub 缩略图"
     details:
       - label: "项目来源"
         value: "OSHWHub 开源工程"

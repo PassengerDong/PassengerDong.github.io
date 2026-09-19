@@ -3,6 +3,8 @@ title: Q 车模独轮主板
 date: 2025-07-16 20:05:00
 updated: 2025-07-16 20:05:00
 category: 开源硬件
+project: true
+summary: 基于 TC377 的独轮车控制主板，集成核心供电、PMOS 开关、单路有刷驱动、双摄像头和竞赛调试接口。
 tag:
   - 智能车
   - TC377

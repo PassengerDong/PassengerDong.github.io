@@ -3,6 +3,8 @@ title: CYT4BB7 开源飞控
 date: 2026-05-07 20:10:00
 updated: 2026-05-07 20:10:00
 category: 开源硬件
+project: true
+summary: 面向第 21 届智能车“飞跃雷区”组别的小型化飞控核心板，对齐 30.5mm 标准安装孔位。
 tag:
   - 飞控
   - CYT4BB7
