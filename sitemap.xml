@@ -20,15 +20,6 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/projects/3-6s-smart-power-distribution-board/</loc>
-    
-    <lastmod>2026-09-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://passengerdong.github.io/articles/axdr-l-brushless-driver-summary/</loc>
     
     <lastmod>2026-09-21</lastmod>
@@ -38,34 +29,7 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/projects/q-car-unicycle-board/</loc>
-    
-    <lastmod>2026-09-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/articles/axdr-x7-speedloop-pid-current-loop/</loc>
-    
-    <lastmod>2026-09-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/projects/cyt4bb7-flight-controller/</loc>
-    
-    <lastmod>2026-09-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/projects/stc-4in1-esc/</loc>
+    <loc>https://passengerdong.github.io/projects/3-6s-smart-power-distribution-board/</loc>
     
     <lastmod>2026-09-21</lastmod>
     
@@ -83,6 +47,24 @@
   </url>
   
   <url>
+    <loc>https://passengerdong.github.io/projects/q-car-unicycle-board/</loc>
+    
+    <lastmod>2026-09-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/projects/cyt4bb7-flight-controller/</loc>
+    
+    <lastmod>2026-09-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://passengerdong.github.io/projects/ai8051u-4in1-esc/</loc>
     
     <lastmod>2026-09-21</lastmod>
@@ -92,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/projects/drv8701-motor-driver/</loc>
+    <loc>https://passengerdong.github.io/projects/stc-4in1-esc/</loc>
     
     <lastmod>2026-09-21</lastmod>
     
@@ -110,7 +92,25 @@
   </url>
   
   <url>
+    <loc>https://passengerdong.github.io/projects/drv8701-motor-driver/</loc>
+    
+    <lastmod>2026-09-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://passengerdong.github.io/articles/brushed-dc-motor-sensorless-speed/</loc>
+    
+    <lastmod>2026-09-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/articles/axdr-x7-speedloop-pid-current-loop/</loc>
     
     <lastmod>2026-09-21</lastmod>
     
@@ -162,20 +162,6 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/tags/WCH/</loc>
-    <lastmod>2026-09-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://passengerdong.github.io/tags/%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</loc>
-    <lastmod>2026-09-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://passengerdong.github.io/tags/ST/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -197,14 +183,14 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/tags/STC/</loc>
+    <loc>https://passengerdong.github.io/tags/WCH/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/tags/BLDC/</loc>
+    <loc>https://passengerdong.github.io/tags/%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -226,6 +212,20 @@
   
   <url>
     <loc>https://passengerdong.github.io/tags/%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/tags/STC/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://passengerdong.github.io/tags/BLDC/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -262,14 +262,14 @@
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/categories/%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</loc>
+    <loc>https://passengerdong.github.io/categories/%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A8/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://passengerdong.github.io/categories/%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A8/</loc>
+    <loc>https://passengerdong.github.io/categories/%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
