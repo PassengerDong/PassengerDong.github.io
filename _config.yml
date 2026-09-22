@@ -5,8 +5,8 @@
 # Site
 title: Direject
 subtitle: '嵌入式 / 硬件 / 工程实践'
-description: 'Direject 的个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。'
-keywords: embedded, STM32, Arduino, hardware, portfolio, Direject
+description: '个人作品集：嵌入式固件、硬件电路、视觉工具链与工程笔记。'
+keywords: embedded, STM32, hardware, portfolio
 author: Direject
 language: zh-CN
 timezone: ''

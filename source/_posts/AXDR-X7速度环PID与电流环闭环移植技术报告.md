@@ -1,16 +1,15 @@
 ---
-title: 基于STM32G4平台的无刷驱动FOC电流速度换控制
+title: 基于 STM32G4 平台的无刷驱动 FOC 电流环与速度环闭环控制
 date: 2026-09-15 13:00:00
-updated: 2026-09-15 13:00:00
+updated: 2026-09-18 23:49:32
 categories:
   - 课程设计
 tags:
+  - STM32
   - FOC
-  - STM32G474
   - Simulink
-  - 电机控制
 permalink: articles/axdr-x7-speedloop-pid-current-loop/
-comments: false
+comments: true
 ---
 > 本文记录一次从 X7/Simulink 速度环仿真迁移到 AXDR-L / AxDrive-L 实物平台的完整过程。重点不是“电机能转”，而是说明一个课程设计里的仿真文件，如何一步步被拆成参数脚本、控制器验证模型、可编译 C 工程、20 kHz 电流环、1 kHz 速度环、编码器电角度闭环、SVPWM 输出、保护状态机、VOFA 遥测和自动化验证脚本。
 
@@ -192,7 +191,7 @@ speed = speed + speedDot * Ts;
 
 仿真激励也刻意设计成和后续实机测试类似：0.03 s 给 150 rpm，0.25 s 加 0.05 N*m 负载扰动，0.32 s 切到 90 rpm。这样能观察三件事：启动阶段是否撞限流，负载进入后积分能否补偿，参考下降时是否出现长时间超调。
 
-![AXDR PID 速度环桌面仿真](/img/articles/axdr-x7/axdr-pid-speedloop-demo.png)
+![AXDR PID 速度环桌面仿真](/img/articles/axdr-x7-speedloop-pid-current-loop/axdr-pid-speedloop-demo.png)
 
 这组无 SPS 仿真输出 `5001` 个样本，最高速度约 `163.11 rpm`，`Iq` 上限被限制在 `2 A`，0.45 s 后平均绝对误差约 `6.96 rpm`，0.5 s 末速度约 `85.39 rpm`、目标为 `90 rpm`。这个结果没有被当作实机性能结论，只作为控制器方向正确、限流/积分逻辑合理的桌面检查。
 
@@ -451,7 +450,7 @@ python tools\run_hs300_test.py X M H G --port COM37
 
 | 项目           |                          当前值 | 说明                                       |
 | ---------------- | --------------------------------: | -------------------------------------------- |
-| 母线电压       |                  24.0 V nominal | 软件保护窗口 18.30 V                       |
+| 母线电压       |                  24.0 V nominal | 软件保护窗口 18.0–30.0 V                  |
 | 电机           |                       DJI M2006 | 带 36:1 减速箱                             |
 | 极对数         |                               7 | 电角速度换算使用                           |
 | 减速比         |                            36:1 | 编码器在高速轴时，输出轴 rpm 需要除以 36   |
@@ -666,7 +665,7 @@ USB CDC 使用 ASCII 命令控制测试。脚本默认使用 COM37 / 115200，�
 
 ### 按键和 LCD
 
-按键接在 PC9 / PC8 / PC7 / PC6，低电平有效，内部上拉，30 ms 软件消抖。当前交互逻辑是加速、减速、启停切换和恢复默认速度。LCD 使用 ST7789，数值区显示命令、状态、目标 rpm、实际 rpm、误差、电流、母线电压、Vq、Id/Iq；曲线区量程 0..500 rpm，绿色为目标速度，品红为实际速度。
+按键接在 PC9 / PC8 / PC7 / PC6，低电平有效，内部上拉，30 ms 软件消抖。当前交互逻辑已经改成“先选命令，再执行”：Key1 切换到上一个 LCD 命令，Key2 切换到下一个 LCD 命令，Key3 执行当前选中的命令，Key4 立即停止电机并关闭 PWM/R_EN。LCD 使用 ST7789，数值区显示当前选中命令、状态、目标 rpm、实际 rpm、误差、电流、母线电压、Vq、Id/Iq；曲线区量程 0..500 rpm，绿色为目标速度，品红为实际速度。
 
 ### VOFA 通道
 
@@ -718,7 +717,7 @@ VOFA JustFloat 帧尾为 `00 00 80 7F`，当前高速测试版本发送 48 个 f
 
 早期 40 rpm 以下的五类输入响应也作为基础回归测试保留：
 
-![40 rpm 安全阶段五类输入响应](/img/articles/axdr-x7/all-profiles-40rpm.png)
+![40 rpm 安全阶段五类输入响应](/img/articles/axdr-x7-speedloop-pid-current-loop/all-profiles-40rpm.png)
 
 
 | 输入        |         目标 |  最高实速 | 稳态 MAE | 峰值电流 | 结论 |
@@ -733,9 +732,9 @@ VOFA JustFloat 帧尾为 `00 00 80 7F`，当前高速测试版本发送 48 个 f
 
 在 100 rpm 阶段，自动序列包括 10 rpm 保持、80 rpm 脉冲、20 -> 100 rpm 斜坡、100 rpm 保持、0 -> 100 rpm 阶跃和 100 rpm 高速保持。这个阶段主要用于验证中速参数区、速度估计器和电角度交接是否稳定。
 
-![100 rpm 自动序列速度响应](/img/articles/axdr-x7/auto-sequence-100rpm.png)
+![100 rpm 自动序列速度响应](/img/articles/axdr-x7-speedloop-pid-current-loop/auto-sequence-100rpm.png)
 
-![100 rpm 自动序列误差与电流](/img/articles/axdr-x7/auto-sequence-current-100rpm.png)
+![100 rpm 自动序列误差与电流](/img/articles/axdr-x7-speedloop-pid-current-loop/auto-sequence-current-100rpm.png)
 
 
 | 阶段               |   稳态均值 | 稳态 MAE |  稳态 Std |     超调 | P95 电流 | 峰值电流 |
@@ -778,6 +777,8 @@ VOFA JustFloat 帧尾为 `00 00 80 7F`，当前高速测试版本发送 48 个 f
 
 最终 300 rpm 保持日志 `hs300_H_20260912_181855` 中，目标 300 rpm，最高 308.47 rpm，late MAE 3.805 rpm，`fault=0`、`abort=0`、停机 idle 也确认 PWM 和 R_EN 均为 0。自动序列 `hs300_G_20260912_181931` 覆盖 10/100/300 rpm 多段，最高 308.80 rpm，全程无 fault/abort；虽然整段 late MAE 为 29.060 rpm，但这是因为 late 窗口包含 300 rpm profile 切换和零速间隔，不能直接等价为 300 rpm 稳态保持误差。
 
+![300 rpm 阶跃、脉冲、斜坡与保持响应](/img/articles/axdr-x7-speedloop-pid-current-loop/auto300-response-all-profiles.png)
+
 ## 优化过程复盘
 
 这次移植中比较关键的修改点如下：
@@ -816,6 +817,18 @@ VOFA JustFloat 帧尾为 `00 00 80 7F`，当前高速测试版本发送 48 个 f
 | `User/motor/speed_display.c`        | ST7789 显示和 0..500 rpm 曲线                  |
 | `tools/run_hs300_test.py`           | 100/300 rpm 自动化采集脚本                     |
 | `tools/validate_live_speed_test.py` | VOFA 解码、早期 2 A 验证判据                   |
+
+## 复现前需要固定的参数快照
+
+这类闭环实验最怕“代码看起来一样，但测试对象已经变了”。复现前应把硬件身份、编码器安装位置、供电电压、限流值、极对数、减速比、相电阻、相电感、速度环参数和电流环带宽一起保存。尤其要确认 MT6816 是安装在高速轴还是减速箱输出轴：两种安装方式都会返回角度，但速度换算、机械回差、低速量化和电角度用途完全不同，不能只改一个减速比宏。
+
+当前验证记录采用 DJI M2006、24 V 实验供电和 MT6816 SPI1 角度读取，早期安全演示把 `AXDR_CURRENT_LIMIT_A` 限制为 2.0 A，并默认关闭三相 PWM，只运行 PID、编码器和遥测链路。后续 100/300 rpm 阶段才逐步进入 8.5 A soft、10.5 A derate-zero 的实机限制。复现者应该先跑低限流版本，确认角度、采样和命令链路一致后，再提高功率；不能因为参数文件里存在更大的限流值，就直接跳过低能量阶段。
+
+## 控制数据与显示数据的边界
+
+LCD 和 VOFA 的作用不同。LCD 适合现场快速判断当前命令、状态、速度曲线和停机结果，但屏幕刷新频率、显示精度和字段数量有限；VOFA/JustFloat 适合记录原始速度、`Iq_ref`、实际电流、角度、状态、fault、abort 和限幅标志，应该作为调参和复盘的主要依据。文章中的 MAE、峰值和自动序列结论，都应从原始日志计算，而不是从屏幕读数估算。
+
+同样需要区分控制变量和诊断变量。`Iq_ref` 是速度环给出的目标转矩电流，不能直接当成实际相电流；`current_abs_peak_a` 反映的是 20 kHz ISR 内抓到的瞬时峰值，也不能单独等同于持续过流。实际判断应同时查看持续电流的 P95/P99、母线电压、速度误差以及 fault/abort 状态。只有这些指标在同一条日志中相互印证，才适合把某次参数调整称为“稳定性改善”。
 
 ## 总结
 

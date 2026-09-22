@@ -25,7 +25,7 @@ projects:
     status: "已补充"
     summary: "小体积双路有刷电机驱动，实测 12V/10A 发热很小，16V/20A 也可正常运行且仅轻微发热。"
     media:
-      image: "/img/portfolio/drv8701-cover.webp"
+      image: "/img/portfolio/drv8701-motor-driver/cover.webp"
       alt: "DRV8701 双路有刷电机驱动实物图"
       note: "实物图，后续可继续补温升测试截图"
     details:

@@ -1,20 +1,24 @@
 ---
-title: 使用hexo搭建个人博客
+title: 使用 Hexo 搭建个人博客
 date: 2023-10-28 15:22:32
-tags: 网页 
+updated: 2026-09-18 23:49:32
+tags:
+  - Hexo 
+  - .Net
+  - Github
 category: article
 ---
-# 0基础使用hexo搭建个人博客
+# 0基础使用 Hexo 搭建个人博客
 
-## 先叠个甲：我是个菜鸡，如果有无请各位大佬提出助我更正！这个教程主要是提供一个大致的步骤。
+## 先叠个甲：我是个菜鸡，如果有误请各位大佬提出助我更正！这个教程主要是提供一个大致的步骤。
 
-hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github上可以做到零成本的个人博客搭建
+Hexo 是一个简洁高效的博客框架，利用 Hexo 将静态网页部署到 GitHub Pages 上，可以做到零成本的个人博客搭建。
 
 以下是大体的步骤
 
 1.前期准备
 
-2.hexo本地部署与上传
+2. Hexo 本地部署与上传
 
 3.个性化
 
@@ -26,7 +30,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 国内也有一些可以代替的网站比如[Gitee](https://gitee.com/)等，但是没几个可以和GitHub比的，所以原则上我们最推荐GitHub
 
-[Github官网](https://github.com/)
+[GitHub 官网](https://github.com/)
 
 部分用户在打开GitHub时会有一些困难，可以耐心等待（或者开个魔法，也许有帮助？）
 
@@ -38,7 +42,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 我也丢一个教程在这里：[安装git](https://blog.csdn.net/mukes/article/details/115693833)（绝对不是因为我懒）
 
-安装完之后，任意页面右键出现git相关的选择项（主要是 git brash 就行了）
+安装完之后，任意页面右键出现 Git 相关的选择项（主要是 Git Bash 就行了）
 
 ##### 完成以上步骤之后我们需要配置ssh
 
@@ -46,7 +50,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 ##### 之后就是安装node
 
-这是官网：[ndoe.js](https://nodejs.org/en)
+这是官网：[Node.js](https://nodejs.org/en)
 
 **注意：一定要选左边的！**
 
@@ -54,7 +58,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 下载完之后无脑继续就行了
 
-完成安装之后右键打开poweshell或者cmd（**后面我就检测打开终端了**）输入npm，看到版本号就说明安装成功了
+完成安装之后右键打开 PowerShell 或者 cmd（**后面我就简称打开终端了**）输入 `npm`，看到版本号就说明安装成功了
 
 由于node是默认安装在**C盘**下面的，如果你对自己的C盘比较不自信，可以给node搬个家（我比较建议搬个家）
 
@@ -64,7 +68,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 打开终端，输入`npm config set prefix "nodejs文件位置\node_global"`
 
-再输入`node list -g`查看是否更改成功（显示empty是正常的）
+再输入`npm list -g`查看是否更改成功（显示 empty 是正常的）
 
 同样的，我们再更改以下node_cache的位置`npm config set cache "nodejs的位置\node_cache"`
 
@@ -78,7 +82,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 把原来的C:\Users\用户名\AppData\Roaming\npm改为新的地址（node_global的位置）
 
-再新建系统变量NODE_PATH,变量值是node_golbal里面node_modules 的位置
+再新建系统变量 NODE_PATH，变量值是 node_global 里面 node_modules 的位置
 
 确定之后就配置完成了
 
@@ -88,7 +92,7 @@ hexo是一个简洁高效的博客框架，利用hexo将服务器布局在github
 
 这个时候我们就需要pnpm了！
 
-pnpm适用范围极光，而且**巨快！！**，安装也相当简单
+pnpm 适用范围极广，而且**巨快！！**，安装也相当简单
 
 打开终端，输入`npm install -g pnpm`或者`npm install -g @pnpm/exe`就好了
 
@@ -100,7 +104,7 @@ pnpm适用范围极光，而且**巨快！！**，安装也相当简单
 
 然后你就可以愉快的使用pnpm了，就是这么简单（pnpm yyds！）
 
-### 2.hexo框架搭建
+### 2. Hexo 框架搭建
 
 完成前置点之后我们终于可以开始进入搭建环节了！
 
@@ -110,7 +114,7 @@ pnpm适用范围极光，而且**巨快！！**，安装也相当简单
 
 有版本号就说明你已经准备好了
 
-##### 首先链接GitHub
+##### 首先连接 GitHub
 
 设置用户名和邮箱
 `git config --global user.name "GitHub 用户名"`
@@ -122,15 +126,15 @@ pnpm适用范围极光，而且**巨快！！**，安装也相当简单
 
 登录GitHub，进入setting，选择边栏的SSH and GPG keys，点击New SSH key
 
-title随便取，黏贴复制的内容，点Add SSH key完成添加
+title 随便取，粘贴刚刚复制的内容，点 Add SSH key 完成添加
 
 然后就要**验证链接了**
 
-打开右键打开git brash，输入`ssh -T git@github.com`,出现“Are you sure……",输入yes回车确定
+右键打开 Git Bash，输入`ssh -T git@github.com`，出现“Are you sure……”，输入 yes 回车确定
 
 显示“hi ***!……”就成功了
 
-##### 然后创建GitHub Page仓库
+##### 然后创建 GitHub Pages 仓库
 
 GitHub主页右上角加号 -> New repository
 
@@ -162,7 +166,7 @@ GitHub主页右上角加号 -> New repository
 
 再输入`hexo s`启动服务器
 
-他会跳出一个本地钉钉网址，按住CTRL点击就可以打开
+它会跳出一个本地调试网址，按住 CTRL 点击就可以打开
 
 如果正常的打开了一个网址，恭喜你！你已经成功搭建了一个个人博客！（虽然只是在本地）
 
@@ -193,11 +197,29 @@ deploy:
 
 用vscode打开这个文件就可以编辑了！
 
-·注：md文件不是普通的txt或doc文件，他的编写也有些简单的语法，即MarkDown语法，具体怎么用可以看官方的文档[MarkDown](https://markdown.com.cn/)
+·注：md 文件不是普通的 txt 或 doc 文件，它的编写也有些简单的语法，即 Markdown 语法，具体怎么用可以看官方的文档 [Markdown](https://markdown.com.cn/)
 
 编辑完成并保存之后在blog里打开终端，输入`hexo g`,`hexo d`，一段时间之后你的网站里就会出现你的新文章了
 
-·注：文章更新需要一段时间，一时半会儿没别太急哈
+·注：文章更新需要一段时间，一时半会儿没更新别太急
+
+## 更适合长期维护的目录和发布流程
+
+博客真正开始长期更新以后，最容易失控的部分通常不是 Hexo 命令，而是文件组织。建议在初始化之后就把配置、文章、图片和主题分开管理：`source/_posts` 只放 Markdown 文章，`source/img/articles` 放文章正文图片，`source/img/portfolio` 放项目封面和项目展示图，`themes` 保存主题修改，`_config.yml` 保存站点级配置，主题专属配置则放在单独的 `_config.主题名.yml` 中。这样更换主题或整理图片时，不容易把文章正文里的相对路径一起弄乱。
+
+如果一篇文章包含多张图片，最好在对应目录下再建立一个以文章 permalink 或项目 slug 命名的文件夹。例如速度环文章可以使用 `source/img/articles/axdr-x7-speedloop-pid-current-loop/`，硬件项目可以使用 `source/img/portfolio/3-6s-smart-power-distribution-board/`。正文统一使用 `/img/articles/...` 或 `/img/portfolio/...` 这样的站点绝对路径，避免 Markdown 文件移动到其他目录后图片失效。封面图和正文图也要区分，封面只在 front matter 的 `cover_image` 中配置，正文则在 Markdown 中逐张引用。
+
+文章头部信息建议固定成一套格式。`title`、`date`、`updated`、`categories`、`tags`、`permalink` 和 `cover_image` 的职责不同，不要把所有内容都塞进 TAG。TAG 每篇控制在五个以内，只保留具体技术栈、芯片、协议、算法、工具链或关键器件，例如 `STM32G474`、`CAN`、`SVPWM`、`Simulink`、`Pug`；“电调”“分电板”“智能车”这类只描述文章主题的泛词更适合放在标题、分类或摘要里。
+
+当前站点还可以通过 `hexo-wordcount` 显示文章总字数和预计阅读时间，通过 Utterances 把 GitHub Issues 作为评论区。主题模板中应把这些功能放在文章信息区和正文末尾，并保留关闭开关，方便个别草稿或特殊页面隐藏。修改 Pug 模板后不要只看源文件，必须重新执行生成，再在 `public` 目录中确认生成页面包含字数、阅读时间、评论容器和正确的脚本地址。
+
+## 发布前检查清单
+
+每次准备发布时，可以按照“内容、资源、生成、部署”四步检查。内容方面确认 front matter 的缩进、日期格式、分类和 TAG 数量；资源方面检查图片路径大小写、文件扩展名和中文文件名，避免本地能打开而部署后 404；生成方面先运行 `pnpm exec hexo clean`，再运行 `pnpm exec hexo generate`，观察终端是否出现模板错误、资源复制失败或 Markdown 解析警告；部署方面确认 `public` 已生成最新页面，再执行 `pnpm exec hexo deploy` 或项目中封装好的部署脚本。
+
+如果页面没有更新，先判断问题发生在哪一层。浏览器仍显示旧内容，可能是缓存或 CDN；`public` 中没有新文章，通常是 front matter、文件编码或文章路径问题；生成过程中报 Pug 错误，应优先检查主题模板和变量是否存在；图片 404 则检查图片是否真的位于 `source/img` 下，以及文章引用是否以 `/img/` 开头。把这些问题分类后，排查会比反复执行 `hexo d` 更快。
+
+对于包含工程图片和测试数据的技术文章，还应在正文中明确图片用途、测试条件和结论边界。例如电流测试要写清楚是输入电流、相电流还是峰值，温升要写明环境温度和持续时间，飞行验证要区分“完成上机”与“长期可靠性已验证”。博客不仅是展示页面，也是工程记录，保留这些条件可以让读者在几年后仍然知道哪些结果可以复现、哪些只是阶段性观察。
 
 ### 个人博客主页个性化
 
@@ -222,6 +244,6 @@ GitHub换名之后会导致hexo博客无法正常登录，需要进行一定操�
 ```
 deploy:
 	type: git
-	repo: https:///用户名/用户名.github.io.git
+	repo: https://github.com/用户名/用户名.github.io.git
 	branch: main
 ```
