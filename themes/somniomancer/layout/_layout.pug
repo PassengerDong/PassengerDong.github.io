@@ -1,0 +1,93 @@
+-
+  const currentLayout = String(page.layout || (page.tag ? 'tag' : (page.category ? 'category' : 'index'))).replace(/[^a-z0-9_-]/gi, '')
+  const pageLabel = page.title || page.tag || page.category
+  const documentTitle = pageLabel ? pageLabel + ' / ' + config.title : config.title
+  const rootUrl = url_for('/')
+  const assetVersion = theme.asset_version || '20260921-3'
+  function toArray(collection) {
+    if (!collection) return []
+    if (Array.isArray(collection)) return collection
+    if (typeof collection.toArray === 'function') return collection.toArray()
+    if (Array.isArray(collection.data)) return collection.data
+    return []
+  }
+  function cleanText(value) {
+    return String(value || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+  }
+  const searchRecords = toArray(site.posts)
+    .filter((post) => post && post.published !== false)
+    .map((post) => ({
+      title: String(post.title || 'Untitled record'),
+      path: url_for(post.path || ''),
+      summary: cleanText(post.summary || post.description || post.excerpt || post.content).slice(0, 180)
+    }))
+  const searchJson = JSON.stringify(searchRecords).replace(/</g, '\\u003c')
+  const recentPost = toArray(site.posts).sort((a, b) => {
+    const aValue = a && a.updated && typeof a.updated.valueOf === 'function' ? a.updated.valueOf() : (a && a.date ? a.date.valueOf() : 0)
+    const bValue = b && b.updated && typeof b.updated.valueOf === 'function' ? b.updated.valueOf() : (b && b.date ? b.date.valueOf() : 0)
+    return bValue - aValue
+  })[0]
+  const recentDate = recentPost && (recentPost.updated || recentPost.date)
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='theme-color', content='#f2f5f9')
+    meta(name='description', content=config.description)
+    title= documentTitle
+    link(rel='icon', href=url_for('img/somniomancer-field.svg'), type='image/svg+xml')
+    link(rel='stylesheet', href=url_for('css/somniomancer.css') + '?v=' + assetVersion)
+    script.
+      (function () {
+        try {
+          var saved = localStorage.getItem('somniomancer-theme')
+          var validSaved = saved === 'dark' || saved === 'light' ? saved : ''
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+          document.documentElement.setAttribute('data-theme', validSaved || (prefersDark ? 'dark' : 'light'))
+        } catch (error) {
+          document.documentElement.setAttribute('data-theme', 'light')
+        }
+      }())
+  body(class='page-' + currentLayout)
+    .site-silhouette(aria-hidden='true')
+      .silhouette-spire
+      .silhouette-arch
+      .silhouette-terminal
+    .site-shell
+      header.site-header
+        a.brand(href=rootUrl, aria-label='Direject Home')
+          span.brand-mark(aria-hidden='true')
+            i
+            i
+            i
+          span.brand-copy
+            strong DIREJECT
+            small ENGINEERING ARCHIVE
+        nav.site-nav(aria-label='Primary navigation')
+          each href, label in theme.menu
+            a.nav-link(href=url_for(href), class=(page.path === href || (href === '' && page.path === 'index.html') ? 'is-active' : ''))= label
+        .header-tools
+          form.search-form#site-search-form(role='search')
+            label.sr-only(for='site-search-input') Search archive
+            input#site-search-input(type='search', placeholder='SEARCH ARCHIVE', autocomplete='off', spellcheck='false')
+            button.search-submit(type='submit', aria-label='Search archive')
+              span.search-icon(aria-hidden='true')
+          button.theme-toggle#theme-toggle(type='button', aria-pressed='false', aria-label='Switch color mode')
+            span.theme-toggle-glyph(aria-hidden='true')
+            span.theme-toggle-label NIGHT
+          .search-results#search-results(hidden, aria-live='polite')
+        .header-index(aria-label='最近更新')
+          span 最近更新
+          span /
+          time(datetime=recentDate && typeof recentDate.toJSON === 'function' ? recentDate.toJSON() : '')= recentDate ? date(recentDate, 'YYYY.MM.DD') : '—'
+      main.site-main
+        block content
+      footer.site-footer
+        .footer-mark
+          span.blue-dot
+          span ARCHIVE / END
+        p= theme.footer.note
+        a(href='https://hexo.io', rel='noopener') HEXO
+      script#site-search-data(type='application/json')!= searchJson
+    script(src=url_for('js/somniomancer.js') + '?v=' + assetVersion, defer)

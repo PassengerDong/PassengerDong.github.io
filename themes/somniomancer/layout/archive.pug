@@ -1,0 +1,39 @@
+extends _layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      if (Array.isArray(collection.data)) return collection.data
+      return []
+    }
+    function isProject(post) { return post && (post.project === true || post.type === 'Projects' || post.section === 'Projects') }
+    function dateValue(post) { return post && post.date && typeof post.date.valueOf === 'function' ? post.date.valueOf() : 0 }
+    function summaryOf(post) { return post.summary || String(post.excerpt || post.content || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 180) }
+    const archivePosts = toArray(site.posts).filter((post) => post.published !== false && !isProject(post)).sort((a, b) => dateValue(b) - dateValue(a))
+  .page-frame.archive-frame
+    .page-hero.reveal
+      p.eyebrow ARTICLES / ARCHIVE
+      h1 Bench notes
+      p “把一次调试留下来，后来的人才有路可走。”
+      .page-hero-meta
+        span= String(archivePosts.length).padStart(2, '0') + ' records'
+        span NOTES / REPORTS
+        span UPDATED CONTINUOUSLY
+    .archive-list
+      each article, index in archivePosts
+        a.archive-row.archive-record.reveal(href=url_for(article.path), data-archive-index=String(index))
+          .archive-date
+            span= article.date ? date(article.date, 'YYYY') : '—'
+            time(datetime=article.date ? article.date.toJSON() : '')= article.date ? date(article.date, 'MM.DD') : '—'
+          .archive-copy
+            h2= article.title || __('post.noTitle')
+            p= summaryOf(article)
+          span.archive-open READ ↗
+    if archivePosts.length > 3
+      .archive-loader#archive-loader(aria-live='polite')
+        span SCROLL TO LOAD NEXT RECORDS
+    if archivePosts.length === 0
+      .empty-state No article records yet.

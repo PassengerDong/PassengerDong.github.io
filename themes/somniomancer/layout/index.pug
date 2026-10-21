@@ -1,0 +1,125 @@
+extends _layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      if (Array.isArray(collection.data)) return collection.data
+      return []
+    }
+    function termNames(collection) {
+      return toArray(collection && collection.data ? collection.data : collection).map((item) => item && item.name ? item.name : item).filter(Boolean)
+    }
+    function isProject(post) {
+      return post && (post.project === true || post.type === 'Projects' || post.section === 'Projects')
+    }
+    function dateValue(post) {
+      return post && post.date && typeof post.date.valueOf === 'function' ? post.date.valueOf() : 0
+    }
+    function textOf(value) {
+      return String(value || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+    }
+    function summaryOf(post) {
+      return post.summary || textOf(post.description || post.excerpt || post.content).slice(0, 150)
+    }
+    const posts = toArray(site.posts).filter((post) => post.published !== false).sort((a, b) => dateValue(b) - dateValue(a))
+    const projects = posts.filter(isProject)
+    const articles = posts.filter((post) => !isProject(post))
+    const portfolio = site.data && site.data.portfolio ? site.data.portfolio : {}
+    const profile = portfolio.profile || {}
+    const metrics = portfolio.metrics || []
+  .home-frame
+    section.hero-block
+      .hero-copy.reveal
+        p.eyebrow= theme.hero.eyebrow
+        h1= theme.hero.title
+        p.hero-lead= theme.hero.lead
+        p.hero-note= theme.hero.note
+        .hero-actions
+          a.action-link.action-primary(href=url_for('projects/')) Explore Projects
+          a.action-link(href=url_for('archives/')) Read Articles
+      .hero-visual.reveal
+        picture.hero-art
+          img.hero-art-day(src=url_for(theme.hero.art), alt='Abstract cobalt archival field with sectional engineering marks')
+          img.hero-art-night(src=url_for(theme.hero.art_night), alt='Night version of the abstract cobalt archival field', loading='eager')
+        .visual-caption
+          span FIELD / 001
+          span MEMORY / MOTION
+    section.intro-band.reveal
+      .intro-kicker
+        span PROFILE
+        span 00—01
+      .intro-copy
+        h2= profile.name || config.author
+        p= profile.summary || config.description
+        if profile.tags
+          .profile-tags
+            each tag in profile.tags
+              span= tag
+        if profile.links
+          .profile-links
+            each link in profile.links
+              a.profile-link(href=link.href, target=link.external ? '_blank' : null, rel=link.external ? 'noopener' : null)
+                span= link.label
+                small= link.note
+      .metric-rail
+        each metric in metrics.slice(0, 3)
+          .metric
+            strong= metric.value
+            span= metric.label
+        .metric
+          strong= projects.length
+          span PROJECTS
+    section.section-block#projects
+      .section-heading.reveal
+        .heading-index 02 / PROJECTS
+        h2 Built in the lab
+        p “从焊点到系统，手上的火花会留下路径。” 这里收录我作为个人开发者持续打磨的板卡、固件与可复用模块。
+        a.text-link(href=url_for('projects/')) View all →
+      .project-grid
+        each project, index in projects.slice(0, 6)
+          a.project-card.reveal(href=url_for(project.path))
+            .card-number= String(index + 1).padStart(2, '0')
+            .card-image
+              if project.cover_image
+                img(src=project.cover_image, alt=project.title || 'Project cover', loading='lazy')
+              else
+                .image-placeholder
+                  span SECTION
+                  span= String(index + 1).padStart(2, '0')
+            .card-body
+              .card-meta
+                span= project.date ? date(project.date, 'YYYY') : 'FIELD'
+                each tag in termNames(project.tags).slice(0, 2)
+                  span= tag
+              h3= project.title || __('post.noTitle')
+              p= summaryOf(project)
+              span.card-entry Open record ↗
+    section.section-block.split-block#articles
+      .section-heading.reveal
+        .heading-index 03 / ARTICLES
+        h2 Notes from the bench
+        p “记录不是停留，而是给下一次出发留一盏灯。” 这里保存调试判断、实验边界和后来仍会继续修改的答案。
+        a.text-link(href=url_for('archives/')) Browse archive →
+      .article-list
+        each article in articles.slice(0, 6)
+          a.article-row.reveal(href=url_for(article.path))
+            time(datetime=article.date ? article.date.toJSON() : '')= article.date ? date(article.date, 'YYYY.MM.DD') : '—'
+            .article-row-copy
+              h3= article.title || __('post.noTitle')
+              p= summaryOf(article)
+            span.article-arrow →
+    section.signal-block.reveal
+      .signal-label
+        span SIGNAL / 04
+        span BLUE FIELD
+      .signal-copy
+        h2= profile.focus || 'Open Hardware + Firmware'
+        p= profile.now || '把测量、位移和回访路径留在同一张工程地图上。'
+      .signal-route(aria-hidden='true')
+        span
+        span
+        span
+        span

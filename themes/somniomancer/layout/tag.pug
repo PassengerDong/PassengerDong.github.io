@@ -1,0 +1,36 @@
+extends _layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      if (Array.isArray(collection.data)) return collection.data
+      return []
+    }
+    const tagPosts = toArray(page.posts).sort((a, b) => (b.date ? b.date.valueOf() : 0) - (a.date ? a.date.valueOf() : 0))
+    const activeTag = String(page.tag || '')
+    const activeCategory = ''
+  .page-frame.archive-frame
+    .trace-layout
+      include _trace-sidebar.pug
+      .trace-results
+        .page-hero.reveal
+          p.eyebrow TAG / TRACE
+          h1= page.tag
+          p “同一束信号，换一个名字，便能找到另一条路。”
+          .page-hero-meta
+            span= String(tagPosts.length).padStart(2, '0') + ' records'
+            span TAG TRACE
+            span FIELD NOTES
+        .archive-list
+          each article in tagPosts
+            a.archive-row.archive-record.reveal(href=url_for(article.path))
+              .archive-date
+                span= article.date ? date(article.date, 'YYYY') : '—'
+                time= article.date ? date(article.date, 'MM.DD') : '—'
+              .archive-copy
+                h2= article.title || __('post.noTitle')
+                p= article.summary || String(article.excerpt || article.content || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 180)
+              span.archive-open READ ↗

@@ -1,15 +1,14 @@
 ---
 title: STC 四合一电调
 date: 2026-05-15 20:15:00
-updated: 2026-09-18 23:49:32
-category: 开源硬件
+updated: 2026-09-22 00:00:00
+categories:
+  - 电机驱动
 project: true
 summary: 基于逐飞 STC32G 开源固件的四合一 ESC，整理四路功率级、下载方式和大电流测试记录。
 tags:
-  - BLDC
   - STC
-  - 智能车
-  - 无人机
+  - BLDC
 permalink: projects/stc-4in1-esc/
 cover_image: https://image.lceda.cn/pullimage/hlekd3R4SQbJaDEfClJwYFpCFQ3easHLHmPGz7gC.png
 ---

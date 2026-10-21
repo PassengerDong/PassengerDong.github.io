@@ -1,11 +1,11 @@
 ---
 title: AXDR-L 无刷驱动程序阶段总结
 date: 2026-09-17 20:30:00
-updated: 2026-09-18 23:49:32
+updated: 2026-09-22 00:00:00
 categories:
-  - 工程复盘
+  - 电机驱动
 tags:
-  - STM32
+  - ST
   - FOC
   - Simulink
 article: true

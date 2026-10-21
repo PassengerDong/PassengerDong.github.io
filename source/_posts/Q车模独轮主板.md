@@ -1,13 +1,13 @@
 ---
 title: Q 车模独轮主板
 date: 2025-07-16 20:05:00
-updated: 2026-09-18 23:49:32
-category: 开源硬件
+updated: 2026-09-22 00:00:00
+categories:
+  - 嵌入式系统
 project: true
 summary: 基于 TC377 的独轮车控制主板，集成核心供电、PMOS 开关、单路有刷驱动、双摄像头和竞赛调试接口。
 tags:
-  - 英飞凌
-  - 智能车
+  - Infineon
 permalink: projects/q-car-unicycle-board/
 cover_image: https://image.lceda.cn/pullimage/CXFr2DySrUB2fHgoAOhSuIkT90F22KvRQSQ3K9p6.png
 ---

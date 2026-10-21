@@ -1,12 +1,14 @@
 ---
 title: 使用 Hexo 搭建个人博客
 date: 2023-10-28 15:22:32
-updated: 2026-09-18 23:49:32
+updated: 2026-09-22 00:00:00
+categories:
+  - IT与Web
 tags:
-  - Hexo 
-  - .Net
-  - Github
-category: article
+  - Hexo
+  - GitHub
+  - 静态站点
+article: true
 ---
 # 0基础使用 Hexo 搭建个人博客
 

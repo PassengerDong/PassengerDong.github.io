@@ -1,12 +1,12 @@
 ---
 title: 3-6S 双路 BEC 智能分电板设计
 date: 2026-09-18 20:00:00
-updated: 2026-09-18 23:49:32
+updated: 2026-09-22 00:00:00
 categories:
-  - 开源硬件
+  - 电源管理
 tags:
-  - 沁恒
-  - PDB
+  - WCH
+  - 电源管理
 project: true
 summary: 面向 3-6S 动力系统的六层智能分电板，集成 7.4V/10A 与 5V/5A 双路 BEC、母线电流电压检测、CH32V203 CAN 遥测和 WS2812 状态指示。
 permalink: projects/3-6s-smart-power-distribution-board/

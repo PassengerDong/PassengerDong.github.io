@@ -1,0 +1,70 @@
+#archive-aside
+  #Categories
+    h1 #{__('menu.category.plural')}
+    if categoriesList
+      != categoriesList
+    else
+      p #{__('menu.empty')}
+  #Tags
+    h1 #{__('menu.tag.plural')}
+    if tagsList
+      != tagsList
+    else
+      p #{__('menu.empty')}
+  -
+    const activityDays = {}
+    site.posts.each((article) => {
+      const key = date(article.date, 'YYYY-MM-DD')
+      activityDays[key] = (activityDays[key] || 0) + 1
+    })
+    const activityToday = new Date()
+    activityToday.setHours(0, 0, 0, 0)
+    const activityWeeks = 20
+    const activityStart = new Date(activityToday)
+    activityStart.setDate(activityStart.getDate() - activityStart.getDay() - ((activityWeeks - 1) * 7))
+    const activityMax = Object.keys(activityDays).reduce((max, key) => Math.max(max, activityDays[key]), 0)
+    const activityLevel = (count) => {
+      if (!count || !activityMax) return 0
+      if (activityMax === 1) return 4
+      if (count >= activityMax * 0.75) return 4
+      if (count >= activityMax * 0.5) return 3
+      if (count >= activityMax * 0.25) return 2
+      return 1
+    }
+    const activityMonthLabels = []
+    for (let week = 0; week < activityWeeks; week++) {
+      const weekDate = new Date(activityStart)
+      weekDate.setDate(activityStart.getDate() + week * 7)
+      const monthLabel = date(weekDate, 'MMM')
+      if (!activityMonthLabels.length || activityMonthLabels[activityMonthLabels.length - 1].label !== monthLabel) {
+        activityMonthLabels.push({ week: week, label: monthLabel })
+      }
+    }
+    activityMonthLabels.forEach((month, index) => {
+      month.span = (activityMonthLabels[index + 1] ? activityMonthLabels[index + 1].week : activityWeeks) - month.week
+    })
+  #activity-heatmap(aria-label=__('menu.activity'))
+    h1 #{__('menu.activity')}
+    .activity-months(aria-hidden="true")
+      each month in activityMonthLabels
+        span(style=`grid-column: ${month.week + 1} / span ${month.span}`)= month.label
+    .activity-grid
+      - for (let week = 0; week < activityWeeks; week++) {
+        .activity-week
+          - for (let weekday = 0; weekday < 7; weekday++) {
+            - const cellDate = new Date(activityStart)
+            - cellDate.setDate(activityStart.getDate() + week * 7 + weekday)
+            - const cellKey = date(cellDate, 'YYYY-MM-DD')
+            - const cellCount = activityDays[cellKey] || 0
+            - const isFuture = cellDate > activityToday
+            span(class=`activity-cell level-${isFuture ? 'future' : activityLevel(cellCount)}` title=`${cellKey}: ${cellCount}篇文章` aria-label=`${cellKey}: ${cellCount}篇文章`)
+          - }
+      - }
+    .activity-legend(aria-hidden="true")
+      span 少
+      i.level-0
+      i.level-1
+      i.level-2
+      i.level-3
+      i.level-4
+      span 多

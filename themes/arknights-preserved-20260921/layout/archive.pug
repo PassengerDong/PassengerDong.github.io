@@ -1,0 +1,32 @@
+extends includes/layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      return []
+    }
+    function termNames(collection) {
+      return toArray(collection && collection.data ? collection.data : collection).map((item) => item && item.name).filter(Boolean)
+    }
+    function isProject(post) {
+      const tags = termNames(post.tags)
+      const categories = termNames(post.categories)
+      return post.project === true || post.type === 'Projects' || post.section === 'Projects' || tags.includes('Projects') || categories.includes('Projects')
+    }
+    function isArticle(post) {
+      const tags = termNames(post.tags)
+      const categories = termNames(post.categories)
+      return post.article === true || post.type === 'Articles' || post.section === 'Articles' || tags.includes('Articles') || categories.includes('Articles') || !isProject(post)
+    }
+    function dateValue(post) {
+      return post.date && typeof post.date.valueOf === 'function' ? post.date.valueOf() : 0
+    }
+    const postsList = toArray(page.posts).filter((post) => post.published !== false && isArticle(post)).sort((a, b) => dateValue(b) - dateValue(a))
+  .posts
+    if postsList.length > 0
+      include includes/recent-posts.pug
+    else
+      p No articles yet.

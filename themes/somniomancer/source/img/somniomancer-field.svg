@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 920" role="img" aria-labelledby="title desc">
+  <title id="title">Memory in Motion — original archival field</title>
+  <desc id="desc">A cold white engineering field with cobalt sectional planes, coordinate marks, route arcs and offset samples.</desc>
+  <!-- Original artwork for the Somniomancer-inspired theme. No game or campaign artwork is used. -->
+  <rect width="1600" height="920" fill="#f4f7fb"/>
+  <g fill="none" stroke="#b7c6de" stroke-width="1" opacity=".72">
+    <path d="M0 106h1600M0 210h1600M0 314h1600M0 418h1600M0 522h1600M0 626h1600M0 730h1600M0 834h1600"/>
+    <path d="M104 0v920M208 0v920M312 0v920M416 0v920M520 0v920M624 0v920M728 0v920M832 0v920M936 0v920M1040 0v920M1144 0v920M1248 0v920M1352 0v920M1456 0v920"/>
+  </g>
+  <g fill="none" stroke="#152442" stroke-width="2" opacity=".7">
+    <path d="M86 130h114v-38h190"/>
+    <path d="M1228 790h166v-41h124"/>
+    <path d="M106 792h88v-26h116"/>
+    <path d="M1188 122h96v28h224"/>
+    <circle cx="205" cy="92" r="5" fill="#1645df" stroke="none"/>
+    <circle cx="1394" cy="749" r="5" fill="#1645df" stroke="none"/>
+  </g>
+  <g opacity=".96">
+    <path d="M208 260h664v58H326v84h404v66H208z" fill="#1645df"/>
+    <path d="M260 468h540v38H438v104h362v62H260z" fill="#267ff4"/>
+    <path d="M1002 138h272v44h-126v102h232v54h-378z" fill="#143bbd"/>
+    <path d="M1110 628h310v54h-146v86h-248v-58h84z" fill="#2aa6ff"/>
+  </g>
+  <g fill="#f4f7fb" opacity=".96">
+    <rect x="330" y="277" width="170" height="25"/>
+    <rect x="595" y="277" width="96" height="25"/>
+    <rect x="479" y="478" width="158" height="18"/>
+    <rect x="748" y="478" width="52" height="18"/>
+    <rect x="1086" y="152" width="80" height="16"/>
+    <rect x="1272" y="638" width="98" height="18"/>
+  </g>
+  <g fill="none" stroke="#14316d" stroke-width="3">
+    <path d="M204 610c150-240 320-310 486-206 156 98 242 104 346-34 85-112 184-152 358-109"/>
+    <path d="M202 651c152-198 321-249 479-141 157 108 275 127 385-8 94-116 194-137 325-71" stroke="#2a9cff" opacity=".88"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-width="9" opacity=".9">
+    <path d="M220 612c148-215 305-272 461-174"/>
+    <path d="M1052 403c84-85 171-106 268-71"/>
+  </g>
+  <g transform="translate(854 228) rotate(-8)">
+    <rect width="290" height="290" fill="#f7f9fd" stroke="#11284c" stroke-width="3"/>
+    <path d="M42 58h208M42 88h168M42 118h208M42 148h122M42 178h208M42 208h174" stroke="#5a6e8f" stroke-width="3"/>
+    <path d="M24 30h46v30h-46zM218 226h48v34h-48z" fill="#1645df"/>
+    <path d="M96 30v230M158 30v230" stroke="#d0d9e9" stroke-width="2"/>
+    <circle cx="232" cy="76" r="18" fill="none" stroke="#ef554e" stroke-width="3"/>
+    <path d="M232 60v32M216 76h32" stroke="#ef554e" stroke-width="2"/>
+  </g>
+  <g fill="#152442" font-family="monospace" font-size="16" letter-spacing="4">
+    <text x="86" y="62">ARCHIVE / 01</text>
+    <text x="1320" y="68">TRACE → RETURN</text>
+    <text x="84" y="874">COBALT FIELD · SECTIONAL STUDY</text>
+  </g>
+  <g fill="#1645df" font-family="Georgia, serif" font-size="84" letter-spacing="-3">
+    <text x="80" y="190">MEMORY</text>
+    <text x="1138" y="848">MOTION</text>
+  </g>
+  <g stroke="#ef554e" stroke-width="3" fill="none">
+    <path d="M78 222h78"/>
+    <path d="M1474 854h48"/>
+  </g>
+  <g fill="#1645df">
+    <rect x="132" y="336" width="8" height="8"/>
+    <rect x="139" y="336" width="8" height="8" opacity=".5"/>
+    <rect x="146" y="336" width="8" height="8" opacity=".2"/>
+    <rect x="1472" y="530" width="8" height="8"/>
+    <rect x="1480" y="530" width="8" height="8" opacity=".5"/>
+    <rect x="1488" y="530" width="8" height="8" opacity=".2"/>
+  </g>
+</svg>
+

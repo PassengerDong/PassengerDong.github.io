@@ -1,15 +1,13 @@
 ---
 title: CYT4BB7 开源飞控
 date: 2026-05-07 20:10:00
-updated: 2026-09-18 23:49:32
-category: 开源硬件
+updated: 2026-09-22 00:00:00
+categories:
+  - 嵌入式系统
 project: true
 summary: 面向第 21 届智能车“飞跃雷区”组别的小型化飞控核心板，对齐 30.5mm 标准安装孔位。
 tags:
-  - 英飞凌
-  - 智能车
-  - 无人机
-  - 飞控
+  - Infineon
 permalink: projects/cyt4bb7-flight-controller/
 cover_image: https://image.lceda.cn/oshwhub/pullImage/358ae21b00154302bd213beffd6cf128.jpg
 ---

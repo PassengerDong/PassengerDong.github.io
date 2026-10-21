@@ -1,0 +1,148 @@
+.tag-list
+  padding 10px
+.tag-list-item
+  position relative
+  line-height 23px
+  background-color var(--theme-tag-bg)
+  display inline-block
+  margin 5px
+  border var(--theme-tag-border) solid 1px
+  border-radius 3px
+  &, a, span
+    transition .3s
+  @media ( min-width 769px )
+    &:hover
+      border-color var(--theme-highlight)
+      a
+        color var(--theme-text-hover)
+        background-color var(--theme-highlight)
+      span
+        background-color var(--theme-tag-bg)
+    &:active
+      border-color var(--theme-border)
+      a
+        background-color var(--theme-subcolor)
+.tag-list-link
+  color var(--theme-text-light)
+  padding 3px 6px 3px 12px
+  display table-cell
+  box-sizing border-box
+  &::after
+    content ''
+    width 100%
+    height 100%
+    position absolute
+    top 0
+    left 0
+.tag-list-count
+  width 10px
+  padding 3px 6px
+  color var(--theme-text-light)
+  background-color var(--theme-tag-count-bg)
+  display table-cell
+  pointer-events none
+  vertical-align middle
+
+#activity-heatmap
+  margin 20px 10px 0
+  background-color var(--theme-bg-trans1)
+  overflow hidden
+  &, h1
+    transition .3s
+  h1
+    margin 0
+    padding 0 15px
+    color var(--theme-text-rev)
+    background-color var(--theme-bg-light)
+    font-size medium
+    font-family BenderLight
+
+#activity-heatmap:hover
+  background-color var(--theme-bg-trans2)
+  h1
+    background-color var(--theme-highlight)
+
+.activity-months
+  display grid
+  grid-template-columns repeat(20, minmax(0, 1fr))
+  height 24px
+  padding 8px 10px 3px
+  box-sizing border-box
+  color var(--theme-text-light)
+  font-size 9px
+  line-height 1
+  span
+    overflow hidden
+    white-space nowrap
+    min-width 0
+
+.activity-grid
+  display grid
+  grid-template-columns repeat(20, minmax(0, 1fr))
+  gap 2px
+  padding 0 10px
+  box-sizing border-box
+
+.activity-week
+  display grid
+  grid-template-rows repeat(7, minmax(0, 1fr))
+  gap 2px
+  min-width 0
+
+.activity-cell
+  display block
+  width 100%
+  aspect-ratio 1
+  min-width 0
+  background-color var(--activity-level-0)
+  border 1px solid var(--theme-border-soft)
+  box-sizing border-box
+
+.activity-cell.level-1
+  background-color var(--activity-level-1)
+.activity-cell.level-2
+  background-color var(--activity-level-2)
+.activity-cell.level-3
+  background-color var(--activity-level-3)
+.activity-cell.level-4
+  background-color var(--activity-level-4)
+.activity-cell.level-future
+  background-color var(--activity-level-0)
+  border-color var(--theme-border-soft)
+  opacity .45
+
+.activity-legend
+  display flex
+  align-items center
+  justify-content flex-end
+  gap 3px
+  padding 8px 10px 10px
+  color var(--theme-text-light)
+  font-size 9px
+  line-height 1
+  span
+    margin 0 3px
+  i
+    display block
+    width 9px
+    height 9px
+    border 1px solid var(--theme-border-soft)
+    box-sizing border-box
+  i.level-0
+    background-color var(--activity-level-0)
+  i.level-1
+    background-color var(--activity-level-1)
+  i.level-2
+    background-color var(--activity-level-2)
+  i.level-3
+    background-color var(--activity-level-3)
+  i.level-4
+    background-color var(--activity-level-4)
+
+@media ( max-width 768px )
+  #activity-heatmap
+    margin 20px 10px
+  .activity-months
+    padding-right 10px
+  .activity-grid
+    padding-right 10px

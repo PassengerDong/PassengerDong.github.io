@@ -1,11 +1,11 @@
 ---
 title: 基于 STM32G4 平台的无刷驱动 FOC 电流环与速度环闭环控制
 date: 2026-09-15 13:00:00
-updated: 2026-09-18 23:49:32
+updated: 2026-09-22 00:00:00
 categories:
-  - 课程设计
+  - 电机驱动
 tags:
-  - STM32
+  - ST
   - FOC
   - Simulink
 permalink: articles/axdr-x7-speedloop-pid-current-loop/

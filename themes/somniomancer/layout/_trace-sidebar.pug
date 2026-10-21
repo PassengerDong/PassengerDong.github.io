@@ -1,0 +1,27 @@
+-
+  const sidebarTags = toArray(site.tags).sort((a, b) => (b.length || 0) - (a.length || 0))
+  const sidebarCategories = toArray(site.categories).sort((a, b) => (b.length || 0) - (a.length || 0))
+aside.trace-sidebar.reveal
+  .trace-tool
+    span.aside-label FIELD FILTER
+    label.sr-only(for='trace-filter') Filter records in this field
+    input#trace-filter(type='search', placeholder='FILTER RECORDS', autocomplete='off', spellcheck='false')
+    p 输入标题、方向或技术关键词，快速缩小当前记录。
+  .trace-nav-group
+    .trace-nav-heading
+      span.aside-label TAGS / #{sidebarTags.length}
+      span.trace-nav-hint SWITCH FIELD
+    nav.trace-nav(aria-label='Tag navigation')
+      each item in sidebarTags
+        a.trace-nav-link(href=url_for(item.path), class=(typeof activeTag !== 'undefined' && activeTag === item.name ? 'is-active' : ''))
+          span= item.name
+          small= item.length || 0
+  .trace-nav-group
+    .trace-nav-heading
+      span.aside-label CATEGORIES / #{sidebarCategories.length}
+      span.trace-nav-hint BROAD DIRECTION
+    nav.trace-nav(aria-label='Category navigation')
+      each item in sidebarCategories
+        a.trace-nav-link(href=url_for(item.path), class=(typeof activeCategory !== 'undefined' && activeCategory === item.name ? 'is-active' : ''))
+          span= item.name
+          small= item.length || 0

@@ -1,0 +1,88 @@
+extends includes/layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      return []
+    }
+    function termNames(collection) {
+      return toArray(collection && collection.data ? collection.data : collection).map((item) => item && item.name).filter(Boolean)
+    }
+    function isProject(post) {
+      const tags = termNames(post.tags)
+      const categories = termNames(post.categories)
+      return post.project === true || post.type === 'Projects' || post.section === 'Projects' || tags.includes('Projects') || categories.includes('Projects')
+    }
+    function isArticle(post) {
+      const tags = termNames(post.tags)
+      const categories = termNames(post.categories)
+      return post.article === true || post.type === 'Articles' || post.section === 'Articles' || tags.includes('Articles') || categories.includes('Articles') || !isProject(post)
+    }
+    function plainText(value) {
+      return String(value || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+    }
+    function summaryOf(post) {
+      return post.summary || plainText(post.description || post.excerpt || post.content).slice(0, 120)
+    }
+    function dateValue(post) {
+      return post.date && typeof post.date.valueOf === 'function' ? post.date.valueOf() : 0
+    }
+    const allPosts = toArray(site.posts).filter((post) => post.published !== false).sort((a, b) => dateValue(b) - dateValue(a))
+    const projects = allPosts.filter(isProject)
+    const articles = allPosts.filter(isArticle)
+    const stacks = [
+      { title: '电机控制', body: 'FOC、SVPWM、Clarke/Park 变换、六步换相、反电动势过零检测、速度环 PID、电流环 PI。' },
+      { title: '嵌入式固件', body: 'STM32G4、TC377、TC264、CYT4、STC32G、AI8051U，覆盖定时器、ADC、SPI、USB CDC、CAN、串口遥测和安全状态机。' },
+      { title: '硬件设计', body: '功率驱动、电源树、DCDC/LDO、MOS 开关、栅极驱动、采样电路、BGA/QFN 焊接与四层板布局。' },
+      { title: '工程验证', body: 'Simulink 建模、实机日志、VOFA 数据、自动化测试脚本、电流/温升/速度响应验证与复盘文档。' }
+    ]
+  .portfolio-home.portfolio-home-root
+    section.portfolio-hero
+      .portfolio-hero-copy
+        span.portfolio-kicker Open Hardware + Firmware
+        h1 Direject
+        p 嵌入式固件、硬件电路、电机控制和智能车竞赛项目整理。用于记录学习和分享开源设计，记录个人项目。
+      .portfolio-hero-meta
+        span #{projects.length} projects
+        span motor control
+        span hardware design
+        span ESC
+    section.portfolio-section-title#Projects
+      span Projects
+      h2 项目
+    .project-scroll
+      each project in projects
+        a.project-panel(href=url_for(project.path))
+          .project-panel-media
+            img(src=project.cover_image || '/img/portfolio/placeholders/project-esc.svg', alt=project.title || __('post.noTitle'))
+          .project-panel-copy
+            .project-tags
+              each tag in termNames(project.tags).slice(0, 4)
+                span= tag
+            h2= project.title || __('post.noTitle')
+            p= summaryOf(project)
+            span.project-entry 进入项目
+    section.portfolio-section-title#Stack
+      span Stack
+      h2 技术栈
+    .stack-grid
+      each item in stacks
+        section.stack-card
+          p.stack-card-title= item.title
+          p= item.body
+    if articles.length > 0
+      section.portfolio-section-title#Articles
+        span Articles
+        h2 文章
+      .home-article-list
+        each article in articles
+          a.home-article-row(href=url_for(article.path))
+            if article.date
+              time(datetime=article.date.toJSON())= date(article.date, date_format)
+            span.home-article-title= article.title || __('post.noTitle')
+            span.home-article-tags
+              each tag in termNames(article.tags).slice(0, 3)
+                span= tag

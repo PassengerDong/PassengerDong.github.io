@@ -1,0 +1,9 @@
+extends _layout.pug
+
+block content
+  .page-frame.not-found
+    p.eyebrow 404 / LOST TRACE
+    h1 This record drifted away.
+    p 页面不存在，返回 Home 继续浏览工程档案。
+    a.action-link.action-primary(href=url_for('/')) Return Home →
+

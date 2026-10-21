@@ -1,0 +1,62 @@
+extends _layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      if (Array.isArray(collection.data)) return collection.data
+      return []
+    }
+    const postTags = toArray(page.tags)
+    const hasCover = page.cover_image || page.cover || false
+  .post-frame
+    header.post-header.reveal
+      .post-route
+        span= page.project === true ? 'PROJECT / RECORD' : 'ARTICLE / RECORD'
+        if page.date
+          time(datetime=page.date.toJSON())= date(page.date, 'YYYY.MM.DD')
+      h1= page.title || __('post.noTitle')
+      if page.summary
+        p.post-summary= page.summary
+      .post-meta
+        if page.updated
+          span UPDATED #{date(page.updated, 'YYYY.MM.DD')}
+        if postTags.length
+          each tag in postTags.slice(0, 5)
+            a(href=url_for(tag.path))= tag.name
+    if hasCover
+      figure.post-cover.reveal
+        img(src=hasCover, alt=page.title || 'Article cover', loading='eager')
+        figcaption FIGURE / 01 · SOURCE IMAGE FROM THE ORIGINAL RECORD
+    .post-layout
+      article.post-content
+        != page.content
+      aside.post-aside
+        .aside-card
+          span.aside-label RECORD STATUS
+          strong= page.project === true ? 'PROJECT' : 'ARTICLE'
+          p 正文、代码块、图片与表格沿用原文章；这里补充阅读轨迹与项目上下文。
+        if page.toc !== false
+          - const tocMarkup = toc(page.content, { list_number: false, max_depth: 3, min_depth: 1 })
+          if tocMarkup && tocMarkup.length
+            .toc-card
+              span.aside-label ON THIS PAGE
+              != tocMarkup
+    if page.prev || page.next
+      nav.post-neighbors(aria-label='Post navigation')
+        if page.prev
+          a(href=url_for(page.prev.path))
+            small PREVIOUS
+            strong= page.prev.title
+        if page.next
+          a(href=url_for(page.next.path))
+            small NEXT
+            strong= page.next.title
+    if page.comments !== false && theme.utterances && theme.utterances.enable
+      section.comments.reveal
+        .section-heading
+          .heading-index COMMENTS / OPEN CHANNEL
+          h2 Leave a trace
+        script(src='https://utteranc.es/client.js', repo=theme.utterances.repo, issue-term=theme.utterances.issue_term || 'pathname', label=theme.utterances.label || 'comment', theme=theme.utterances.theme || 'github-light', crossorigin='anonymous', async)

@@ -1,0 +1,78 @@
+extends _layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      if (Array.isArray(collection.data)) return collection.data
+      return []
+    }
+    function dateKey(value) {
+      const d = value instanceof Date ? value : new Date(value)
+      return isNaN(d.valueOf()) ? '' : d.toISOString().slice(0, 10)
+    }
+    const tagItems = toArray(site.tags).sort((a, b) => (b.length || 0) - (a.length || 0))
+    const categoryItems = toArray(site.categories).sort((a, b) => (b.length || 0) - (a.length || 0))
+    const tagPosts = toArray(site.posts).filter((post) => post.published !== false)
+    const categoryNotes = {
+      '电机驱动': '有刷、无刷、电机驱动与闭环控制',
+      '电源管理': '供电、BEC、母线监测与保护',
+      '嵌入式系统': '主控、接口、传感器与可运行固件',
+      'IT与Web': '个人网站、静态生成与工程记录'
+    }
+    const today = new Date()
+    const activity = []
+    for (let i = 139; i >= 0; i -= 1) {
+      const d = new Date(today)
+      d.setHours(0, 0, 0, 0)
+      d.setDate(today.getDate() - i)
+      const key = dateKey(d)
+      const count = tagPosts.filter((post) => dateKey(post.date) === key).length
+      activity.push({ key: key, count: count, level: Math.min(count, 4) })
+    }
+  .page-frame.tags-frame
+    .page-hero.reveal
+      p.eyebrow TAGS / FIELD MAP
+      h1 Signal map
+      p “万物各有名字，线路也有它们的回声。”
+    section.activity-panel.reveal
+      .panel-heading
+        .heading-index ACTIVITY / 140 DAYS
+        h2 Quiet signals, visible traces
+      .activity-grid(aria-label='Article activity over the last 140 days')
+        each day in activity
+          span.activity-cell(class='level-' + day.level, title=day.key + ': ' + day.count + ' records')
+      .activity-legend
+        span LESS
+        i.level-0
+        i.level-1
+        i.level-2
+        i.level-3
+        i.level-4
+        span MORE
+    .tag-columns
+      section.tag-panel.reveal
+        .panel-heading
+          .heading-index TAGS / #{tagItems.length}
+          h2 Tags
+        .tag-cloud
+          each item in tagItems
+            a.tag-chip(href=url_for(item.path))
+              span= item.name
+              small= item.length || 0
+      section.tag-panel.reveal
+        .panel-heading
+          .heading-index CATEGORIES / #{categoryItems.length}
+          h2 Broad directions
+        .category-list
+          each item in categoryItems
+            a.category-row(href=url_for(item.path))
+              .category-copy
+                span= item.name
+                small= categoryNotes[item.name] || '持续生长的工程方向'
+              strong= item.length || 0
+    .tag-footer-note.reveal
+      span ROUTE / TAGS
+      p 结构可以变得更复杂，但阅读路径始终保持清晰：先看主题，再回到证据。

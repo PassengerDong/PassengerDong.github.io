@@ -1,0 +1,30 @@
+name: somniomancer
+version: 0.1.0
+description: Original archival editorial theme for a hardware and firmware notebook.
+author: Direject
+asset_version: 20260921-3
+
+color: light
+menu:
+  HOME: ''
+  Projects: projects/
+  Articles: archives/
+  Tags: tags/
+
+hero:
+  eyebrow: ARCHIVE / FIELD 01
+  title: Engineering in Motion
+  lead: '一个个人开发者的硬件、固件与创客实验档案。'
+  note: 'MAKER / BUILDER / OPEN NOTES'
+  art: /img/somniomancer-field.svg
+  art_night: /img/somniomancer-field-night.svg
+
+utterances:
+  enable: true
+  repo: PassengerDong/PassengerDong.github.io
+  issue_term: pathname
+  label: comment
+  theme: github-light
+
+footer:
+  note: 'Independent engineering archive · built with Hexo'

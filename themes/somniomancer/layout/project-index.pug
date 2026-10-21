@@ -1,0 +1,46 @@
+extends _layout.pug
+
+block content
+  -
+    function toArray(collection) {
+      if (!collection) return []
+      if (Array.isArray(collection)) return collection
+      if (typeof collection.toArray === 'function') return collection.toArray()
+      if (Array.isArray(collection.data)) return collection.data
+      return []
+    }
+    function isProject(post) { return post && (post.project === true || post.type === 'Projects' || post.section === 'Projects') }
+    function dateValue(post) { return post && post.date && typeof post.date.valueOf === 'function' ? post.date.valueOf() : 0 }
+    function summaryOf(post) { return post.summary || String(post.excerpt || post.content || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 180) }
+    function termNames(collection) { return toArray(collection && collection.data ? collection.data : collection).map((item) => item && item.name ? item.name : item).filter(Boolean) }
+    const projectPosts = toArray(site.posts).filter((post) => post.published !== false && isProject(post)).sort((a, b) => dateValue(b) - dateValue(a))
+  .page-frame
+    .page-hero.reveal
+      p.eyebrow PROJECTS / INDEX
+      h1 Project atlas
+      p “一块板子从纸上醒来，沿着电流找到自己的方向。” 这里记录个人开发者与创客如何把想法做成能上电、能测量、能复用的作品。
+      .page-hero-meta
+        span= String(projectPosts.length).padStart(2, '0') + ' records'
+        span HARDWARE / FIRMWARE
+        span OPEN PROCESS
+    .project-grid.project-grid-wide
+      each project, index in projectPosts
+        a.project-card.project-card-large.reveal(href=url_for(project.path))
+          .card-number= String(index + 1).padStart(2, '0')
+          .card-image
+            if project.cover_image
+              img(src=project.cover_image, alt=project.title || 'Project cover', loading='lazy')
+            else
+              .image-placeholder
+                span SECTION
+                span= String(index + 1).padStart(2, '0')
+          .card-body
+            .card-meta
+              span= project.date ? date(project.date, 'YYYY.MM') : 'FIELD'
+              each tag in termNames(project.tags).slice(0, 3)
+                span= tag
+            h2= project.title || __('post.noTitle')
+            p= summaryOf(project)
+            span.card-entry Enter project record ↗
+    if projectPosts.length === 0
+      .empty-state No project records yet.
