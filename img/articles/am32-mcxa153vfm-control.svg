@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 930" role="img" aria-labelledby="title desc">
+  <title id="title">AM32 在 MCXA153VFM 上的软件控制与外设路径</title>
+  <desc id="desc">输入捕获和油门映射驱动六步换相与 FlexPWM；反电动势比较器和定时器反馈换相时序；ADC 与 DMA 提供电流、电压和温度数据；Flash 保存参数。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52677f"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2875c7"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#25866a"/>
+    </marker>
+    <style>
+      .title { font: 700 27px sans-serif; fill: #13243a; }
+      .subtitle { font: 14px sans-serif; fill: #53667d; }
+      .lane { font: 700 16px sans-serif; fill: #253d59; }
+      .box-title { font: 700 15px sans-serif; fill: #172b43; }
+      .box-text { font: 13px sans-serif; fill: #40546c; }
+      .small { font: 12px sans-serif; fill: #52677f; }
+      .box { fill: #fff; stroke: #b9c8d9; stroke-width: 1.5; rx: 12; }
+      .blue { fill: #edf5ff; stroke: #83b3e7; }
+      .green { fill: #eef9f5; stroke: #87c5ae; }
+      .amber { fill: #fff7e8; stroke: #e2bd71; }
+      .gray { fill: #f3f6fa; stroke: #b9c8d9; }
+      .flow { fill: none; stroke: #52677f; stroke-width: 2.2; marker-end: url(#arrow); }
+      .feedback { fill: none; stroke: #2875c7; stroke-width: 2.2; marker-end: url(#arrow-blue); }
+      .sample { fill: none; stroke: #25866a; stroke-width: 2.1; marker-end: url(#arrow-green); }
+      .dashed { stroke-dasharray: 7 6; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="930" fill="#f7f9fc"/>
+  <text x="34" y="43" class="title">AM32 在 MCXA153VFM 上的软件控制与外设路径</text>
+  <text x="35" y="68" class="subtitle">按 CUSTOM_A153VFM 与 Mcu/a153 源码整理；展示软件事件关系，不代表实物 BOM 或线路核验</text>
+
+  <text x="35" y="112" class="lane">1. 指令输入 → 占空比 → 六步功率输出</text>
+
+  <rect x="28" y="135" width="145" height="112" class="box blue"/>
+  <text x="100" y="164" text-anchor="middle" class="box-title">PWM / DShot</text>
+  <text x="100" y="188" text-anchor="middle" class="box-text">输入边沿</text>
+  <text x="100" y="211" text-anchor="middle" class="box-text">target: P1.2</text>
+
+  <rect x="195" y="135" width="165" height="112" class="box blue"/>
+  <text x="277" y="164" text-anchor="middle" class="box-title">CTIMER0 + DMA0</text>
+  <text x="277" y="188" text-anchor="middle" class="box-text">捕获边沿间隔</text>
+  <text x="277" y="211" text-anchor="middle" class="box-text">帧数据搬入缓冲区</text>
+
+  <rect x="382" y="135" width="188" height="112" class="box blue"/>
+  <text x="476" y="164" text-anchor="middle" class="box-title">协议解码与输入映射</text>
+  <text x="476" y="188" text-anchor="middle" class="box-text">PWM 脉宽 / DShot 帧</text>
+  <text x="476" y="211" text-anchor="middle" class="box-text">使能、方向、油门量</text>
+
+  <rect x="592" y="135" width="188" height="112" class="box amber"/>
+  <text x="686" y="164" text-anchor="middle" class="box-title">占空比与斜坡限制</text>
+  <text x="686" y="188" text-anchor="middle" class="box-text">启动 / 低速 / 高速段</text>
+  <text x="686" y="211" text-anchor="middle" class="box-text">目标量平滑变化</text>
+
+  <rect x="802" y="135" width="170" height="112" class="box amber"/>
+  <text x="887" y="164" text-anchor="middle" class="box-title">六步换相状态机</text>
+  <text x="887" y="188" text-anchor="middle" class="box-text">step 1 … 6</text>
+  <text x="887" y="211" text-anchor="middle" class="box-text">comStep(step)</text>
+
+  <rect x="994" y="135" width="150" height="112" class="box green"/>
+  <text x="1069" y="164" text-anchor="middle" class="box-title">FlexPWM0</text>
+  <text x="1069" y="188" text-anchor="middle" class="box-text">3 组互补输出</text>
+  <text x="1069" y="211" text-anchor="middle" class="box-text">死区 / MASK 更新</text>
+
+  <rect x="1166" y="135" width="95" height="112" class="box gray"/>
+  <text x="1213" y="164" text-anchor="middle" class="box-title">三相桥</text>
+  <text x="1213" y="188" text-anchor="middle" class="box-text">电机</text>
+  <text x="1213" y="211" text-anchor="middle" class="box-text">输出</text>
+
+  <path d="M173 191 H190" class="flow"/>
+  <path d="M360 191 H377" class="flow"/>
+  <path d="M570 191 H587" class="flow"/>
+  <path d="M780 191 H797" class="flow"/>
+  <path d="M972 191 H989" class="flow"/>
+  <path d="M1144 191 H1161" class="flow"/>
+
+  <text x="35" y="307" class="lane">2. 反电动势过零 → 定时延迟 → 下一换相扇区</text>
+
+  <rect x="1000" y="335" width="230" height="104" class="box blue"/>
+  <text x="1115" y="365" text-anchor="middle" class="box-title">浮空相反电动势</text>
+  <text x="1115" y="390" text-anchor="middle" class="box-text">按当前 step 选择观察相</text>
+  <text x="1115" y="414" text-anchor="middle" class="box-text">与公共参考比较</text>
+
+  <rect x="754" y="335" width="210" height="104" class="box blue"/>
+  <text x="859" y="365" text-anchor="middle" class="box-title">CMP0 / CMP1</text>
+  <text x="859" y="390" text-anchor="middle" class="box-text">切换相位输入</text>
+  <text x="859" y="414" text-anchor="middle" class="box-text">选择预期边沿极性</text>
+
+  <rect x="508" y="335" width="210" height="104" class="box amber"/>
+  <text x="613" y="365" text-anchor="middle" class="box-title">边沿过滤与时间戳</text>
+  <text x="613" y="390" text-anchor="middle" class="box-text">检查过快的比较事件</text>
+  <text x="613" y="414" text-anchor="middle" class="box-text">记录过零间隔</text>
+
+  <rect x="262" y="335" width="210" height="104" class="box amber"/>
+  <text x="367" y="365" text-anchor="middle" class="box-title">CTIMER1 换相等待</text>
+  <text x="367" y="390" text-anchor="middle" class="box-text">周期估算与提前角</text>
+  <text x="367" y="414" text-anchor="middle" class="box-text">到期触发回调</text>
+
+  <path d="M1000 387 H969" class="feedback"/>
+  <path d="M754 387 H723" class="feedback"/>
+  <path d="M508 387 H477" class="feedback"/>
+  <path d="M262 387 H230 V270 H887 V252" class="feedback"/>
+  <text x="544" y="277" class="small" fill="#2875c7">PeriodElapsedCallback() → commutate()</text>
+  <path d="M1213 247 V320 H1115 V330" class="feedback dashed"/>
+  <text x="1132" y="308" class="small">电机转子反馈</text>
+
+  <text x="35" y="500" class="lane">3. ADC 采样与 AM32 状态量</text>
+
+  <rect x="28" y="528" width="235" height="108" class="box green"/>
+  <text x="145" y="557" text-anchor="middle" class="box-title">模拟采样输入</text>
+  <text x="145" y="581" text-anchor="middle" class="box-text">电流 / 母线电压</text>
+  <text x="145" y="605" text-anchor="middle" class="box-text">片内温度通道</text>
+
+  <rect x="295" y="528" width="220" height="108" class="box green"/>
+  <text x="405" y="557" text-anchor="middle" class="box-title">LPADC0 + DMA1</text>
+  <text x="405" y="581" text-anchor="middle" class="box-text">命令序列采样</text>
+  <text x="405" y="605" text-anchor="middle" class="box-text">结果 FIFO 搬运</text>
+
+  <rect x="547" y="528" width="240" height="108" class="box green"/>
+  <text x="667" y="557" text-anchor="middle" class="box-title">滤波与单位换算</text>
+  <text x="667" y="581" text-anchor="middle" class="box-text">电流滑动平均</text>
+  <text x="667" y="605" text-anchor="middle" class="box-text">母线电压 IIR 平滑</text>
+
+  <rect x="819" y="528" width="265" height="108" class="box green"/>
+  <text x="951" y="557" text-anchor="middle" class="box-title">状态量与可选限制</text>
+  <text x="951" y="581" text-anchor="middle" class="box-text">actual_current / battery_voltage</text>
+  <text x="951" y="605" text-anchor="middle" class="box-text">遥测、低压判断、电流限制</text>
+
+  <path d="M263 582 H290" class="sample"/>
+  <path d="M515 582 H542" class="sample"/>
+  <path d="M787 582 H814" class="sample"/>
+  <path d="M951 523 V472 H686 V252" class="sample dashed"/>
+  <text x="731" y="465" class="small" fill="#25866a">采样状态供控制参数与限制逻辑使用</text>
+
+  <text x="35" y="697" class="lane">4. 参数、时钟与主要节拍</text>
+
+  <rect x="28" y="721" width="350" height="142" class="box gray"/>
+  <text x="203" y="750" text-anchor="middle" class="box-title">Flash 参数区</text>
+  <text x="203" y="776" text-anchor="middle" class="box-text">EEPROM_START_ADD = 0xE000</text>
+  <text x="203" y="800" text-anchor="middle" class="box-text">ROM API：8 KiB 擦除扇区</text>
+  <text x="203" y="824" text-anchor="middle" class="box-text">128 B 分页编程与写后校验</text>
+
+  <rect x="409" y="721" width="390" height="142" class="box gray"/>
+  <text x="604" y="750" text-anchor="middle" class="box-title">MCXA153 时钟配置</text>
+  <text x="604" y="776" text-anchor="middle" class="box-text">FIRC 192 MHz；CPU / System 96 MHz</text>
+  <text x="604" y="800" text-anchor="middle" class="box-text">CTIMER0 输入捕获时钟 96 MHz</text>
+  <text x="604" y="824" text-anchor="middle" class="box-text">FlexPWM 配置约 24 kHz；控制循环 20 kHz</text>
+
+  <rect x="830" y="721" width="431" height="142" class="box amber"/>
+  <text x="1045" y="750" text-anchor="middle" class="box-title">A153 target 斜坡上限</text>
+  <text x="1045" y="776" text-anchor="middle" class="box-text">启动 / 低速 / 高速：2 / 4 / 14</text>
+  <text x="1045" y="800" text-anchor="middle" class="box-text">斜坡更新 1 kHz（每 20 个控制节拍）</text>
+  <text x="1045" y="824" text-anchor="middle" class="box-text">EEPROM 配置还可进一步收紧上限</text>
+
+  <text x="34" y="900" class="small">图中引脚与时钟均指当前固件 target 配置。实际板卡连接及焊接器件型号需以实物核对结果为准。</text>
+</svg>
